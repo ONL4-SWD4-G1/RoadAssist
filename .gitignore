@@ -1,0 +1,23 @@
+
+# Gradle files
+.gradle/
+build/
+**/build/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+.DS_Store
+local.properties
+
+# Android Studio temporary files
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Secrets & Signing
+*.jks
+*.keystore
+secrets.properties
+google-services.json
