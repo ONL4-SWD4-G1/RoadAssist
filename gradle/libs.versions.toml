@@ -5,15 +5,15 @@ targetSdk = "35"
 compileSdk = "35"
 
 # Plugins
-agp = "8.13.2"
-kotlin = "2.0.21"
+agp = "8.6.0"
+kotlin = "2.0.0"
 hilt = "2.52"
 ksp = "2.0.21-1.0.25"
 
 # Core Libraries
-coreKtx = "1.18.0"
+coreKtx = "1.13.1"
 lifecycle = "2.10.0"
-activityCompose = "1.13.0"
+activityCompose = "1.9.3"
 composeBom = "2024.09.00"
 navigationCompose = "2.8.3"
 
