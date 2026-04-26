@@ -6,10 +6,10 @@ compileSdk = "36"
 jvmTarget = "11"
 
 # Plugins
-agp = "8.13.2"
-kotlin = "2.0.0"
+agp = "9.0.1"
+kotlin = "2.2.10"
 hilt = "2.52"
-ksp = "2.0.21-1.0.25"
+ksp = "2.3.2"
 
 # Core Libraries
 coreKtx = "1.13.1"
