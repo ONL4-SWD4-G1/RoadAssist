@@ -29,25 +29,28 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 
 dependencies {
 
+    // AndroidX Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose.ui)
 
+    // Unit Test
     testImplementation(libs.junit)
 
+    // Android Test
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.bundles.compose.test)
 
+    // Debug
     debugImplementation(libs.bundles.compose.debug)
 }

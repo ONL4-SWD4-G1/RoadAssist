@@ -3,6 +3,7 @@
 minSdk = "26"
 targetSdk = "36"
 compileSdk = "36"
+jvmTarget = "11"
 
 # Plugins
 agp = "8.6.0"
