@@ -1,0 +1,40 @@
+name: Protect develop branch
+
+on:
+  pull_request:
+    branches:
+      - develop
+  push:
+    branches:
+      - develop
+
+jobs:
+  block-direct-push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail direct push
+        run: |
+          echo "❌ Direct push to 'develop' is not allowed. Use Pull Requests."
+          exit 1
+
+  require-approvals:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check approvals
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: reviews } = await github.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const approvals = reviews.filter(r => r.state === "APPROVED");
+            if (approvals.length < 2) {
+              core.setFailed(`❌ Need at least 2 approvals before merging. Currently: ${approvals.length}`);
+            } else {
+              console.log(`✅ Approvals check passed: ${approvals.length} approvals`);
+            }
