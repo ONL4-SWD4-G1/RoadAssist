@@ -19,6 +19,9 @@ object Routes {
     const val OTP_RESET = "otp_reset"
     const val CREATE_NEW_PASSWORD = "create_new_password"
     const val HOME = "home"
+    const val SERVICES= "services"
+    const val OTHER_SERVICE = "other_service"
+    const val NOTIFICATIONS = "notifications"
 }
 
 @Composable
@@ -165,6 +168,38 @@ fun RoadAssistNavGraph() {
                 }
             )
         }
+
+        // Home
+        composable(route = Routes.HOME) {
+            HomeScreen(
+                navController = navController,
+                onNotificationClick = { navController.navigate(Routes.NOTIFICATIONS) },
+                onServicesClick = { navController.navigate(Routes.SERVICES) }
+            )
+        }
+
+        // Notification
+        composable(route = Routes.NOTIFICATIONS) {
+            NotificationsScreen(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        // Services
+        composable(route = Routes.SERVICES) {
+            ServicesScreen(
+                navController = navController,
+                onBackClick   = { navController.popBackStack() }
+            )
+        }
+
+        // OtherServices
+        composable(route = Routes.OTHER_SERVICE) {
+            OtherServiceFormScreen(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+    }
 
 
 
