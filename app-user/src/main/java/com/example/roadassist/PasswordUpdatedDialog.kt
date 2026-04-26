@@ -20,7 +20,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.roadassist.ui.theme.*
 
 @Composable
-fun SuccessDialog(onExploreClick: () -> Unit) {
+fun PasswordUpdatedDialog(onExploreClick: () -> Unit) {
 
     Dialog(onDismissRequest = {}) {
 
@@ -34,6 +34,7 @@ fun SuccessDialog(onExploreClick: () -> Unit) {
                 modifier = Modifier.fillMaxWidth().padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Box(
                     modifier = Modifier.size(80.dp)
                         .clip(CircleShape)
@@ -51,7 +52,7 @@ fun SuccessDialog(onExploreClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Account created\nsuccessfully",
+                    text = "Password updated\nsuccessfully",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,

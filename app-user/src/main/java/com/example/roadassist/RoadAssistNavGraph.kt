@@ -15,6 +15,9 @@ object Routes {
     const val SIGNUP = "signup"
     const val LOGIN = "login"
     const val OTP_SIGNUP = "otp_signup"
+    const val RESET_PASSWORD = "reset_password"
+    const val OTP_RESET = "otp_reset"
+    const val CREATE_NEW_PASSWORD = "create_new_password"
     const val HOME = "home"
 }
 
@@ -26,6 +29,7 @@ fun RoadAssistNavGraph() {
     var showAccountCreatedDialog by remember { mutableStateOf(false) }
     var showPasswordUpdatedDialog by remember { mutableStateOf(false) }
 
+    // Account Create Dialog
     if (showAccountCreatedDialog) {
         SuccessDialog(
             onExploreClick = {
@@ -38,6 +42,21 @@ fun RoadAssistNavGraph() {
             }
         )
     }
+
+    // Password Updated Dialog
+    if (showPasswordUpdatedDialog) {
+        PasswordUpdatedDialog(
+            onExploreClick = {
+                showPasswordUpdatedDialog = false
+                navController.navigate(Routes.LOGIN) {
+                    popUpTo(Routes.RESET_PASSWORD) {
+                        inclusive = true
+                    }
+                }
+            }
+        )
+    }
+
     NavHost(
         navController = navController,
         startDestination = Routes.SPLASH
@@ -68,7 +87,7 @@ fun RoadAssistNavGraph() {
             )
         }
 
-        // ── Signup ──
+        // Signup
         composable(Routes.SIGNUP) {
             SignupScreen(
                 onSignupSuccess = {
@@ -80,7 +99,7 @@ fun RoadAssistNavGraph() {
             )
         }
 
-        // ── OTP (Signup) ──
+        // OTP (Signup)
         composable(Routes.OTP_SIGNUP) {
             OtpScreen(
                 onVerifySuccess = {
@@ -91,6 +110,64 @@ fun RoadAssistNavGraph() {
                 }
             )
         }
+
+        // Login
+        composable(Routes.LOGIN) {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Routes.HOME) {
+                        popUpTo(Routes.LOGIN) {
+                            inclusive = true
+                        }
+                    }
+                },
+                onSignupClick = {
+                    navController.navigate(Routes.SIGNUP)
+                },
+                onForgotPasswordClick = {
+                    navController.navigate(Routes.RESET_PASSWORD)
+                }
+            )
+        }
+
+        // Reset Password
+        composable(Routes.RESET_PASSWORD) {
+            ResetPasswordScreen(
+                onGetOtpClick = {
+                    navController.navigate(Routes.OTP_RESET)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        // OTP (Reset Password)
+        composable(Routes.OTP_RESET) {
+            OtpScreen(
+                onVerifySuccess = {
+                    navController.navigate(Routes.CREATE_NEW_PASSWORD)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        // Create New Password
+        composable(Routes.CREATE_NEW_PASSWORD) {
+            CreateNewPasswordScreen(
+                onUpdateClick = {
+                    showPasswordUpdatedDialog = true
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+
+
 
     }
 }
