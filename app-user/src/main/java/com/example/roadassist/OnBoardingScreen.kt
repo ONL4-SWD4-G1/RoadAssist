@@ -1,6 +1,6 @@
 package com.example.roadassist
 
-import androidx.compose.animation.core.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -12,7 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,61 +21,60 @@ import com.example.roadassist.ui.theme.*
 import kotlinx.coroutines.launch
 
 data class OnboardingPage(
-    val imageRes : Int,
+    val image : Int,
     val title : String,
     val subtitle : String,
-    val buttonText : String
+    val buttonText: String
 )
 
-private val pages = listOf(
+val onboardingPages = listOf(
     OnboardingPage(
-        imageRes = R.drawable.onboarding1,
+        image = R.drawable.onboarding1,
         title = "Feeling Stuck?",
         subtitle = "No Problem. We'll Fix It.\nJust Request service.",
         buttonText = "Continue"
     ),
     OnboardingPage(
-        imageRes = R.drawable.onboarding2,
+        image = R.drawable.onboarding2,
         title = "Track assistant",
         subtitle = "Real-time tracking of your service provider",
         buttonText = "Continue"
     ),
     OnboardingPage(
-        imageRes = R.drawable.onboarding3,
+        image = R.drawable.onboarding3,
         title = "Quality Service",
         subtitle = "Rest assured, your vehicle is in expert's hand",
         buttonText = "Get Started"
     )
 )
 
-
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(onFinish: () -> Unit) {
 
-    val pagerState = rememberPagerState(pageCount = { pages.size })
+    val pagerState = rememberPagerState(pageCount = { onboardingPages.size })
     val scope = rememberCoroutineScope()
 
+
     Box(
-        modifier = Modifier.fillMaxSize().background(White))
-    {
+        modifier = Modifier.fillMaxSize().background(White)
+    ) {
 
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize()
         ) { pageIndex ->
-            OnboardingPageContent(page = pages[pageIndex])
+            SingleOnboardingPage(page = onboardingPages[pageIndex])
         }
 
         TextButton(
-            onClick = onFinish,
-            modifier = Modifier.align(Alignment.TopEnd)
-                .padding(top = 16.dp, end = 16.dp)
+            onClick = { onFinish() },
+            modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)
         ) {
             Text(
                 text = "Skip",
                 color = OrangeAccent,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )
         }
@@ -83,33 +82,33 @@ fun OnboardingScreen(onFinish: () -> Unit) {
         Column(
             modifier = Modifier.align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp, vertical = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+                .padding(horizontal = 24.dp, vertical = 40.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PageIndicator(
-                pageCount = pages.size,
-                currentPage = pagerState.currentPage
+            DotsIndicator(
+                totalDots = onboardingPages.size,
+                activeDot = pagerState.currentPage
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
 
             Button(
                 onClick = {
-                    val current = pagerState.currentPage
-                    if (current < pages.lastIndex) {
+                    if (pagerState.currentPage < onboardingPages.lastIndex) {
                         scope.launch {
-                            pagerState.animateScrollToPage(current + 1)
+                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
                         }
                     } else {
                         onFinish()
                     }
                 },
-                modifier = Modifier.fillMaxWidth().height(54.dp),
-                shape = RoundedCornerShape(28.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = OrangeButton)
+                modifier = Modifier.fillMaxWidth().height(52.dp),
+                shape = RoundedCornerShape(30.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = OrangeAccent)
             ) {
                 Text(
-                    text = pages[pagerState.currentPage].buttonText,
+                    text = onboardingPages[pagerState.currentPage].buttonText,
                     color = White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
@@ -118,37 +117,29 @@ fun OnboardingScreen(onFinish: () -> Unit) {
         }
     }
 }
-
 @Composable
-private fun OnboardingPageContent(page: OnboardingPage) {
+fun SingleOnboardingPage(page: OnboardingPage) {
+
     Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp),
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
-        Spacer(modifier = Modifier.height(80.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
-        Box(
-            modifier = Modifier.fillMaxWidth()
-                .height(260.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(Color(0xFFE8F4F8)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "🚗",
-                fontSize = 80.sp
-            )
-        }
+        Image(
+            painter = painterResource(id = page.image),
+            contentDescription = page.title,
+            modifier = Modifier.fillMaxWidth().height(260.dp)
+        )
 
         Spacer(modifier = Modifier.height(40.dp))
 
         Text(
             text = page.title,
-            fontSize = 26.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF1A1A2E),
             textAlign = TextAlign.Center
         )
 
@@ -158,8 +149,7 @@ private fun OnboardingPageContent(page: OnboardingPage) {
             text = page.subtitle,
             fontSize = 14.sp,
             color = TextGray,
-            textAlign = TextAlign.Center,
-            lineHeight = 22.sp
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -167,25 +157,16 @@ private fun OnboardingPageContent(page: OnboardingPage) {
 }
 
 @Composable
-private fun PageIndicator(pageCount: Int, currentPage: Int) {
+fun DotsIndicator(totalDots: Int, activeDot: Int) {
+
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        repeat(pageCount) { index ->
-            val isActive = index == currentPage
-
-            val width by animateDpAsState(
-                targetValue = if (isActive) 24.dp else 8.dp,
-                animationSpec = spring(stiffness = Spring.StiffnessMedium),
-                label = "dot_width"
-            )
-
+        repeat(totalDots) { index ->
             Box(
-                modifier = Modifier.height(8.dp)
-                    .width(width)
+                modifier = Modifier.size(if (index == activeDot) 24.dp else 8.dp, 8.dp)
                     .clip(CircleShape)
-                    .background(if (isActive) OrangeAccent else DotInactive)
+                    .background(if (index == activeDot) OrangeAccent else DotInactive)
             )
         }
     }
