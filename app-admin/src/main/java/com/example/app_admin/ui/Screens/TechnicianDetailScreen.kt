@@ -15,24 +15,73 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.model.Technician
+import com.example.app_admin.ui.customes.* // تأكدي من استيراد كل مكونات الـ customes
+import com.example.app_admin.ui.theme.*
 
+// 1. تعريف الـ Enum هنا خارج الـ Composable عشان يتشاف في الملف كله
+enum class DetailFlow { VIEW, SELECT_REJECT_REASON, REJECT_SUCCESS, ACCEPT_SUCCESS }
 
-val NavyBlue = Color(0xFF1E293B)
-val PrimaryOrange = Color(0xFFEC9513)
-val DarkGray = Color(0xFF6B7280)
-val SuccessGreen = Color(0xFF16A34A)
-val LightBlueGray = Color(0xFF94A3B8)
-val BackgroundGray = Color(0xFFF8FAFC)
+@Composable
+fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
+    var currentFlow by remember { mutableStateOf(DetailFlow.VIEW) }
+    var rejectionReason by remember { mutableStateOf("") }
+
+    when (currentFlow) {
+        DetailFlow.VIEW -> {
+            TechnicianInfoContent(
+                technician = technician, onBack = onBack,
+                onRejectClick = { currentFlow = DetailFlow.SELECT_REJECT_REASON },
+                onAcceptClick = { currentFlow = DetailFlow.ACCEPT_SUCCESS }
+            )
+        }
+        DetailFlow.SELECT_REJECT_REASON -> {
+            RejectReasonSelectionScreen(
+                technician = technician,
+                onCancel = { currentFlow = DetailFlow.VIEW },
+                onConfirmReject = { reason ->
+                    rejectionReason = reason
+                    currentFlow = DetailFlow.REJECT_SUCCESS
+                }
+            )
+        }
+        DetailFlow.REJECT_SUCCESS -> {
+            ResultTemplate(
+                imageRes = com.example.app_admin.R.drawable.reject,
+                title = "تم رفض طلب التسجيل",
+                subtitle = "تم إرسال سبب الرفض للفني وحفظ الطلب في السجل بنجاح.",
+                technician = technician,
+                isSuccess = false,
+                rejectionReason = rejectionReason,
+                buttonText = "العودة لقائمة الانتظار",
+                secondaryButtonText = "عرض السجل التاريخي",
+                onReturn = onBack
+            )
+        }
+        DetailFlow.ACCEPT_SUCCESS -> {
+            ResultTemplate(
+                imageRes = com.example.app_admin.R.drawable.successicon,
+                title = "تم قبول الفني بنجاح",
+                subtitle = "تم إرسال إشعار القبول وتفعيل الحساب الآن للفني المعتمد.",
+                technician = technician,
+                isSuccess = true,
+                buttonText = "العودة لطلبات التسجيل",
+                secondaryButtonText = "عرض ملف الفني",
+                onReturn = onBack
+            )
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TechnicianDetailScreen(
+fun TechnicianInfoContent(
     technician: Technician,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onRejectClick: () -> Unit,
+    onAcceptClick: () -> Unit
 ) {
     var notes by remember { mutableStateOf("") }
 
@@ -42,204 +91,104 @@ fun TechnicianDetailScreen(
             TopAppBar(
                 title = {
                     Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth().padding(end = 16.dp)) {
-                        Text(technician.name, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text(technician.name, color = SoftWhite, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                         Text("قيد التسجيل ●", color = PrimaryOrange, fontSize = 12.sp)
                     }
                 },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowForward, contentDescription = "رجوع", tint = Color.White)
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { /* More options */ }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = null, tint = Color.White)
-                    }
-                },
+                navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Default.ArrowForward, "رجوع", tint = SoftWhite) } },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBlue)
             )
         },
         bottomBar = {
             Surface(shadowElevation = 8.dp) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White)
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
+                Row(modifier = Modifier.fillMaxWidth().background(SoftWhite).padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     OutlinedButton(
-                        onClick = { /* Action Reject */ },
-                        modifier = Modifier.weight(1f).height(50.dp),
+                        onClick = onRejectClick, modifier = Modifier.weight(1f).height(50.dp),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color.Red),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.Default.Close, null, Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
                         Text("رفض", fontWeight = FontWeight.Bold)
                     }
                     Button(
-                        onClick = { /* Action Accept */ },
-                        modifier = Modifier.weight(2f).height(50.dp),
+                        onClick = onAcceptClick, modifier = Modifier.weight(2f).height(50.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Icon(Icons.Default.CheckCircle, contentDescription = null, modifier = Modifier.size(18.dp))
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.Default.CheckCircle, null, Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
                         Text("قبول الطلب", fontWeight = FontWeight.Bold)
                     }
                 }
             }
         }
-    ) { paddingValues ->
+    ) { padding ->
+        // تعديل الـ LazyColumn للتأكد من عدم وجود تضارب في الأنواع
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
+            modifier = Modifier.fillMaxSize().padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // البروفايل
             item {
-                Box(modifier = Modifier.padding(vertical = 30.dp)) {
-                    Box(
-                        modifier = Modifier
-                            .size(110.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFFE2E8F0))
-                            .border(4.dp, Color.White, CircleShape),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(Icons.Default.Person, contentDescription = null, modifier = Modifier.size(60.dp), tint = NavyBlue)
+                Box(Modifier.padding(vertical = 30.dp)) {
+                    Box(Modifier.size(110.dp).clip(CircleShape).background(BorderGray).border(4.dp, SoftWhite, CircleShape), Alignment.Center) {
+                        Icon(Icons.Default.Person, null, Modifier.size(60.dp), NavyBlue)
                     }
-                    Box(
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .offset(x = (-5).dp, y = (-5).dp)
-                            .size(24.dp)
-                            .clip(CircleShape)
-                            .background(PrimaryOrange),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(Icons.Default.Verified, contentDescription = null, tint = Color.White, modifier = Modifier.size(16.dp))
+                    Box(Modifier.align(Alignment.BottomEnd).offset((-5).dp, (-5).dp).size(24.dp).clip(CircleShape).background(PrimaryOrange), Alignment.Center) {
+                        Icon(Icons.Default.Verified, null, tint = SoftWhite, modifier = Modifier.size(16.dp))
                     }
                 }
             }
 
-            // المعلومات الشخصية
             item {
-                SectionCard(title = "المعلومات الشخصية", icon = Icons.Default.PersonOutline) {
+                SectionCard("المعلومات الشخصية", Icons.Default.PersonOutline) {
                     Row(Modifier.fillMaxWidth()) {
-                        InfoItem(label = "الاسم الكامل", value = technician.name, modifier = Modifier.weight(1f))
-                        InfoItem(label = "رقم الهاتف", value = technician.phone, modifier = Modifier.weight(1f))
+                        InfoItem("الاسم الكامل", technician.name, Modifier.weight(1f))
+                        InfoItem("رقم الهاتف", technician.phone, Modifier.weight(1f))
                     }
-                    Divider(Modifier.padding(vertical = 8.dp), color = Color(0xFFF1F5F9))
+                    HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
                     Row(Modifier.fillMaxWidth()) {
-                        InfoItem(label = "المدينة", value = technician.city, modifier = Modifier.weight(1f))
-                        InfoItem(label = "التخصص", value = technician.specialty, modifier = Modifier.weight(1f))
+                        InfoItem("المدينة", technician.city, Modifier.weight(1f))
+                        InfoItem("التخصص", technician.specialty, Modifier.weight(1f))
                     }
-                    Divider(Modifier.padding(vertical = 8.dp), color = Color(0xFFF1F5F9))
+                    HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
                     Row(Modifier.fillMaxWidth()) {
-                        InfoItem(label = "سنوات الخبرة", value = "${technician.experience} سنوات", modifier = Modifier.weight(1f))
-                        InfoItem(label = "ملكية سيارة", value = "نعم (يملك سيارة)", valueColor = SuccessGreen, modifier = Modifier.weight(1f))
+                        InfoItem("سنوات الخبرة", "${technician.experience} سنوات", Modifier.weight(1f))
+                        InfoItem("ملكية سيارة", "نعم (يملك سيارة)", valueColor = SuccessGreen, modifier = Modifier.weight(1f))
                     }
                 }
             }
 
-            // المستندات
             item {
-                SectionCard(title = "المستندات المرفوعة", icon = Icons.Default.Description) {
-                    DocumentRow(title = "البطاقة الشخصية")
-                    DocumentRow(title = "رخصة القيادة")
-                    DocumentRow(title = "شهادات الخبرة", isFile = true)
+                SectionCard("المستندات المرفوعة", Icons.Default.Description) {
+                    DocumentRow("البطاقة الشخصية")
+                    DocumentRow("رخصة القيادة")
+                    DocumentRow("شهادات الخبرة", isFile = true)
                 }
             }
 
-            // الملاحظات
             item {
-                SectionCard(title = "ملاحظات داخلية (الأدمن)", icon = Icons.Default.EditNote) {
+                SectionCard("ملاحظات داخلية (الأدمن)", Icons.Default.EditNote) {
                     OutlinedTextField(
                         value = notes,
                         onValueChange = { notes = it },
-                        placeholder = { Text("أضف ملاحظاتك حول هذا الطلب هنا...", fontSize = 13.sp) },
+                        placeholder = { Text("أضف ملاحظاتك...", fontSize = 13.sp) },
                         modifier = Modifier.fillMaxWidth().height(100.dp),
                         shape = RoundedCornerShape(12.dp),
-                        // التعديل هنا: استخدام OutlinedTextFieldDefaults.colors
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = Color(0xFFF8FAFC),
-                            unfocusedContainerColor = Color(0xFFF8FAFC),
+                            focusedContainerColor = BackgroundGray,
+                            unfocusedContainerColor = BackgroundGray,
                             focusedBorderColor = PrimaryOrange,
-                            unfocusedBorderColor = Color(0xFFE2E8F0)
+                            unfocusedBorderColor = BorderGray
                         )
                     )
                 }
             }
-            item { Spacer(modifier = Modifier.height(20.dp)) }
-        }
-    }
-}
 
-@Composable
-fun SectionCard(title: String, icon: androidx.compose.ui.graphics.vector.ImageVector, content: @Composable ColumnScope.() -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.5.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
-                Text(title, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = NavyBlue)
-                Spacer(modifier = Modifier.width(8.dp))
-                Icon(icon, contentDescription = null, tint = NavyBlue, modifier = Modifier.size(20.dp))
+            item {
+                Spacer(Modifier.height(20.dp))
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            content()
-        }
-    }
-}
-
-@Composable
-fun InfoItem(label: String, value: String, modifier: Modifier = Modifier, valueColor: Color = NavyBlue) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.End) {
-        Text(label, fontSize = 12.sp, color = LightBlueGray)
-        Text(value, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = valueColor, textAlign = TextAlign.End)
-    }
-}
-
-@Composable
-fun DocumentRow(title: String, isFile: Boolean = false) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .border(1.dp, Color(0xFFF1F5F9), RoundedCornerShape(12.dp))
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End
-    ) {
-        Icon(Icons.Default.KeyboardArrowLeft, contentDescription = null, tint = LightBlueGray)
-        Spacer(modifier = Modifier.weight(1f))
-        Column(horizontalAlignment = Alignment.End) {
-            Text(title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = NavyBlue)
-            Text("تم الرفع: ٢٠ أكتوبر ٢٠٢٣", fontSize = 11.sp, color = DarkGray)
-        }
-        Spacer(modifier = Modifier.width(12.dp))
-        Box(
-            modifier = Modifier
-                .size(50.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(if (isFile) Color(0xFFCBD5E1) else Color(0xFF475569)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                if (isFile) Icons.Default.Description else Icons.Default.Search,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(20.dp)
-            )
         }
     }
 }

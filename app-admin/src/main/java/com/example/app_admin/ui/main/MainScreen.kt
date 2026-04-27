@@ -1,4 +1,3 @@
-// ui/main/MainScreen.kt
 package com.example.app_admin.ui.main
 
 import androidx.compose.foundation.layout.Box
@@ -21,23 +20,15 @@ import com.example.app_admin.ui.technicians.TechniciansScreen
 
 @Composable
 fun MainScreen() {
+
     var selectedBottomTab by remember { mutableStateOf(2) }
     var selectedTechnician by remember { mutableStateOf<Technician?>(null) }
-    var selectedComplaint by remember { mutableStateOf<Complaint?>(null) }
 
+    // 🔥 شاشة التفاصيل
     if (selectedTechnician != null) {
         TechnicianDetailScreen(
             technician = selectedTechnician!!,
             onBack = { selectedTechnician = null }
-        )
-        return
-    }
-
-    if (selectedComplaint != null) {
-        // هنا نعيد استخدام نفس شاشة التفاصيل (أو تعملي شاشة خاصة بعدين)
-        TechnicianDetailScreen(
-            technician = mapComplaintToTechnician(selectedComplaint!!),
-            onBack = { selectedComplaint = null }
         )
         return
     }
@@ -51,84 +42,61 @@ fun MainScreen() {
                     color = Color(0xFFE2E8F0),
                     thickness = 1.dp
                 )
-                NavigationBar(
-                    containerColor = Color.White,
-                ) {
+
+                NavigationBar(containerColor = Color.White) {
+
                     NavigationBarItem(
                         selected = selectedBottomTab == 0,
                         onClick = { selectedBottomTab = 0 },
-                        icon = { Icon(Icons.Default.GridView, contentDescription = null) },
-                        label = { Text("نظرة عامة") },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color(0xFFEC9513),
-                            selectedTextColor = Color(0xFFEC9513),
-                            unselectedIconColor = Color(0xFF94A3B8),
-                            unselectedTextColor = Color(0xFF94A3B8),
-                            indicatorColor = Color(0xFFEC9513).copy(alpha = 0.1f)
-                        )
+                        icon = { Icon(Icons.Default.GridView, null) },
+                        label = { Text("نظرة عامة") }
                     )
+
                     NavigationBarItem(
                         selected = selectedBottomTab == 1,
                         onClick = { selectedBottomTab = 1 },
-                        icon = { Icon(Icons.Default.Assignment, contentDescription = null) },
-                        label = { Text("الطلبات") },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color(0xFFEC9513),
-                            selectedTextColor = Color(0xFFEC9513),
-                            unselectedIconColor = Color(0xFF94A3B8),
-                            unselectedTextColor = Color(0xFF94A3B8),
-                            indicatorColor = Color(0xFFEC9513).copy(alpha = 0.1f)
-                        )
+                        icon = { Icon(Icons.Default.Assignment, null) },
+                        label = { Text("الطلبات") }
                     )
+
                     NavigationBarItem(
                         selected = selectedBottomTab == 2,
                         onClick = { selectedBottomTab = 2 },
-                        icon = { Icon(Icons.Default.Engineering, contentDescription = null) },
-                        label = { Text("الفنيين", fontSize = 10.sp) },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color(0xFFEC9513),
-                            selectedTextColor = Color(0xFFEC9513),
-                            unselectedIconColor = Color(0xFF94A3B8),
-                            unselectedTextColor = Color(0xFF94A3B8),
-                            indicatorColor = Color(0xFFEC9513).copy(alpha = 0.1f)
-                        )
+                        icon = { Icon(Icons.Default.Engineering, null) },
+                        label = { Text("الفنيين", fontSize = 10.sp) }
                     )
+
                     NavigationBarItem(
                         selected = selectedBottomTab == 3,
                         onClick = { selectedBottomTab = 3 },
-                        icon = { Icon(Icons.Default.AttachMoney, contentDescription = null) },
-                        label = { Text("المالية") },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color(0xFFEC9513),
-                            selectedTextColor = Color(0xFFEC9513),
-                            unselectedIconColor = Color(0xFF94A3B8),
-                            unselectedTextColor = Color(0xFF94A3B8),
-                            indicatorColor = Color(0xFFEC9513).copy(alpha = 0.1f)
-                        )
+                        icon = { Icon(Icons.Default.AttachMoney, null) },
+                        label = { Text("المالية") }
                     )
+
                     NavigationBarItem(
                         selected = selectedBottomTab == 4,
                         onClick = { selectedBottomTab = 4 },
-                        icon = { Icon(Icons.Default.MoreHoriz, contentDescription = null) },
-                        label = { Text("المزيد") },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color(0xFFEC9513),
-                            selectedTextColor = Color(0xFFEC9513),
-                            unselectedIconColor = Color(0xFF94A3B8),
-                            unselectedTextColor = Color(0xFF94A3B8),
-                            indicatorColor = Color(0xFFEC9513).copy(alpha = 0.1f)
-                        )
+                        icon = { Icon(Icons.Default.MoreHoriz, null) },
+                        label = { Text("المزيد") }
                     )
                 }
             }
         }
-    ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
+    ) { padding ->
+
+        Box(modifier = Modifier.padding(padding)) {
+
             when (selectedBottomTab) {
+
                 2 -> TechniciansScreen(
-                    onTechnicianClick = { tech -> selectedTechnician = tech },
-                    onComplaintClick = { complaint -> selectedComplaint = complaint }
+                    onTechnicianClick = { tech ->
+                        selectedTechnician = tech
+                    },
+
+                    // 🔥 الحل النهائي هنا
+                    onComplaintClick = { }
                 )
+
                 else -> Text("")
             }
         }
@@ -139,18 +107,4 @@ fun MainScreen() {
 @Composable
 fun MainScreenPreview() {
     MainScreen()
-}
-fun mapComplaintToTechnician(complaint: Complaint): Technician {
-    return Technician(
-        id = complaint.id,
-        name = complaint.technicianName,
-        phone = "غير متوفر",
-        city = "غير محدد",
-        specialty = complaint.issueType,
-        experience = 0,
-        hasCar = false,
-        rating = 0.0,
-        completedJobs = 0,
-        status = TechnicianStatus.ACTIVE
-    )
 }

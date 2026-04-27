@@ -9,35 +9,36 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+// هنا نستخدم ألوانكِ التي عرفناها في ملف Color.kt
+private val LightColorScheme = lightColorScheme(
+    primary = PrimaryOrange,      // اللون الأساسي (البرتقالي)
+    onPrimary = Color.White,
+    secondary = NavyBlue,         // اللون الثانوي (الكحلي)
+    onSecondary = Color.White,
+    background = BackgroundGray,  // لون الخلفية
+    surface = Color.White,
+    onSurface = NavyBlue,
+    error = Color.Red
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+// يمكنكِ تعريف ألوان للـ Dark Mode هنا إذا أردتِ، أو استعارة نفس ألوان الـ Light مؤقتاً
+private val DarkColorScheme = darkColorScheme(
+    primary = PrimaryOrange,
+    secondary = LightBlueGray,
+    background = NavyBlue,
+    surface = NavyBlue,
+    onBackground = Color.White,
+    onSurface = Color.White
 )
 
 @Composable
 fun RoadAssistTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // عطلتها هنا لنضمن ظهور ألوانكِ الأصلية بدلاً من ألوان النظام
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -45,14 +46,13 @@ fun RoadAssistTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = Typography, // تأكدي أن ملف Typography.kt موجود ولا يوجد به أخطاء
         content = content
     )
 }
