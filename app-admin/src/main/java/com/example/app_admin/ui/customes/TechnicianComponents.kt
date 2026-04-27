@@ -25,16 +25,23 @@ import com.example.app_admin.ui.theme.*
 @Composable
 fun SectionCard(title: String, icon: ImageVector, content: @Composable ColumnScope.() -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         colors = CardDefaults.cardColors(containerColor = SoftWhite),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.5.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
-                Text(title, fontWeight = FontWeight.Bold, fontSize = 15.sp, color = NavyBlue)
+            Row(verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier.fillMaxWidth()) {
+                Text(title, fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp, color = NavyBlue)
                 Spacer(modifier = Modifier.width(8.dp))
-                Icon(icon, contentDescription = null, tint = NavyBlue, modifier = Modifier.size(20.dp))
+                Icon(icon,
+                    contentDescription = null,
+                    tint = NavyBlue,
+                    modifier = Modifier.size(20.dp))
             }
             Spacer(modifier = Modifier.height(16.dp))
             content()
@@ -43,10 +50,15 @@ fun SectionCard(title: String, icon: ImageVector, content: @Composable ColumnSco
 }
 
 @Composable
-fun InfoItem(label: String, value: String, modifier: Modifier = Modifier, valueColor: Color = NavyBlue) {
+fun InfoItem(label: String, value: String,
+             modifier: Modifier = Modifier,
+             valueColor: Color = NavyBlue) {
     Column(modifier = modifier, horizontalAlignment = Alignment.End) {
         Text(label, fontSize = 12.sp, color = LightBlueGray)
-        Text(value, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = valueColor, textAlign = TextAlign.End)
+        Text(value, fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = valueColor,
+            textAlign = TextAlign.End)
     }
 }
 
@@ -60,10 +72,14 @@ fun DocumentRow(title: String, isFile: Boolean = false) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
-        Icon(Icons.Default.KeyboardArrowLeft, contentDescription = null, tint = LightBlueGray)
+        Icon(Icons.Default.KeyboardArrowLeft,
+            contentDescription = null, tint = LightBlueGray)
+
         Spacer(modifier = Modifier.weight(1f))
+
         Column(horizontalAlignment = Alignment.End) {
-            Text(title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = NavyBlue)
+            Text(title, fontSize = 13.sp,
+                fontWeight = FontWeight.Bold, color = NavyBlue)
             Text("تم الرفع: ٢٠ أكتوبر ٢٠٢٣", fontSize = 11.sp, color = DarkGray)
         }
         Spacer(modifier = Modifier.width(12.dp))
@@ -73,8 +89,12 @@ fun DocumentRow(title: String, isFile: Boolean = false) {
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = if (isFile) Icons.Default.Description else Icons.Default.Search,
-                contentDescription = null, tint = SoftWhite, modifier = Modifier.size(20.dp)
+                imageVector =
+                    if (isFile) Icons.Default.Description
+                    else Icons.Default.Search,
+                contentDescription = null,
+                tint = SoftWhite,
+                modifier = Modifier.size(20.dp)
             )
         }
     }

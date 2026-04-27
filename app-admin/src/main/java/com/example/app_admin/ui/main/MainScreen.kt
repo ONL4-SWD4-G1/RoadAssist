@@ -9,22 +9,27 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.model.Technician
-import com.example.app_admin.model.TechnicianStatus
-import com.example.app_admin.ui.complaints.Complaint
+import com.example.app_admin.ui.Screens.MoreScreen
+import com.example.app_admin.ui.finance.FinanceScreen
+import com.example.app_admin.ui.model.Complaint
 import com.example.app_admin.ui.technicians.TechnicianDetailScreen
 import com.example.app_admin.ui.technicians.TechniciansScreen
+import com.example.app_admin.ui.Screens.ComplaintDetailsScreen
+import com.example.app_admin.ui.Screens.WarningScreen
+import com.example.app_admin.ui.Screens.CompliantPerson
 
 @Composable
 fun MainScreen() {
-
     var selectedBottomTab by remember { mutableStateOf(2) }
     var selectedTechnician by remember { mutableStateOf<Technician?>(null) }
+    var selectedComplaint by remember { mutableStateOf<Complaint?>(null) }
+    var showWarningScreen by remember { mutableStateOf(false) }
+    var showUserProfile by remember { mutableStateOf(false) }
 
-    // 🔥 شاشة التفاصيل
+
     if (selectedTechnician != null) {
         TechnicianDetailScreen(
             technician = selectedTechnician!!,
@@ -33,78 +38,70 @@ fun MainScreen() {
         return
     }
 
+    if (showWarningScreen) {
+        WarningScreen(
+            onBack = { showWarningScreen = false }
+        )
+        return
+    }
+
+
+    if (showUserProfile) {
+        CompliantPerson(
+            onBack = { showUserProfile = false },
+            onWarningClick = {
+                showWarningScreen = true
+            }
+        )
+        return
+    }
+
+    if (selectedComplaint != null) {
+        ComplaintDetailsScreen(
+            onBack = { selectedComplaint = null },
+            onNavigateToWarning = { showWarningScreen = true },
+            onNavigateToProfile = { showUserProfile = true }
+        )
+        return
+    }
+
     Scaffold(
         containerColor = Color(0xffF8F7F6),
         bottomBar = {
             Column {
-
-                HorizontalDivider(
-                    color = Color(0xFFE2E8F0),
-                    thickness = 1.dp
-                )
-
+                HorizontalDivider(color = Color(0xFFE2E8F0), thickness = 1.dp)
                 NavigationBar(containerColor = Color.White) {
-
-                    NavigationBarItem(
-                        selected = selectedBottomTab == 0,
-                        onClick = { selectedBottomTab = 0 },
-                        icon = { Icon(Icons.Default.GridView, null) },
-                        label = { Text("نظرة عامة") }
+                    val navItems = listOf(
+                        Triple(0, Icons.Default.GridView, "نظرة عامة"),
+                        Triple(1, Icons.Default.Assignment, "الطلبات"),
+                        Triple(2, Icons.Default.Engineering, "الفنيين"),
+                        Triple(3, Icons.Default.AttachMoney, "المالية"),
+                        Triple(4, Icons.Default.MoreHoriz, "المزيد")
                     )
 
-                    NavigationBarItem(
-                        selected = selectedBottomTab == 1,
-                        onClick = { selectedBottomTab = 1 },
-                        icon = { Icon(Icons.Default.Assignment, null) },
-                        label = { Text("الطلبات") }
-                    )
-
-                    NavigationBarItem(
-                        selected = selectedBottomTab == 2,
-                        onClick = { selectedBottomTab = 2 },
-                        icon = { Icon(Icons.Default.Engineering, null) },
-                        label = { Text("الفنيين", fontSize = 10.sp) }
-                    )
-
-                    NavigationBarItem(
-                        selected = selectedBottomTab == 3,
-                        onClick = { selectedBottomTab = 3 },
-                        icon = { Icon(Icons.Default.AttachMoney, null) },
-                        label = { Text("المالية") }
-                    )
-
-                    NavigationBarItem(
-                        selected = selectedBottomTab == 4,
-                        onClick = { selectedBottomTab = 4 },
-                        icon = { Icon(Icons.Default.MoreHoriz, null) },
-                        label = { Text("المزيد") }
-                    )
+                    navItems.forEach { (index, icon, label) ->
+                        NavigationBarItem(
+                            selected = selectedBottomTab == index,
+                            onClick = { selectedBottomTab = index },
+                            icon = { Icon(icon,
+                                "") },
+                            label = { Text(label, fontSize = 10.sp) }
+                        )
+                    }
                 }
             }
         }
     ) { padding ->
-
         Box(modifier = Modifier.padding(padding)) {
-
             when (selectedBottomTab) {
-
                 2 -> TechniciansScreen(
-                    onTechnicianClick = { tech ->
-                        selectedTechnician = tech
-                    },
-
-                    // 🔥 الحل النهائي هنا
-                    onComplaintClick = { }
+                    onTechnicianClick = { tech -> selectedTechnician = tech },
+                    onComplaintClick = { complaint -> selectedComplaint = complaint }
                 )
-
-                else -> Text("")
+                3 -> FinanceScreen()
+                4 -> MoreScreen()
+                else -> Text("قيد التطوير", modifier = Modifier.padding(16.dp))
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    MainScreen()
 }

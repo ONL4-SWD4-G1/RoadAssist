@@ -34,7 +34,7 @@ fun ResultTemplate(
     ) {
         Icon(
             imageVector = icon,
-            contentDescription = null, // تأكدي من وجود دي عشان ما يظهرش خطأ
+            contentDescription = null,
             modifier = Modifier.size(100.dp),
             tint = iconColor
         )
@@ -58,7 +58,7 @@ fun ResultTemplate(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(55.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = NavyBlue), // أو ResultBlue حسب تعريفك
+            colors = ButtonDefaults.buttonColors(containerColor = NavyBlue),
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(buttonText, fontWeight = FontWeight.Bold, fontSize = 16.sp)

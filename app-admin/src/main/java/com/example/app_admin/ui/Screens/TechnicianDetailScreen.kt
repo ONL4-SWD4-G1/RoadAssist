@@ -18,10 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.model.Technician
-import com.example.app_admin.ui.customes.* // تأكدي من استيراد كل مكونات الـ customes
+import com.example.app_admin.ui.customes.*
 import com.example.app_admin.ui.theme.*
 
-// 1. تعريف الـ Enum هنا خارج الـ Composable عشان يتشاف في الملف كله
 enum class DetailFlow { VIEW, SELECT_REJECT_REASON, REJECT_SUCCESS, ACCEPT_SUCCESS }
 
 @Composable
@@ -90,22 +89,35 @@ fun TechnicianInfoContent(
         topBar = {
             TopAppBar(
                 title = {
-                    Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth().padding(end = 16.dp)) {
-                        Text(technician.name, color = SoftWhite, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                        Text("قيد التسجيل ●", color = PrimaryOrange, fontSize = 12.sp)
+                    Column(horizontalAlignment = Alignment.End,
+                        modifier = Modifier.fillMaxWidth().padding(end = 16.dp)) {
+                        Text(technician.name,
+                            color = SoftWhite,
+                            fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text("قيد التسجيل ●",
+                            color = PrimaryOrange, fontSize = 12.sp)
                     }
                 },
-                navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Default.ArrowForward, "رجوع", tint = SoftWhite) } },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBlue)
+                navigationIcon = { IconButton(onClick = onBack) {
+                    Icon(Icons.Default.ArrowForward,
+                        "رجوع", tint = SoftWhite) } },
+                colors = TopAppBarDefaults.
+                topAppBarColors(containerColor = NavyBlue)
             )
         },
         bottomBar = {
             Surface(shadowElevation = 8.dp) {
-                Row(modifier = Modifier.fillMaxWidth().background(SoftWhite).padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(modifier = Modifier.fillMaxWidth()
+                    .background(SoftWhite)
+                    .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     OutlinedButton(
-                        onClick = onRejectClick, modifier = Modifier.weight(1f).height(50.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.Red),
+                        onClick = onRejectClick, modifier =
+                            Modifier.weight(1f).height(50.dp),
+                        colors = ButtonDefaults.
+                        outlinedButtonColors(contentColor = Color.Red),
+                        border = androidx.compose.foundation
+                            .BorderStroke(1.dp, Color.Red),
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Icon(Icons.Default.Close, null, Modifier.size(18.dp))
@@ -125,17 +137,26 @@ fun TechnicianInfoContent(
             }
         }
     ) { padding ->
-        // تعديل الـ LazyColumn للتأكد من عدم وجود تضارب في الأنواع
+
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Box(Modifier.padding(vertical = 30.dp)) {
-                    Box(Modifier.size(110.dp).clip(CircleShape).background(BorderGray).border(4.dp, SoftWhite, CircleShape), Alignment.Center) {
-                        Icon(Icons.Default.Person, null, Modifier.size(60.dp), NavyBlue)
+                    Box(Modifier.size(110.dp).clip(CircleShape)
+                        .background(BorderGray)
+                        .border(4.dp, SoftWhite, CircleShape)
+                        , Alignment.Center) {
+                        Icon(Icons.Default.Person
+                            , null,
+                            Modifier.size(60.dp)
+                            , NavyBlue)
                     }
-                    Box(Modifier.align(Alignment.BottomEnd).offset((-5).dp, (-5).dp).size(24.dp).clip(CircleShape).background(PrimaryOrange), Alignment.Center) {
+                    Box(Modifier.align(Alignment.BottomEnd)
+                        .offset((-5).dp, (-5).dp).size(24.dp)
+                        .clip(CircleShape)
+                        .background(PrimaryOrange), Alignment.Center) {
                         Icon(Icons.Default.Verified, null, tint = SoftWhite, modifier = Modifier.size(16.dp))
                     }
                 }
@@ -149,8 +170,10 @@ fun TechnicianInfoContent(
                     }
                     HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
                     Row(Modifier.fillMaxWidth()) {
-                        InfoItem("المدينة", technician.city, Modifier.weight(1f))
-                        InfoItem("التخصص", technician.specialty, Modifier.weight(1f))
+                        InfoItem("المدينة",
+                            technician.city, Modifier.weight(1f))
+                        InfoItem("التخصص",
+                            technician.specialty, Modifier.weight(1f))
                     }
                     HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
                     Row(Modifier.fillMaxWidth()) {

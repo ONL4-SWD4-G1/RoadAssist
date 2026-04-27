@@ -1,4 +1,3 @@
-// ui/complaints/ComplaintsScreen.kt
 package com.example.app_admin.ui.complaints
 
 import androidx.compose.foundation.BorderStroke
@@ -10,48 +9,44 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-data class Complaint(
-    val id: Int,
-    val clientName: String,
-    val technicianName: String,
-    val issueType: String,
-    val status: ComplaintStatus,
-    val timeAgo: String
-)
-
-enum class ComplaintStatus { OPEN, UNDER_REVIEW, RESOLVED }
-
-val sampleComplaints = listOf(
-    Complaint(1, "سارة أحمد", "أحمد محمد", "بطارية / كهرباء", ComplaintStatus.OPEN, "منذ ساعتين"),
-    Complaint(2, "محمد القحطاني", "ياسين عبدالله", "نظام المحرك", ComplaintStatus.UNDER_REVIEW, "منذ 5 ساعات"),
-    Complaint(3, "عبدالله منصور", "فهد العتيبي", "إطارات / بنشر", ComplaintStatus.RESOLVED, "أمس")
-)
+import com.example.app_admin.ui.Screens.ComplaintDetailsScreen
+// استيراد الـ data class والـ enum والبيانات
+import com.example.app_admin.ui.model.Complaint
+import com.example.app_admin.ui.model.ComplaintStatus
+import com.example.app_admin.ui.model.sampleComplaints
 
 @Composable
 fun ComplaintsScreen(onHandleComplaint: (Complaint) -> Unit) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 8.dp)
-    ) {
-        items(sampleComplaints) { complaint ->
-            ComplaintCard(
-                complaint = complaint,
-                onHandleClick = { onHandleComplaint(complaint) }
-            )
+//    var selectedComplaint by remember { mutableStateOf<Complaint?>(null) }
+
+//    if (selectedComplaint == null) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(vertical = 8.dp)
+        ) {
+            items(sampleComplaints) { complaint ->
+                ComplaintCard(
+                    complaint = complaint,
+                    onHandleClick = { onHandleComplaint(complaint) }
+                )
+            }
         }
-    }
+//    } else {
+//        ComplaintDetailsScreen(
+//            onBack = { selectedComplaint = null }
+//        )
+//    }
 }
+
 
 @Composable
 fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
@@ -63,17 +58,12 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
         colors = CardDefaults.cardColors(containerColor = Color.White),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-
-            // الاسم على اليمين والـ badge على اليسار
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // badge على اليسار
                 ComplaintStatusBadge(status = complaint.status)
-
-                // الاسم على اليمين
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
                         text = complaint.clientName,
@@ -92,12 +82,10 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // الفني المسؤول ونوع العطل - على اليمين
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                // نوع العطل
                 Column(
                     modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.End
@@ -105,22 +93,22 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
                     Text("نوع العطل", fontSize = 11.sp, color = Color.Gray, textAlign = TextAlign.End)
                     Text(complaint.issueType, fontSize = 13.sp, fontWeight = FontWeight.Medium, textAlign = TextAlign.End)
                 }
-
                 Spacer(modifier = Modifier.width(16.dp))
-
-                // الفني المسؤول
                 Column(
                     modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.End
                 ) {
-                    Text("الفني المسؤول", fontSize = 11.sp, color = Color.Gray, textAlign = TextAlign.End)
-                    Text(complaint.technicianName, fontSize = 13.sp, fontWeight = FontWeight.Medium, textAlign = TextAlign.End)
+                    Text("الفني المسؤول", fontSize = 11.sp, color = Color.Gray,
+                        textAlign = TextAlign.End)
+                    Text(complaint.technicianName,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.End)
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // التاريخ على اليمين
             Text(
                 text = "تاريخ الشكوى: ${complaint.timeAgo}",
                 fontSize = 11.sp,
@@ -131,7 +119,6 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // خط فاصل
             HorizontalDivider(
                 color = Color(0xFFE2E8F0),
                 thickness = 1.dp
@@ -139,7 +126,6 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // الزرار
             if (complaint.status == ComplaintStatus.RESOLVED) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -157,7 +143,8 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
                         modifier = Modifier
                             .weight(1f)
                             .height(36.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1F5F9)),
+                        colors = ButtonDefaults.
+                        buttonColors(containerColor = Color(0xFFF1F5F9)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text("مكتملة", color = Color(0xff94A3B8))
@@ -169,7 +156,8 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(36.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E293B)),
+                    colors = ButtonDefaults.
+                    buttonColors(containerColor = Color(0xFF1E293B)),
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text("معالجة الشكوى", color = Color.White)
@@ -194,10 +182,4 @@ fun ComplaintStatusBadge(status: ComplaintStatus) {
     ) {
         Text(text, color = color, fontSize = 11.sp, fontWeight = FontWeight.Medium)
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ComplaintsScreenPreview() {
-    ComplaintsScreen(onHandleComplaint = {})
 }

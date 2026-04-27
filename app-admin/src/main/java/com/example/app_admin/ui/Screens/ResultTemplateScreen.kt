@@ -47,11 +47,12 @@ fun ResultTemplate(
                     colors = ButtonDefaults.buttonColors(containerColor = NavyBlue),
                     shape = RoundedCornerShape(12.dp)
                 ) {
-                    if (!isSuccess) Icon(Icons.Default.List, null, modifier = Modifier.size(20.dp))
+                    if (!isSuccess) Icon(Icons.Default.List,
+                        null, modifier = Modifier.size(20.dp))
                     if (!isSuccess) Spacer(Modifier.width(8.dp))
                     Text(buttonText, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
-                TextButton(onClick = { /* التنقل الإضافي */ }) {
+                TextButton(onClick = {  }) {
                     Text(secondaryButtonText, color = DarkGray, fontSize = 14.sp)
                 }
             }
@@ -70,7 +71,8 @@ fun ResultTemplate(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text(title, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, color = NavyBlue)
+            Text(title, fontSize = 22.sp,
+                fontWeight = FontWeight.ExtraBold, color = NavyBlue)
             Text(
                 subtitle,
                 fontSize = 14.sp,
@@ -81,7 +83,8 @@ fun ResultTemplate(
             )
 
             if (!isSuccess) {
-                Text("ملخص الرفض", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.End, color = DarkGray, fontSize = 13.sp)
+                Text("ملخص الرفض", modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.End, color = DarkGray, fontSize = 13.sp)
                 Spacer(Modifier.height(8.dp))
             }
 
@@ -92,35 +95,54 @@ fun ResultTemplate(
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.5.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
+                    Row(verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.fillMaxWidth()) {
                         Column(horizontalAlignment = Alignment.End) {
                             Text("اسم الفني", fontSize = 11.sp, color = DarkGray)
-                            Text(technician.name, fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                            Text(technician.specialty, fontSize = 12.sp, color = NavyBlue)
+                            Text(technician.name, fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp)
+                            Text(technician.specialty, fontSize = 12.sp,
+                                color = NavyBlue)
                         }
                         Spacer(modifier = Modifier.width(12.dp))
-                        Box(modifier = Modifier.size(50.dp).clip(RoundedCornerShape(12.dp)).background(DividerGray)) {
-                            Icon(Icons.Default.Person, null, modifier = Modifier.align(Alignment.Center), tint = NavyBlue)
+                        Box(modifier = Modifier.size(50.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(DividerGray)) {
+                            Icon(Icons.Default.Person,
+                                null,
+                                modifier = Modifier.align(Alignment.Center),
+                                tint = NavyBlue)
                         }
                     }
 
-                    HorizontalDivider(Modifier.padding(vertical = 12.dp), thickness = 0.5.dp, color = DividerGray)
+                    HorizontalDivider(Modifier.padding(vertical = 12.dp),
+                        thickness = 0.5.dp, color = DividerGray)
 
                     if (isSuccess) {
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Row(modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(Icons.Default.CheckCircle, null, tint = SuccessGreen, modifier = Modifier.size(16.dp))
+                                Icon(Icons.Default.CheckCircle,
+                                    null, tint = SuccessGreen,
+                                    modifier = Modifier.size(16.dp))
                                 Spacer(Modifier.width(4.dp))
-                                Text("تم التوثيق", color = SuccessGreen, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                                Text("تم التوثيق", color = SuccessGreen,
+                                    fontSize = 13.sp, fontWeight = FontWeight.Bold)
                             }
                             Text("تاريخ التفعيل: 24 مايو 2024", fontSize = 13.sp, color = DarkGray)
                         }
                     } else {
-                        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.End) {
-                            Text(rejectionReason, color = Color.Red, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Row(modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.End) {
+                            Text(rejectionReason, color = Color.Red, fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("سبب الرفض", fontSize = 13.sp, color = DarkGray)
-                            Icon(Icons.Default.Info, null, tint = DarkGray, modifier = Modifier.size(16.dp).padding(start = 4.dp))
+                            Text("سبب الرفض", fontSize = 13.sp,
+                                color = DarkGray)
+                            Icon(Icons.Default.Info, "",
+                                tint = DarkGray, modifier = Modifier.size(16.dp).padding(start = 4.dp))
                         }
                     }
                 }
@@ -131,10 +153,15 @@ fun ResultTemplate(
                 Box(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Color(0xFFFFF7ED)).padding(12.dp)) {
                     Row(horizontalArrangement = Arrangement.End) {
                         Text(
-                            "تم إخطار الفني عبر الرسائل النصية والبريد الإلكتروني بقرار اللجنة. يمكن للفني إعادة التقديم بعد تصحيح البيانات.",
-                            modifier = Modifier.weight(1f), textAlign = TextAlign.End, fontSize = 11.sp, color = Color(0xFF9A3412)
+                            "تم إخطار الفني عبر الرسائل" +
+                                    " النصية والبريد الإلكتروني بقرار اللجنة. يمكن ل" +
+                                    "لفني إعادة التقديم بعد تصحيح البيانات.",
+                            modifier = Modifier.weight(1f), textAlign = TextAlign.End,
+                            fontSize = 11.sp, color = Color(0xFF9A3412)
                         )
-                        Icon(Icons.Default.NotificationsActive, null, tint = PrimaryOrange, modifier = Modifier.size(18.dp).padding(start = 8.dp))
+                        Icon(Icons.Default.NotificationsActive,
+                            null, tint = PrimaryOrange,
+                            modifier = Modifier.size(18.dp).padding(start = 8.dp))
                     }
                 }
             }

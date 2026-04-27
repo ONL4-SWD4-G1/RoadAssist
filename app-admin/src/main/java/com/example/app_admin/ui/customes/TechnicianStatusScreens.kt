@@ -29,16 +29,23 @@ fun RejectReasonSelectionScreen(
     onCancel: () -> Unit,
     onConfirmReject: (String) -> Unit
 ) {
-    val reasons = listOf("صورة البطاقة غير واضحة", "مستندات ناقصة", "رخصة القيادة منتهية", "بيانات غير صحيحة", "أخرى")
+    val reasons = listOf("صورة البطاقة غير واضحة",
+        "مستندات ناقصة", "رخصة القيادة منتهية", "بيانات غير صحيحة", "أخرى")
     var selectedReason by remember { mutableStateOf(reasons[0]) }
     var additionalNotes by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("رفض طلب تسجيل الفني", color = SoftWhite, fontSize = 16.sp, fontWeight = FontWeight.Bold) },
-                navigationIcon = { IconButton(onClick = onCancel) { Icon(Icons.Default.ArrowForward, contentDescription = null, tint = SoftWhite) } },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBlue)
+                title = { Text("رفض طلب تسجيل الفني",
+                    color = SoftWhite,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold) },
+                navigationIcon = { IconButton(onClick = onCancel)
+                { Icon(Icons.Default.ArrowForward,
+                    contentDescription = null, tint = SoftWhite) } },
+                colors = TopAppBarDefaults
+                    .topAppBarColors(containerColor = NavyBlue)
             )
         },
 
@@ -72,14 +79,21 @@ fun RejectReasonSelectionScreen(
                 shape = RoundedCornerShape(12.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
-                Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.End) {
-                        Text(technician.name, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                        Text("${technician.specialty} • ${technician.city}", fontSize = 12.sp, color = DarkGray)
+                Row(modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Column(modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.End) {
+                        Text(technician.name, fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp)
+                        Text("${technician.specialty} • ${technician.city}",
+                            fontSize = 12.sp, color = DarkGray)
                     }
                     Spacer(modifier = Modifier.width(12.dp))
-                    Box(modifier = Modifier.size(50.dp).clip(CircleShape).background(DividerGray), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Default.Person, contentDescription = null, tint = NavyBlue)
+                    Box(modifier = Modifier.size(50.dp).clip(CircleShape)
+                        .background(DividerGray),
+                        contentAlignment = Alignment.Center) {
+                        Icon(Icons.Default.Person,
+                            contentDescription = null, tint = NavyBlue)
                     }
                 }
             }
@@ -104,7 +118,8 @@ fun RejectReasonSelectionScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             Card(
-                modifier = Modifier.fillMaxWidth().border(1.dp, BorderGray, RoundedCornerShape(12.dp)),
+                modifier = Modifier.fillMaxWidth().border(1.dp,
+                    BorderGray, RoundedCornerShape(12.dp)),
                 colors = CardDefaults.cardColors(containerColor = SoftWhite),
                 shape = RoundedCornerShape(12.dp)
             ) {
@@ -155,19 +170,25 @@ fun RejectReasonSelectionScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFFFFF7ED)) // لون أصفر فاتح جداً
-                    .border(1.dp, Color(0xFFFFEDD5), RoundedCornerShape(12.dp))
+                    .background(Color(0xFFFFF7ED))
+                    .border(1.dp, Color(0xFFFFEDD5),
+                        RoundedCornerShape(12.dp))
                     .padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.End) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text("معاينة الرسالة الصادرة للفني", color = PrimaryOrange, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.Default.Visibility, contentDescription = null, tint = PrimaryOrange, modifier = Modifier.size(16.dp))
+                        Icon(Icons.Default.Visibility,
+                            contentDescription = null, tint = PrimaryOrange, modifier = Modifier.size(16.dp))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "مرحباً ${technician.name}، تم مراجعة طلبك للانضمام إلى منصة استغاثة، وللأسف تم رفض طلبك للسبب التالي: ($selectedReason). يرجى تحديث بياناتك وإعادة المحاولة مرة أخرى.",
+                        text = "" +
+                                "مرحباً ${technician.name}، تم مراجع" +
+                                "ة طلبك للانضمام إلى منصة استغاثة،" +
+                                " وللأسف تم رفض طلبك للسبب التالي: ($selectedReason). يرجى تحديث بياناتك وإعادة" +
+                                " المحاولة مرة أخرى.",
                         fontSize = 12.sp,
                         color = Color(0xFF9A3412),
                         textAlign = TextAlign.End,

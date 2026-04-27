@@ -111,15 +111,18 @@ fun TechnicianCard(
                         OutlinedButton(
                             onClick = { onDetailsClick() },
                             modifier = Modifier.weight(2f),
-                            border = BorderStroke(width = 1.dp, color = Color(0xffE2E8F0)),
+                            border = BorderStroke(width = 1.dp,
+                                color = Color(0xffE2E8F0)),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("عرض التفاصيل", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xff1E293B))
+                            Text("عرض التفاصيل", fontSize = 10.sp,
+                                fontWeight = FontWeight.ExtraBold, color = Color(0xff1E293B))
                         }
                         Button(
                             onClick = { onAccept?.invoke() },
                             modifier = Modifier.weight(2f),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF5A623)),
+                            colors = ButtonDefaults
+                                .buttonColors(containerColor = Color(0xFFF5A623)),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
                             Text("قبول", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
@@ -127,7 +130,8 @@ fun TechnicianCard(
                         OutlinedButton(
                             onClick = { onReject?.invoke() },
                             modifier = Modifier.weight(1f),
-                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
+                            colors = ButtonDefaults
+                                .outlinedButtonColors(contentColor = Color.Red),
                             border = BorderStroke(width = 1.dp, color = Color(0xffEF4444)),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
