@@ -1,4 +1,4 @@
-package com.example.app_admin.ui.Screens
+package com.example.app_admin.ui.screens
 
 import android.content.Intent
 import android.net.Uri
@@ -6,15 +6,48 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Block
+import androidx.compose.material.icons.filled.ContentCut
+import androidx.compose.material.icons.filled.Engineering
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Timeline
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +73,9 @@ fun ComplaintDetailsScreen(onBack: () -> Unit,
                 title = {
                     Column(
                         horizontalAlignment = Alignment.End,
-                        modifier = Modifier.fillMaxWidth().padding(end = 16.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp)
                     ) {
                         Text("شكوى #8241", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
                         Text("بتاريخ: ٢٤ مايو ٢٠٢٤", fontSize = 11.sp,
@@ -63,7 +98,10 @@ fun ComplaintDetailsScreen(onBack: () -> Unit,
         }
     ) { padding ->
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding).background(Color(0xFFF8FAFC)),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .background(Color(0xFFF8FAFC)),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -108,12 +146,15 @@ fun ComplaintSummarySection() {
             Text("رقم الطلب المرتبط: ORD-5521-X", color = Color(0xFFF97316), fontSize = 12.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(12.dp))
             Card(
-                modifier = Modifier.fillMaxWidth().height(150.dp).clickable {
-                    val gmmIntentUri =
-                        Uri.parse("geo:24.8138,46.6333?q=حي الياسمين، الرياض")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                    context.startActivity(mapIntent)
-                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .clickable {
+                        val gmmIntentUri =
+                            Uri.parse("geo:24.8138,46.6333?q=حي الياسمين، الرياض")
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                        context.startActivity(mapIntent)
+                    },
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Box {
@@ -124,8 +165,9 @@ fun ComplaintSummarySection() {
                         modifier = Modifier.fillMaxSize()
                     )
                     Surface(
-                        modifier = Modifier.
-                        align(Alignment.BottomEnd).padding(8.dp),
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(8.dp),
                         color = Color.White,
                         shape = RoundedCornerShape(8.dp),
                         shadowElevation = 2.dp
@@ -179,8 +221,10 @@ fun UserDetailCard(sectionTitle: String, name: String,
                     Text(info, fontSize = 11.sp, color = Color(0xFF64748B))
                 }
                 Spacer(Modifier.width(12.dp))
-                Box(modifier = Modifier.size(45.dp).
-                clip(CircleShape).background(Color(0xFFF1F5F9))) {
+                Box(modifier = Modifier
+                    .size(45.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFFF1F5F9))) {
                     Icon(Icons.Default.Person,
                         null,
                         modifier = Modifier.align(Alignment.Center))
@@ -245,7 +289,9 @@ fun SectionHeader(icon: ImageVector, title: String) {
 
 @Composable
 fun TimelineItem(title: String, time: String, isFirst: Boolean = false, isLast: Boolean = false, isAlert: Boolean = false) {
-    Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .height(IntrinsicSize.Min),
         horizontalArrangement = Arrangement.End) {
         Column(horizontalAlignment = Alignment.End,
             modifier = Modifier.padding(end = 16.dp)) {
@@ -255,12 +301,19 @@ fun TimelineItem(title: String, time: String, isFirst: Boolean = false, isLast: 
                 else Color(0xFF94A3B8))
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(modifier = Modifier.size(12.dp).
-            clip(CircleShape).background(if
-                    (isAlert) Color(0xFFF97316)
-            else Color(0xFF22C55E)))
+            Box(modifier = Modifier
+                .size(12.dp)
+                .clip(CircleShape)
+                .background(
+                    if
+                            (isAlert) Color(0xFFF97316)
+                    else Color(0xFF22C55E)
+                ))
             if (!isLast) {
-                Box(modifier = Modifier.width(2.dp).fillMaxHeight().background(Color(0xFFE2E8F0)))
+                Box(modifier = Modifier
+                    .width(2.dp)
+                    .fillMaxHeight()
+                    .background(Color(0xFFE2E8F0)))
             }
         }
     }
@@ -271,14 +324,19 @@ fun AttachmentImage(resId: Int) {
     Image(
         painter = painterResource(id = resId),
         contentDescription = null,
-        modifier = Modifier.size(90.dp).clip(RoundedCornerShape(12.dp)).border(1.dp, Color(0xFFE2E8F0), RoundedCornerShape(12.dp)),
+        modifier = Modifier
+            .size(90.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .border(1.dp, Color(0xFFE2E8F0), RoundedCornerShape(12.dp)),
         contentScale = ContentScale.Crop
     )
 }
 
 @Composable
 fun ComplaintActionButtons(onWarningClick: () -> Unit) {
-    Column(modifier = Modifier.background(Color.White).padding(16.dp)) {
+    Column(modifier = Modifier
+        .background(Color.White)
+        .padding(16.dp)) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ActionButton(Modifier.weight(1f), "استرداد", Color(0xFF22C55E), Icons.Default.History, {})
             ActionButton(Modifier.weight(1f), "خصم", Color(0xFFF97316), Icons.Default.ContentCut, {})
@@ -288,7 +346,9 @@ fun ComplaintActionButtons(onWarningClick: () -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
         Button(
             onClick = {},
-            modifier = Modifier.fillMaxWidth().height(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E293B)),
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -300,7 +360,9 @@ fun ComplaintActionButtons(onWarningClick: () -> Unit) {
 @Composable
 fun ActionButton(modifier: Modifier, text: String, color: Color, icon: ImageVector, onClick: () -> Unit) {
     Surface(
-        modifier = modifier.height(40.dp).clickable { onClick() },
+        modifier = modifier
+            .height(40.dp)
+            .clickable { onClick() },
         color = color.copy(alpha = 0.1f),
         shape = RoundedCornerShape(8.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, color)

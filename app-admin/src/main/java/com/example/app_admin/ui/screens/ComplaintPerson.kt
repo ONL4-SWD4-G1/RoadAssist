@@ -1,15 +1,45 @@
-package com.example.app_admin.ui.Screens
+package com.example.app_admin.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.BatteryChargingFull
+import androidx.compose.material.icons.filled.Block
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -91,7 +121,10 @@ fun HeaderSection(onBack: () -> Unit) {
             Spacer(modifier = Modifier.height(12.dp))
             Text("عبدالرحمن القحطاني", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF22C55E)))
+                Box(modifier = Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFF22C55E)))
                 Spacer(modifier = Modifier.width(6.dp))
                 Text("حساب نشط", color = Color(0xFF22C55E), fontSize = 12.sp)
                 Spacer(modifier = Modifier.width(8.dp))
@@ -168,7 +201,9 @@ fun StatItem(modifier: Modifier, label: String, value: String, icon: ImageVector
         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Column(
-            modifier = Modifier.padding(12.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(label, fontSize = 10.sp, color = Color(0xFF64748B))
@@ -224,7 +259,8 @@ fun OrderItem(title: String, subtitle: String, icon: ImageVector) {
                 Text(subtitle, fontSize = 11.sp, color = Color(0xFF94A3B8))
             }
             Spacer(modifier = Modifier.width(12.dp))
-            Box(modifier = Modifier.size(40.dp)
+            Box(modifier = Modifier
+                .size(40.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color(0xFFFFF7ED)), contentAlignment = Alignment.Center) {
                 Icon(icon, null, tint = Color(0xFFF97316))
@@ -266,8 +302,10 @@ fun UserReviewsSection() {
                     Text("تقييم للفني: أحمد محمد",
                         fontSize = 11.sp, color = Color(0xFF64748B))
                     Spacer(Modifier.width(8.dp))
-                    Box(modifier = Modifier.size(24.dp).clip(CircleShape).
-                    background(Color(0xFFCBD5E1)))
+                    Box(modifier = Modifier
+                        .size(24.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFFCBD5E1)))
                 }
             }
         }
@@ -277,12 +315,17 @@ fun UserReviewsSection() {
 @Composable
 fun UserActionButtons(onWarningClick: () -> Unit) { // أضفنا البارامتر هنا
     Row(
-        modifier = Modifier.background(Color.White).padding(16.dp).fillMaxWidth(),
+        modifier = Modifier
+            .background(Color.White)
+            .padding(16.dp)
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Button(
             onClick = {},
-            modifier = Modifier.weight(1.5f).height(48.dp),
+            modifier = Modifier
+                .weight(1.5f)
+                .height(48.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFEF2F2)),
             border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFEE2E2)),
             shape = RoundedCornerShape(12.dp)
@@ -294,7 +337,9 @@ fun UserActionButtons(onWarningClick: () -> Unit) { // أضفنا البارام
 
         OutlinedButton(
             onClick = {},
-            modifier = Modifier.weight(1f).height(48.dp),
+            modifier = Modifier
+                .weight(1f)
+                .height(48.dp),
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color(0xFFF8FAFC))
         ) {
@@ -305,7 +350,9 @@ fun UserActionButtons(onWarningClick: () -> Unit) { // أضفنا البارام
 
         OutlinedButton(
             onClick = onWarningClick, // قمنا بربط الزر بالوظيفة هنا
-            modifier = Modifier.weight(1f).height(48.dp),
+            modifier = Modifier
+                .weight(1f)
+                .height(48.dp),
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.outlinedButtonColors(containerColor = Color(0xFFF8FAFC))
         ) {
