@@ -70,12 +70,46 @@ import com.example.app_admin.ui.theme.SuccessGreen
 
 @Composable
 fun FinanceScreen() {
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf("المعاملات", "طلبات الصرف", "التقارير")
 
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = Color.White,
-        topBar = { FinanceHeader() }
+        topBar = {
+            RoadAssistTopAppBar(
+                title = "المحفظة والمالية",
+                scrollBehavior = scrollBehavior,
+                navigationIcon = {
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = SoftGray,
+                        modifier = Modifier
+                            .padding(start = 16.dp)
+                            .size(45.dp)
+                    ) {
+                        IconButton(onClick = { /* Handle Notifications */ }) {
+                            Icon(
+                                imageVector = Icons.Default.NotificationsNone,
+                                contentDescription = null,
+                                tint = DarkNavy
+                            )
+                        }
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* Handle Menu */ }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = null,
+                            tint = DarkNavy
+                        )
+                    }
+                }
+            )
+        }
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -121,27 +155,17 @@ fun FinanceScreen() {
 
             item {
                 Spacer(modifier = Modifier.height(24.dp))
-                TabRow(
+
+                RoadAssistTabRow(
+                    tabs = tabs,
                     selectedTabIndex = selectedTab,
+                    onTabSelected = { selectedTab = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    isScrollable = false,
                     containerColor = Color.Transparent,
-                    contentColor = DeepBlue,
-                    divider = {},
-                    indicator = { tabPositions ->
-                        TabRowDefaults.SecondaryIndicator(
-                            Modifier.
-                            tabIndicatorOffset(tabPositions[selectedTab]),
-                            color = DeepBlue
-                        )
-                    }
-                ) {
-                    tabs.forEachIndexed { index, title ->
-                        Tab(
-                            selected = selectedTab == index,
-                            onClick = { selectedTab = index },
-                            text = { Text(title, fontSize = 14.sp, fontWeight = FontWeight.Bold) }
-                        )
-                    }
-                }
+                    selectedContentColor = DeepBlue,
+                    unselectedContentColor = LightText
+                )
             }
 
             item {

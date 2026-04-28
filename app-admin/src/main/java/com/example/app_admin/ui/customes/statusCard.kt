@@ -38,31 +38,19 @@ fun TechniciansScreen(
     onTechnicianClick: (Technician) -> Unit,
     onComplaintClick: (Complaint) -> Unit
 ) {
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf("الكل", "النشطين", "قيد التسجيل", "الموقوفين", "الشكاوى")
 
     Column(modifier = Modifier.fillMaxSize()) {
         StatsRow()
-        ScrollableTabRow(
+
+        RoadAssistTabRow(
+            tabs = tabs,
             selectedTabIndex = selectedTab,
-            edgePadding = 8.dp,
-            containerColor = Color.White,
-            contentColor = Color(0xFFF5A623)
-        ) {
-            tabs.forEachIndexed { index, title ->
-                Tab(
-                    selected = selectedTab == index,
-                    onClick = { selectedTab = index },
-                    text = {
-                        Text(
-                            text = title,
-                            fontSize = 13.sp,
-                            fontWeight = if (selectedTab == index) FontWeight.Bold else FontWeight.Normal
-                        )
-                    }
-                )
-            }
-        }
+            onTabSelected = { index -> selectedTab = index },
+            isScrollable = true,
+            modifier = Modifier.fillMaxWidth()
+        )
 
         when (selectedTab) {
             0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
