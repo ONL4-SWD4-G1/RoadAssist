@@ -2,6 +2,7 @@ package com.example.app_admin.ui.customes
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
@@ -68,6 +69,7 @@ fun RoadAssistTopAppBar(
                 navigationIcon = { navigationIcon?.invoke() },
                 actions = { actions?.invoke(this) },
                 scrollBehavior = scrollBehavior,
+                windowInsets = WindowInsets(0, 0, 0, 0),
                 colors = TopAppBarDefaults.topAppBarColors( // Updated color helper name
                     containerColor = Color.White,
                     scrolledContainerColor = Color.White
