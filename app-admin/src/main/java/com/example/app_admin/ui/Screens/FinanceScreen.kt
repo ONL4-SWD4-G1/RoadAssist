@@ -50,12 +50,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.R
+import com.example.app_admin.ui.customes.RoadAssistTabRow
+import com.example.app_admin.ui.customes.RoadAssistTopAppBar
 import com.example.app_admin.ui.model.TransactionData
 import com.example.app_admin.ui.model.transactions
 import com.example.app_admin.ui.theme.DangerBg
@@ -68,6 +72,7 @@ import com.example.app_admin.ui.theme.SoftGray
 import com.example.app_admin.ui.theme.SuccessBg
 import com.example.app_admin.ui.theme.SuccessGreen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FinanceScreen() {
     var selectedTab by remember { mutableIntStateOf(0) }
@@ -123,32 +128,42 @@ fun FinanceScreen() {
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = DarkNavy,
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-                    textAlign = TextAlign.End
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    textAlign = TextAlign.Start
                 )
             }
 
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        SummaryCard(Modifier.weight(1f), "إيرادات اليوم"
-                            , "1,250 ر.س", Icons.Default.Payments,
-                            DeepBlue)
-                        SummaryCard(Modifier.weight(1f),
+                        SummaryCard(
+                            Modifier.weight(1f), "إيرادات اليوم",
+                            "1,250 ر.س", Icons.Default.Payments,
+                            DeepBlue
+                        )
+                        SummaryCard(
+                            Modifier.weight(1f),
                             "الإيراد الشهري",
                             "34,800 ر.س",
                             Icons.Default.CalendarMonth,
-                            PrimaryOrange)
+                            PrimaryOrange
+                        )
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        SummaryCard(Modifier.weight(1f), "إجمالي العمولات",
+                        SummaryCard(
+                            Modifier.weight(1f), "إجمالي العمولات",
                             "5,420 ر.س",
-                            Icons.Default.AccountBalanceWallet, DarkNavy)
-                        SummaryCard(Modifier.weight(1f),
+                            Icons.Default.AccountBalanceWallet, DarkNavy
+                        )
+                        SummaryCard(
+                            Modifier.weight(1f),
                             "مدفوعات معلقة",
                             "2,100 ر.س",
                             Icons.Default.HourglassEmpty,
-                            DeepBlue, isOutlined = true)
+                            DeepBlue, isOutlined = true
+                        )
                     }
                 }
             }
@@ -170,14 +185,18 @@ fun FinanceScreen() {
 
             item {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text("فبراير 2024", color = LightText, fontSize = 12.sp)
-                    Text("العمليات الأخيرة",
+                    Text(
+                        "العمليات الأخيرة",
                         fontWeight = FontWeight.Bold,
-                        color = LightText, fontSize = 12.sp)
+                        color = LightText, fontSize = 12.sp
+                    )
                 }
             }
             items(transactions) { transaction ->
@@ -187,31 +206,11 @@ fun FinanceScreen() {
     }
 }
 
+@Preview(showBackground = true, name = "Finance Screen Preview", locale = "ar")
 @Composable
-fun FinanceHeader() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Surface(
-            shape = RoundedCornerShape(12.dp),
-            color = SoftGray,
-            modifier = Modifier.size(45.dp)
-        ) {
-            IconButton(onClick = {})
-            { Icon(Icons.Default.NotificationsNone,
-                null) }
-        }
-
-        Text("المحفظة والمالية", fontWeight = FontWeight.ExtraBold,
-            fontSize = 18.sp, color = DarkNavy)
-
-        IconButton(onClick = {}) { Icon(Icons.Default.Menu,
-            null) }
+fun FinanceScreenPreview() {
+    MaterialTheme {
+        FinanceScreen()
     }
 }
 
@@ -231,7 +230,6 @@ fun SummaryCard(
         border = if (isOutlined) BorderStroke(1.dp, color.copy(alpha = 0.3f)) else null
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-
             if (!isOutlined) {
                 Image(
                     painter = painterResource(id = R.drawable.overlay),
@@ -244,19 +242,32 @@ fun SummaryCard(
                 )
             }
 
-            Box(modifier = Modifier.fillMaxSize().padding(12.dp)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(12.dp)
+            ) {
                 Icon(
                     icon, null,
-                    modifier = Modifier.align(Alignment.TopEnd).size(24.dp),
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .size(24.dp),
                     tint = if (isOutlined) color else Color.White.copy(alpha = 0.7f)
                 )
-                Column(modifier = Modifier.align(Alignment.BottomEnd), horizontalAlignment = Alignment.End) {
-                    Text(title, color =
-                        if (isOutlined) LightText
-                        else Color.White.copy(alpha = 0.9f), fontSize = 11.sp)
-                    Text(value, color =
-                        if (isOutlined) color
-                        else Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Column(
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        title, color =
+                            if (isOutlined) LightText
+                            else Color.White.copy(alpha = 0.9f), fontSize = 11.sp
+                    )
+                    Text(
+                        value, color =
+                            if (isOutlined) color
+                            else Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp
+                    )
                 }
             }
         }
@@ -266,7 +277,9 @@ fun SummaryCard(
 @Composable
 fun TransactionItem(transaction: TransactionData) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xffF6F6F8)),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -277,17 +290,20 @@ fun TransactionItem(transaction: TransactionData) {
         ) {
             Column(horizontalAlignment = Alignment.Start) {
                 Text(
-                    "${if(transaction.isPositive) "+" else ""}${transaction.amount} ر.س",
-                    color =
-                        if(transaction.isPositive) SuccessGreen
-                    else DangerRed,
+                    "${if (transaction.isPositive) "+" else ""}${transaction.amount} ر.س",
+                    color = if (transaction.isPositive) SuccessGreen else DangerRed,
                     fontWeight = FontWeight.Bold
                 )
                 Text(transaction.status, color = LightText, fontSize = 11.sp)
             }
             Spacer(modifier = Modifier.weight(1f))
             Column(horizontalAlignment = Alignment.End) {
-                Text(transaction.title, fontWeight = FontWeight.Bold, color = DarkNavy, fontSize = 14.sp)
+                Text(
+                    transaction.title,
+                    fontWeight = FontWeight.Bold,
+                    color = DarkNavy,
+                    fontSize = 14.sp
+                )
                 Text(transaction.date, color = LightText, fontSize = 11.sp)
             }
             Spacer(modifier = Modifier.width(12.dp))
@@ -295,23 +311,23 @@ fun TransactionItem(transaction: TransactionData) {
                 modifier = Modifier
                     .size(45.dp)
                     .clip(CircleShape)
-                    .background(if (transaction.isPositive) SuccessBg else if (transaction.title.contains("تحويل")) Color(0xFFF1F5F9) else DangerBg),
+                    .background(
+                        if (transaction.isPositive) SuccessBg
+                        else if (transaction.title.contains("تحويل")) Color(0xFFF1F5F9)
+                        else DangerBg
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector =
-                        if(transaction.title.contains("تحويل"))
-                        Icons.Default.AccountBalance
-                    else if(transaction.isPositive) Icons.Default.Add
-                        else Icons.Default.RemoveCircleOutline,
+                    imageVector = if (transaction.title.contains("تحويل")) Icons.Default.AccountBalance
+                    else if (transaction.isPositive) Icons.Default.Add
+                    else Icons.Default.RemoveCircleOutline,
                     contentDescription = null,
-                    tint =
-                        if(transaction.isPositive) SuccessGreen
-                        else if (transaction.title.contains("تحويل")) DeepBlue
-                        else DangerRed
+                    tint = if (transaction.isPositive) SuccessGreen
+                    else if (transaction.title.contains("تحويل")) DeepBlue
+                    else DangerRed
                 )
             }
         }
     }
 }
-

@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.model.Technician
@@ -52,20 +53,14 @@ fun TechniciansScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        when (selectedTab) {
-            0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
-            1 -> FilteredTechniciansTab(TechnicianStatus.ACTIVE,
-                onTechnicianClick)
-            2 -> FilteredTechniciansTab(TechnicianStatus.WAITING,
-                onTechnicianClick)
-            3 -> FilteredTechniciansTab(TechnicianStatus.SUSPENDED,
-                onTechnicianClick)
-            4 -> ComplaintsScreen(
-                onHandleComplaint = { complaint ->
-
-                    onComplaintClick(complaint)
-                }
-            )
+        Box(modifier = Modifier.weight(1f)) {
+            when (selectedTab) {
+                0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
+                1 -> FilteredTechniciansTab(TechnicianStatus.ACTIVE, onTechnicianClick)
+                2 -> FilteredTechniciansTab(TechnicianStatus.WAITING, onTechnicianClick)
+                3 -> FilteredTechniciansTab(TechnicianStatus.SUSPENDED, onTechnicianClick)
+                4 -> ComplaintsScreen(onHandleComplaint = { onComplaintClick(it) })
+            }
         }
     }
 }
@@ -104,20 +99,25 @@ fun FilteredTechniciansTab(status: TechnicianStatus, onTechnicianClick: (Technic
 @Composable
 fun StatsRow() {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        StatCard("نشط الآن", "٤٢",
-            "%٦٠+", Color(0xFFEC9513), Modifier.weight(1f))
-        StatCard("قيد الانتظار", "١٥",
-            "%٢٠-", Color(0xFFCBD5E1), Modifier.weight(1f))
-        StatCard("تقييم منخفض", "٣",
-            "%٠-", Color(0xFFF87171), Modifier.weight(1f))
+        StatCard("نشط الآن", "٤٢", "%٦٠+", Color(0xFFEC9513), Modifier.weight(1f))
+        StatCard("قيد الانتظار", "١٥", "%٢٠-", Color(0xFFCBD5E1), Modifier.weight(1f))
+        StatCard("تقييم منخفض", "٣", "%٠-", Color(0xFFF87171), Modifier.weight(1f))
     }
 }
 
 @Composable
-fun StatCard(title: String, value: String, subtitle: String, borderColor: Color, modifier: Modifier = Modifier) {
+fun StatCard(
+    title: String,
+    value: String,
+    subtitle: String,
+    borderColor: Color,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .background(Color.White, RoundedCornerShape(12.dp))
@@ -135,9 +135,19 @@ fun StatCard(title: String, value: String, subtitle: String, borderColor: Color,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(title, fontSize = 11.sp, color = Color(0xff64748B))
-            Text(value, fontSize = 22.sp, fontWeight = FontWeight.Bold,
-                color = Color(0xff1E293B))
+            Text(value, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color(0xff1E293B))
             Text(subtitle, fontSize = 11.sp, color = Color(0xFF94A3B8))
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Full Screen Preview", locale = "ar")
+@Composable
+fun TechniciansScreenPreview() {
+    MaterialTheme {
+        TechniciansScreen(
+            onTechnicianClick = {},
+            onComplaintClick = {}
+        )
     }
 }
