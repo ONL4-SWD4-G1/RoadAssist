@@ -36,6 +36,8 @@ android {
     }
     buildFeatures {
         compose = true
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 
@@ -58,4 +60,27 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
 
+
+    // Core Compose
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.material3:material3")
+
+    // Activity + ViewModel
+    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.9.8")
+
+    // Animations
+    implementation("androidx.compose.animation:animation")
+
+    // Debug
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("androidx.compose.material:material-icons-core:<version>")
+    implementation("androidx.compose.material:material-icons-extended:<version>")
 }
