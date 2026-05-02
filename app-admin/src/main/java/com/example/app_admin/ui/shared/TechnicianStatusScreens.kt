@@ -1,4 +1,4 @@
-package com.example.app_admin.ui.customes
+package com.example.app_admin.ui.shared
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

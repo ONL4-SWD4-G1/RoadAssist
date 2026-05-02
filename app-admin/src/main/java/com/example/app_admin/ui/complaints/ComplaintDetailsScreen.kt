@@ -1,7 +1,8 @@
-package com.example.app_admin.ui.Screens
+package com.example.app_admin.ui.complaints
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.R
+import com.example.app_admin.ui.technicians.components.StatusBadges
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,20 +77,20 @@ fun ComplaintDetailsScreen(onBack: () -> Unit,
     }
 }
 
-@Composable
-fun StatusBadges() {
-    Row(modifier = Modifier.padding(end = 8.dp)) {
-        Surface(color = Color(0xFF1D4ED8), shape = RoundedCornerShape(8.dp)) {
-            Text("قيد المراجعة", color = Color.White, modifier = Modifier.
-            padding(horizontal = 8.dp, vertical = 4.dp), fontSize = 11.sp)
-        }
-        Spacer(Modifier.width(4.dp))
-        Surface(color = Color(0xFFBE123C), shape = RoundedCornerShape(8.dp)) {
-            Text("أولوية قصوى", color = Color.White, modifier = Modifier.
-            padding(horizontal = 8.dp, vertical = 4.dp), fontSize = 11.sp)
-        }
-    }
-}
+//@Composable
+//fun StatusBadges() {
+//    Row(modifier = Modifier.padding(end = 8.dp)) {
+//        Surface(color = Color(0xFF1D4ED8), shape = RoundedCornerShape(8.dp)) {
+//            Text("قيد المراجعة", color = Color.White, modifier = Modifier.
+//            padding(horizontal = 8.dp, vertical = 4.dp), fontSize = 11.sp)
+//        }
+//        Spacer(Modifier.width(4.dp))
+//        Surface(color = Color(0xFFBE123C), shape = RoundedCornerShape(8.dp)) {
+//            Text("أولوية قصوى", color = Color.White, modifier = Modifier.
+//            padding(horizontal = 8.dp, vertical = 4.dp), fontSize = 11.sp)
+//        }
+//    }
+//}
 
 @Composable
 fun ComplaintSummarySection() {
@@ -96,7 +98,7 @@ fun ComplaintSummarySection() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.End) {
             SectionHeader(Icons.Default.Info, "ملخص الشكوى")
@@ -153,7 +155,7 @@ fun UserDetailCard(sectionTitle: String, name: String,
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(modifier = Modifier.fillMaxWidth(),
@@ -169,7 +171,7 @@ fun UserDetailCard(sectionTitle: String, name: String,
                     onClick = onProfileClick,
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.height(35.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFF97316))
+                    border = BorderStroke(1.dp, Color(0xFFF97316))
                 ) {
                     Text("الملف الكامل", fontSize = 11.sp, color = Color(0xFFF97316))
                 }
@@ -195,7 +197,7 @@ fun TimelineSection() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.End) {
             SectionHeader(Icons.Default.Timeline, "الخط الزمني للموقع")
@@ -215,7 +217,7 @@ fun AttachmentsSection() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Column(modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.End) {
@@ -303,7 +305,7 @@ fun ActionButton(modifier: Modifier, text: String, color: Color, icon: ImageVect
         modifier = modifier.height(40.dp).clickable { onClick() },
         color = color.copy(alpha = 0.1f),
         shape = RoundedCornerShape(8.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, color)
+        border = BorderStroke(1.dp, color)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
             Text(text, color = color, fontSize = 10.sp, fontWeight = FontWeight.Bold)

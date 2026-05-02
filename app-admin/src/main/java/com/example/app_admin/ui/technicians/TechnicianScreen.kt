@@ -19,7 +19,8 @@ import com.example.app_admin.model.Technician
 import com.example.app_admin.model.TechnicianStatus
 import com.example.app_admin.model.sampleTechnicians
 import com.example.app_admin.ui.complaints.ComplaintsScreen
-import com.example.app_admin.ui.model.Complaint
+import com.example.app_admin.data.model.Complaint
+import com.example.app_admin.ui.technicians.components.StatsRow
 
 @Composable
 fun TechniciansScreen(
@@ -101,43 +102,43 @@ fun FilteredTechniciansTab(status: TechnicianStatus, onTechnicianClick: (Technic
     }
 }
 
-@Composable
-fun StatsRow() {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        StatCard("نشط الآن", "٤٢",
-            "%٦٠+", Color(0xFFEC9513), Modifier.weight(1f))
-        StatCard("قيد الانتظار", "١٥",
-            "%٢٠-", Color(0xFFCBD5E1), Modifier.weight(1f))
-        StatCard("تقييم منخفض", "٣",
-            "%٠-", Color(0xFFF87171), Modifier.weight(1f))
-    }
-}
-
-@Composable
-fun StatCard(title: String, value: String, subtitle: String, borderColor: Color, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .background(Color.White, RoundedCornerShape(12.dp))
-            .drawBehind {
-                val strokeWidth = 4.dp.toPx()
-                drawLine(
-                    color = borderColor,
-                    start = Offset(0f, size.height - strokeWidth / 2),
-                    end = Offset(size.width, size.height - strokeWidth / 2),
-                    strokeWidth = strokeWidth
-                )
-            }
-            .padding(12.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(title, fontSize = 11.sp, color = Color(0xff64748B))
-            Text(value, fontSize = 22.sp, fontWeight = FontWeight.Bold,
-                color = Color(0xff1E293B))
-            Text(subtitle, fontSize = 11.sp, color = Color(0xFF94A3B8))
-        }
-    }
-}
+//@Composable
+//fun StatsRow() {
+//    Row(
+//        modifier = Modifier.fillMaxWidth().padding(16.dp),
+//        horizontalArrangement = Arrangement.spacedBy(12.dp)
+//    ) {
+//        StatCard("نشط الآن", "٤٢",
+//            "%٦٠+", Color(0xFFEC9513), Modifier.weight(1f))
+//        StatCard("قيد الانتظار", "١٥",
+//            "%٢٠-", Color(0xFFCBD5E1), Modifier.weight(1f))
+//        StatCard("تقييم منخفض", "٣",
+//            "%٠-", Color(0xFFF87171), Modifier.weight(1f))
+//    }
+//}
+//
+//@Composable
+//fun StatCard(title: String, value: String, subtitle: String, borderColor: Color, modifier: Modifier = Modifier) {
+//    Box(
+//        modifier = modifier
+//            .background(Color.White, RoundedCornerShape(12.dp))
+//            .drawBehind {
+//                val strokeWidth = 4.dp.toPx()
+//                drawLine(
+//                    color = borderColor,
+//                    start = Offset(0f, size.height - strokeWidth / 2),
+//                    end = Offset(size.width, size.height - strokeWidth / 2),
+//                    strokeWidth = strokeWidth
+//                )
+//            }
+//            .padding(12.dp),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//            Text(title, fontSize = 11.sp, color = Color(0xff64748B))
+//            Text(value, fontSize = 22.sp, fontWeight = FontWeight.Bold,
+//                color = Color(0xff1E293B))
+//            Text(subtitle, fontSize = 11.sp, color = Color(0xFF94A3B8))
+//        }
+//    }
+//}

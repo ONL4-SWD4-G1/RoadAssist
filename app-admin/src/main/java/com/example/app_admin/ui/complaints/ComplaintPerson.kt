@@ -1,5 +1,6 @@
-package com.example.app_admin.ui.Screens
+package com.example.app_admin.ui.complaints
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -165,7 +166,7 @@ fun StatItem(modifier: Modifier, label: String, value: String, icon: ImageVector
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Column(
             modifier = Modifier.padding(12.dp).fillMaxWidth(),
@@ -209,7 +210,7 @@ fun OrderItem(title: String, subtitle: String, icon: ImageVector) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE2E8F0))
+        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Row(modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically) {
@@ -244,7 +245,7 @@ fun UserReviewsSection() {
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.
             cardColors(containerColor = Color.White),
-            border = androidx.compose.foundation.BorderStroke(1.dp,
+            border = BorderStroke(1.dp,
                 Color(0xFFE2E8F0))
         ) {
             Column(modifier = Modifier.padding(16.dp),
@@ -284,7 +285,7 @@ fun UserActionButtons(onWarningClick: () -> Unit) { // أضفنا البارام
             onClick = {},
             modifier = Modifier.weight(1.5f).height(48.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFEF2F2)),
-            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFEE2E2)),
+            border = BorderStroke(1.dp, Color(0xFFFEE2E2)),
             shape = RoundedCornerShape(12.dp)
         ) {
             Icon(Icons.Default.Delete, null, tint = Color(0xFFEF4444), modifier = Modifier.size(18.dp))

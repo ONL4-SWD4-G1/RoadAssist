@@ -1,5 +1,6 @@
-package com.example.app_admin.ui.Screens
+package com.example.app_admin.ui.more
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -54,8 +55,7 @@ fun WarningScreen(onBack: () -> Unit) {
                     onClick = onBack,
                     modifier = Modifier.weight(1f).height(50.dp),
                     shape = RoundedCornerShape(12.dp),
-                    border = androidx.compose.
-                    foundation.BorderStroke(1.dp, BorderGray)
+                    border = BorderStroke(1.dp, BorderGray)
                 ) {
                     Text("إلغاء", color = LightText)
                 }
@@ -158,7 +158,7 @@ fun WarningScreen(onBack: () -> Unit) {
                     Surface(
                         color = Color(0xFFFFF7ED),
                         shape = RoundedCornerShape(12.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFEDD5))
+                        border = BorderStroke(1.dp, Color(0xFFFFEDD5))
                     ) {
                         Row(
                             modifier = Modifier.padding(16.dp),

@@ -24,8 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.R
-import com.example.app_admin.ui.model.TransactionData
-import com.example.app_admin.ui.model.transactions
+import com.example.app_admin.data.model.TransactionData
+import com.example.app_admin.data.model.transactions
+import com.example.app_admin.ui.finance.components.SummaryCard
+import com.example.app_admin.ui.finance.components.TransactionItem
 import com.example.app_admin.ui.theme.*
 
 @Composable
@@ -151,103 +153,103 @@ fun FinanceHeader() {
     }
 }
 
-@Composable
-fun SummaryCard(
-    modifier: Modifier,
-    title: String,
-    value: String,
-    icon: ImageVector,
-    color: Color,
-    isOutlined: Boolean = false
-) {
-    Card(
-        modifier = modifier.height(110.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = if (isOutlined) Color.White else color),
-        border = if (isOutlined) BorderStroke(1.dp, color.copy(alpha = 0.3f)) else null
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
+//@Composable
+//fun SummaryCard(
+//    modifier: Modifier,
+//    title: String,
+//    value: String,
+//    icon: ImageVector,
+//    color: Color,
+//    isOutlined: Boolean = false
+//) {
+//    Card(
+//        modifier = modifier.height(110.dp),
+//        shape = RoundedCornerShape(16.dp),
+//        colors = CardDefaults.cardColors(containerColor = if (isOutlined) Color.White else color),
+//        border = if (isOutlined) BorderStroke(1.dp, color.copy(alpha = 0.3f)) else null
+//    ) {
+//        Box(modifier = Modifier.fillMaxSize()) {
+//
+//            if (!isOutlined) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.overlay),
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .align(Alignment.TopEnd)
+//                        .offset(x = (10).dp, y = (-10).dp)
+//                        .size(90.dp),
+//                    alpha = 0.15f
+//                )
+//            }
+//
+//            Box(modifier = Modifier.fillMaxSize().padding(12.dp)) {
+//                Icon(
+//                    icon, null,
+//                    modifier = Modifier.align(Alignment.TopEnd).size(24.dp),
+//                    tint = if (isOutlined) color else Color.White.copy(alpha = 0.7f)
+//                )
+//                Column(modifier = Modifier.align(Alignment.BottomEnd), horizontalAlignment = Alignment.End) {
+//                    Text(title, color =
+//                        if (isOutlined) LightText
+//                        else Color.White.copy(alpha = 0.9f), fontSize = 11.sp)
+//                    Text(value, color =
+//                        if (isOutlined) color
+//                        else Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+//                }
+//            }
+//        }
+//    }
+//}
 
-            if (!isOutlined) {
-                Image(
-                    painter = painterResource(id = R.drawable.overlay),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .offset(x = (10).dp, y = (-10).dp)
-                        .size(90.dp),
-                    alpha = 0.15f
-                )
-            }
-
-            Box(modifier = Modifier.fillMaxSize().padding(12.dp)) {
-                Icon(
-                    icon, null,
-                    modifier = Modifier.align(Alignment.TopEnd).size(24.dp),
-                    tint = if (isOutlined) color else Color.White.copy(alpha = 0.7f)
-                )
-                Column(modifier = Modifier.align(Alignment.BottomEnd), horizontalAlignment = Alignment.End) {
-                    Text(title, color =
-                        if (isOutlined) LightText
-                        else Color.White.copy(alpha = 0.9f), fontSize = 11.sp)
-                    Text(value, color =
-                        if (isOutlined) color
-                        else Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun TransactionItem(transaction: TransactionData) {
-    Card(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xffF6F6F8)),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-            Column(horizontalAlignment = Alignment.Start) {
-                Text(
-                    "${if(transaction.isPositive) "+" else ""}${transaction.amount} ر.س",
-                    color =
-                        if(transaction.isPositive) SuccessGreen
-                    else DangerRed,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(transaction.status, color = LightText, fontSize = 11.sp)
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Column(horizontalAlignment = Alignment.End) {
-                Text(transaction.title, fontWeight = FontWeight.Bold, color = DarkNavy, fontSize = 14.sp)
-                Text(transaction.date, color = LightText, fontSize = 11.sp)
-            }
-            Spacer(modifier = Modifier.width(12.dp))
-            Box(
-                modifier = Modifier
-                    .size(45.dp)
-                    .clip(CircleShape)
-                    .background(if (transaction.isPositive) SuccessBg else if (transaction.title.contains("تحويل")) Color(0xFFF1F5F9) else DangerBg),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector =
-                        if(transaction.title.contains("تحويل"))
-                        Icons.Default.AccountBalance
-                    else if(transaction.isPositive) Icons.Default.Add
-                        else Icons.Default.RemoveCircleOutline,
-                    contentDescription = null,
-                    tint =
-                        if(transaction.isPositive) SuccessGreen
-                        else if (transaction.title.contains("تحويل")) DeepBlue
-                        else DangerRed
-                )
-            }
-        }
-    }
-}
+//@Composable
+//fun TransactionItem(transaction: TransactionData) {
+//    Card(
+//        modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+//        colors = CardDefaults.cardColors(containerColor = Color(0xffF6F6F8)),
+//        shape = RoundedCornerShape(16.dp)
+//    ) {
+//        Row(
+//            modifier = Modifier.padding(12.dp),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.End
+//        ) {
+//            Column(horizontalAlignment = Alignment.Start) {
+//                Text(
+//                    "${if(transaction.isPositive) "+" else ""}${transaction.amount} ر.س",
+//                    color =
+//                        if(transaction.isPositive) SuccessGreen
+//                    else DangerRed,
+//                    fontWeight = FontWeight.Bold
+//                )
+//                Text(transaction.status, color = LightText, fontSize = 11.sp)
+//            }
+//            Spacer(modifier = Modifier.weight(1f))
+//            Column(horizontalAlignment = Alignment.End) {
+//                Text(transaction.title, fontWeight = FontWeight.Bold, color = DarkNavy, fontSize = 14.sp)
+//                Text(transaction.date, color = LightText, fontSize = 11.sp)
+//            }
+//            Spacer(modifier = Modifier.width(12.dp))
+//            Box(
+//                modifier = Modifier
+//                    .size(45.dp)
+//                    .clip(CircleShape)
+//                    .background(if (transaction.isPositive) SuccessBg else if (transaction.title.contains("تحويل")) Color(0xFFF1F5F9) else DangerBg),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Icon(
+//                    imageVector =
+//                        if(transaction.title.contains("تحويل"))
+//                        Icons.Default.AccountBalance
+//                    else if(transaction.isPositive) Icons.Default.Add
+//                        else Icons.Default.RemoveCircleOutline,
+//                    contentDescription = null,
+//                    tint =
+//                        if(transaction.isPositive) SuccessGreen
+//                        else if (transaction.title.contains("تحويل")) DeepBlue
+//                        else DangerRed
+//                )
+//            }
+//        }
+//    }
+//}
 

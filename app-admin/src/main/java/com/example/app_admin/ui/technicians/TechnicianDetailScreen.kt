@@ -18,8 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.model.Technician
-import com.example.app_admin.ui.customes.*
+import com.example.app_admin.ui.customes.ResultTemplate
+import com.example.app_admin.ui.shared.DocumentRow
+import com.example.app_admin.ui.shared.InfoItem
+import com.example.app_admin.ui.shared.SectionCard
 import com.example.app_admin.ui.theme.*
+import com.example.app_admin.ui.shared.RejectReasonSelectionScreen
+
 
 enum class DetailFlow { VIEW, SELECT_REJECT_REASON, REJECT_SUCCESS, ACCEPT_SUCCESS }
 
@@ -31,7 +36,8 @@ fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
     when (currentFlow) {
         DetailFlow.VIEW -> {
             TechnicianInfoContent(
-                technician = technician, onBack = onBack,
+                technician = technician,
+                onBack = onBack,
                 onRejectClick = { currentFlow = DetailFlow.SELECT_REJECT_REASON },
                 onAcceptClick = { currentFlow = DetailFlow.ACCEPT_SUCCESS }
             )
@@ -40,8 +46,9 @@ fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
             RejectReasonSelectionScreen(
                 technician = technician,
                 onCancel = { currentFlow = DetailFlow.VIEW },
-                onConfirmReject = { reason ->
-                    rejectionReason = reason
+                onConfirmReject = {
+                        reason: String ->
+                rejectionReason = reason
                     currentFlow = DetailFlow.REJECT_SUCCESS
                 }
             )
@@ -74,6 +81,9 @@ fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
     }
 }
 
+
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TechnicianInfoContent(
@@ -89,35 +99,33 @@ fun TechnicianInfoContent(
         topBar = {
             TopAppBar(
                 title = {
-                    Column(horizontalAlignment = Alignment.End,
-                        modifier = Modifier.fillMaxWidth().padding(end = 16.dp)) {
-                        Text(technician.name,
-                            color = SoftWhite,
-                            fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                        Text("قيد التسجيل ●",
-                            color = PrimaryOrange, fontSize = 12.sp)
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        modifier = Modifier.fillMaxWidth().padding(end = 16.dp)
+                    ) {
+                        Text(technician.name, color = SoftWhite, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text("قيد التسجيل ●", color = PrimaryOrange, fontSize = 12.sp)
                     }
                 },
-                navigationIcon = { IconButton(onClick = onBack) {
-                    Icon(Icons.Default.ArrowForward,
-                        "رجوع", tint = SoftWhite) } },
-                colors = TopAppBarDefaults.
-                topAppBarColors(containerColor = NavyBlue)
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Default.ArrowForward, "رجوع", tint = SoftWhite)
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBlue)
             )
         },
         bottomBar = {
             Surface(shadowElevation = 8.dp) {
-                Row(modifier = Modifier.fillMaxWidth()
-                    .background(SoftWhite)
-                    .padding(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().background(SoftWhite).padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     OutlinedButton(
-                        onClick = onRejectClick, modifier =
-                            Modifier.weight(1f).height(50.dp),
-                        colors = ButtonDefaults.
-                        outlinedButtonColors(contentColor = Color.Red),
-                        border = androidx.compose.foundation
-                            .BorderStroke(1.dp, Color.Red),
+                        onClick = onRejectClick,
+                        modifier = Modifier.weight(1f).height(50.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.Red),
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Icon(Icons.Default.Close, null, Modifier.size(18.dp))
@@ -125,7 +133,8 @@ fun TechnicianInfoContent(
                         Text("رفض", fontWeight = FontWeight.Bold)
                     }
                     Button(
-                        onClick = onAcceptClick, modifier = Modifier.weight(2f).height(50.dp),
+                        onClick = onAcceptClick,
+                        modifier = Modifier.weight(2f).height(50.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
                         shape = RoundedCornerShape(12.dp)
                     ) {
@@ -137,26 +146,23 @@ fun TechnicianInfoContent(
             }
         }
     ) { padding ->
-
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Box(Modifier.padding(vertical = 30.dp)) {
-                    Box(Modifier.size(110.dp).clip(CircleShape)
-                        .background(BorderGray)
-                        .border(4.dp, SoftWhite, CircleShape)
-                        , Alignment.Center) {
-                        Icon(Icons.Default.Person
-                            , null,
-                            Modifier.size(60.dp)
-                            , NavyBlue)
+                    Box(
+                        Modifier.size(110.dp).clip(CircleShape).background(BorderGray).border(4.dp, SoftWhite, CircleShape),
+                        Alignment.Center
+                    ) {
+                        Icon(Icons.Default.Person, null, Modifier.size(60.dp), NavyBlue)
                     }
-                    Box(Modifier.align(Alignment.BottomEnd)
-                        .offset((-5).dp, (-5).dp).size(24.dp)
-                        .clip(CircleShape)
-                        .background(PrimaryOrange), Alignment.Center) {
+                    Box(
+                        Modifier.align(Alignment.BottomEnd).offset((-5).dp, (-5).dp)
+                            .size(24.dp).clip(CircleShape).background(PrimaryOrange),
+                        Alignment.Center
+                    ) {
                         Icon(Icons.Default.Verified, null, tint = SoftWhite, modifier = Modifier.size(16.dp))
                     }
                 }
@@ -170,10 +176,8 @@ fun TechnicianInfoContent(
                     }
                     HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
                     Row(Modifier.fillMaxWidth()) {
-                        InfoItem("المدينة",
-                            technician.city, Modifier.weight(1f))
-                        InfoItem("التخصص",
-                            technician.specialty, Modifier.weight(1f))
+                        InfoItem("المدينة", technician.city, Modifier.weight(1f))
+                        InfoItem("التخصص", technician.specialty, Modifier.weight(1f))
                     }
                     HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
                     Row(Modifier.fillMaxWidth()) {
@@ -209,9 +213,7 @@ fun TechnicianInfoContent(
                 }
             }
 
-            item {
-                Spacer(Modifier.height(20.dp))
-            }
+            item { Spacer(Modifier.height(20.dp)) }
         }
     }
 }

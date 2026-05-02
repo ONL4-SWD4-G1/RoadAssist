@@ -1,4 +1,4 @@
-package com.example.app_admin.ui.model
+package com.example.app_admin.data.model
 
 data class TransactionData(val title: String, val amount: String, val date: String, val status: String, val isPositive: Boolean)
 

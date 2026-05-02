@@ -1,4 +1,4 @@
-package com.example.app_admin.ui.main
+package com.example.app_admin.ui.navigation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,14 +12,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.model.Technician
-import com.example.app_admin.ui.Screens.MoreScreen
+import com.example.app_admin.ui.more.MoreScreen
 import com.example.app_admin.ui.finance.FinanceScreen
-import com.example.app_admin.ui.model.Complaint
+import com.example.app_admin.data.model.Complaint
 import com.example.app_admin.ui.technicians.TechnicianDetailScreen
 import com.example.app_admin.ui.technicians.TechniciansScreen
-import com.example.app_admin.ui.Screens.ComplaintDetailsScreen
-import com.example.app_admin.ui.Screens.WarningScreen
-import com.example.app_admin.ui.Screens.CompliantPerson
+import com.example.app_admin.ui.complaints.ComplaintDetailsScreen
+import com.example.app_admin.ui.more.WarningScreen
+import com.example.app_admin.ui.complaints.CompliantPerson
 
 @Composable
 fun MainScreen() {

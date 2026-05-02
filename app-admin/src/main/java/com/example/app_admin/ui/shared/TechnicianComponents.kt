@@ -1,4 +1,4 @@
-package com.example.app_admin.ui.customes
+package com.example.app_admin.ui.shared
 
 
 import androidx.compose.foundation.background
@@ -49,53 +49,53 @@ fun SectionCard(title: String, icon: ImageVector, content: @Composable ColumnSco
     }
 }
 
-@Composable
-fun InfoItem(label: String, value: String,
-             modifier: Modifier = Modifier,
-             valueColor: Color = NavyBlue) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.End) {
-        Text(label, fontSize = 12.sp, color = LightBlueGray)
-        Text(value, fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            color = valueColor,
-            textAlign = TextAlign.End)
-    }
-}
+//@Composable
+//fun InfoItem(label: String, value: String,
+//             modifier: Modifier = Modifier,
+//             valueColor: Color = NavyBlue) {
+//    Column(modifier = modifier, horizontalAlignment = Alignment.End) {
+//        Text(label, fontSize = 12.sp, color = LightBlueGray)
+//        Text(value, fontSize = 14.sp,
+//            fontWeight = FontWeight.Bold,
+//            color = valueColor,
+//            textAlign = TextAlign.End)
+//    }
+//}
 
-@Composable
-fun DocumentRow(title: String, isFile: Boolean = false) {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-            .border(1.dp, DividerGray,
-                RoundedCornerShape(12.dp))
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End
-    ) {
-        Icon(Icons.Default.KeyboardArrowLeft,
-            contentDescription = null, tint = LightBlueGray)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Column(horizontalAlignment = Alignment.End) {
-            Text(title, fontSize = 13.sp,
-                fontWeight = FontWeight.Bold, color = NavyBlue)
-            Text("تم الرفع: ٢٠ أكتوبر ٢٠٢٣", fontSize = 11.sp, color = DarkGray)
-        }
-        Spacer(modifier = Modifier.width(12.dp))
-        Box(
-            modifier = Modifier.size(50.dp).clip(RoundedCornerShape(8.dp))
-                .background(if (isFile) LightBlueGray else NavyBlue),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector =
-                    if (isFile) Icons.Default.Description
-                    else Icons.Default.Search,
-                contentDescription = null,
-                tint = SoftWhite,
-                modifier = Modifier.size(20.dp)
-            )
-        }
-    }
-}
+//@Composable
+//fun DocumentRow(title: String, isFile: Boolean = false) {
+//    Row(
+//        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+//            .border(1.dp, DividerGray,
+//                RoundedCornerShape(12.dp))
+//            .padding(8.dp),
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.End
+//    ) {
+//        Icon(Icons.Default.KeyboardArrowLeft,
+//            contentDescription = null, tint = LightBlueGray)
+//
+//        Spacer(modifier = Modifier.weight(1f))
+//
+//        Column(horizontalAlignment = Alignment.End) {
+//            Text(title, fontSize = 13.sp,
+//                fontWeight = FontWeight.Bold, color = NavyBlue)
+//            Text("تم الرفع: ٢٠ أكتوبر ٢٠٢٣", fontSize = 11.sp, color = DarkGray)
+//        }
+//        Spacer(modifier = Modifier.width(12.dp))
+//        Box(
+//            modifier = Modifier.size(50.dp).clip(RoundedCornerShape(8.dp))
+//                .background(if (isFile) LightBlueGray else NavyBlue),
+//            contentAlignment = Alignment.Center
+//        ) {
+//            Icon(
+//                imageVector =
+//                    if (isFile) Icons.Default.Description
+//                    else Icons.Default.Search,
+//                contentDescription = null,
+//                tint = SoftWhite,
+//                modifier = Modifier.size(20.dp)
+//            )
+//        }
+//    }
+//}

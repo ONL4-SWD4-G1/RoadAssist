@@ -1,4 +1,4 @@
-package com.example.app_admin.ui.model
+package com.example.app_admin.data.model
 
 enum class ComplaintStatus { OPEN, UNDER_REVIEW, RESOLVED }
 
