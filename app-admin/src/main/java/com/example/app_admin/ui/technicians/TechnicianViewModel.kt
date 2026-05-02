@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.app_admin.model.Technician
 import com.example.app_admin.model.TechnicianStatus
 import com.example.app_admin.model.sampleTechnicians
+import com.example.app_admin.ui.screens.DetailFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

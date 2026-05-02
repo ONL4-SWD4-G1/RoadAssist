@@ -1,15 +1,51 @@
-package com.example.app_admin.ui.technicians
+package com.example.app_admin.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.EditNote
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PersonOutline
+import androidx.compose.material.icons.filled.Verified
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,7 +53,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.app_admin.R
 import com.example.app_admin.model.Technician
+<<<<<<<< HEAD:app-admin/src/main/java/com/example/app_admin/ui/technicians/TechnicianDetailScreen.kt
 import com.example.app_admin.ui.customes.ResultTemplate
 import com.example.app_admin.ui.shared.DocumentRow
 import com.example.app_admin.ui.shared.InfoItem
@@ -25,6 +63,19 @@ import com.example.app_admin.ui.shared.SectionCard
 import com.example.app_admin.ui.theme.*
 import com.example.app_admin.ui.shared.RejectReasonSelectionScreen
 
+========
+import com.example.app_admin.ui.customes.DocumentRow
+import com.example.app_admin.ui.customes.InfoItem
+import com.example.app_admin.ui.customes.RejectReasonSelectionScreen
+import com.example.app_admin.ui.customes.SectionCard
+import com.example.app_admin.ui.theme.BackgroundGray
+import com.example.app_admin.ui.theme.BorderGray
+import com.example.app_admin.ui.theme.DividerGray
+import com.example.app_admin.ui.theme.NavyBlue
+import com.example.app_admin.ui.theme.PrimaryOrange
+import com.example.app_admin.ui.theme.SoftWhite
+import com.example.app_admin.ui.theme.SuccessGreen
+>>>>>>>> 858ea282d45b51eb4ee20f6fcba7c3f7428c2e6f:app-admin/src/main/java/com/example/app_admin/ui/screens/TechnicianDetailScreen.kt
 
 enum class DetailFlow { VIEW, SELECT_REJECT_REASON, REJECT_SUCCESS, ACCEPT_SUCCESS }
 
@@ -55,7 +106,7 @@ fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
         }
         DetailFlow.REJECT_SUCCESS -> {
             ResultTemplate(
-                imageRes = com.example.app_admin.R.drawable.reject,
+                imageRes = R.drawable.reject,
                 title = "تم رفض طلب التسجيل",
                 subtitle = "تم إرسال سبب الرفض للفني وحفظ الطلب في السجل بنجاح.",
                 technician = technician,
@@ -68,7 +119,7 @@ fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
         }
         DetailFlow.ACCEPT_SUCCESS -> {
             ResultTemplate(
-                imageRes = com.example.app_admin.R.drawable.successicon,
+                imageRes = R.drawable.successicon,
                 title = "تم قبول الفني بنجاح",
                 subtitle = "تم إرسال إشعار القبول وتفعيل الحساب الآن للفني المعتمد.",
                 technician = technician,
@@ -99,12 +150,24 @@ fun TechnicianInfoContent(
         topBar = {
             TopAppBar(
                 title = {
+<<<<<<<< HEAD:app-admin/src/main/java/com/example/app_admin/ui/technicians/TechnicianDetailScreen.kt
                     Column(
                         horizontalAlignment = Alignment.End,
                         modifier = Modifier.fillMaxWidth().padding(end = 16.dp)
                     ) {
                         Text(technician.name, color = SoftWhite, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                         Text("قيد التسجيل ●", color = PrimaryOrange, fontSize = 12.sp)
+========
+                    Column(horizontalAlignment = Alignment.End,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp)) {
+                        Text(technician.name,
+                            color = SoftWhite,
+                            fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text("قيد التسجيل ●",
+                            color = PrimaryOrange, fontSize = 12.sp)
+>>>>>>>> 858ea282d45b51eb4ee20f6fcba7c3f7428c2e6f:app-admin/src/main/java/com/example/app_admin/ui/screens/TechnicianDetailScreen.kt
                     }
                 },
                 navigationIcon = {
@@ -117,6 +180,7 @@ fun TechnicianInfoContent(
         },
         bottomBar = {
             Surface(shadowElevation = 8.dp) {
+<<<<<<<< HEAD:app-admin/src/main/java/com/example/app_admin/ui/technicians/TechnicianDetailScreen.kt
                 Row(
                     modifier = Modifier.fillMaxWidth().background(SoftWhite).padding(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -126,6 +190,21 @@ fun TechnicianInfoContent(
                         modifier = Modifier.weight(1f).height(50.dp),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color.Red),
+========
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .background(SoftWhite)
+                    .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    OutlinedButton(
+                        onClick = onRejectClick, modifier =
+                            Modifier
+                                .weight(1f)
+                                .height(50.dp),
+                        colors = ButtonDefaults.
+                        outlinedButtonColors(contentColor = Color.Red),
+                        border = BorderStroke(1.dp, Color.Red),
+>>>>>>>> 858ea282d45b51eb4ee20f6fcba7c3f7428c2e6f:app-admin/src/main/java/com/example/app_admin/ui/screens/TechnicianDetailScreen.kt
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Icon(Icons.Default.Close, null, Modifier.size(18.dp))
@@ -133,8 +212,14 @@ fun TechnicianInfoContent(
                         Text("رفض", fontWeight = FontWeight.Bold)
                     }
                     Button(
+<<<<<<<< HEAD:app-admin/src/main/java/com/example/app_admin/ui/technicians/TechnicianDetailScreen.kt
                         onClick = onAcceptClick,
                         modifier = Modifier.weight(2f).height(50.dp),
+========
+                        onClick = onAcceptClick, modifier = Modifier
+                            .weight(2f)
+                            .height(50.dp),
+>>>>>>>> 858ea282d45b51eb4ee20f6fcba7c3f7428c2e6f:app-admin/src/main/java/com/example/app_admin/ui/screens/TechnicianDetailScreen.kt
                         colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
                         shape = RoundedCornerShape(12.dp)
                     ) {
@@ -147,11 +232,14 @@ fun TechnicianInfoContent(
         }
     ) { padding ->
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Box(Modifier.padding(vertical = 30.dp)) {
+<<<<<<<< HEAD:app-admin/src/main/java/com/example/app_admin/ui/technicians/TechnicianDetailScreen.kt
                     Box(
                         Modifier.size(110.dp).clip(CircleShape).background(BorderGray).border(4.dp, SoftWhite, CircleShape),
                         Alignment.Center
@@ -163,6 +251,25 @@ fun TechnicianInfoContent(
                             .size(24.dp).clip(CircleShape).background(PrimaryOrange),
                         Alignment.Center
                     ) {
+========
+                    Box(Modifier
+                        .size(110.dp)
+                        .clip(CircleShape)
+                        .background(BorderGray)
+                        .border(4.dp, SoftWhite, CircleShape)
+                        , Alignment.Center) {
+                        Icon(Icons.Default.Person
+                            , null,
+                            Modifier.size(60.dp)
+                            , NavyBlue)
+                    }
+                    Box(Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset((-5).dp, (-5).dp)
+                        .size(24.dp)
+                        .clip(CircleShape)
+                        .background(PrimaryOrange), Alignment.Center) {
+>>>>>>>> 858ea282d45b51eb4ee20f6fcba7c3f7428c2e6f:app-admin/src/main/java/com/example/app_admin/ui/screens/TechnicianDetailScreen.kt
                         Icon(Icons.Default.Verified, null, tint = SoftWhite, modifier = Modifier.size(16.dp))
                     }
                 }
@@ -201,7 +308,9 @@ fun TechnicianInfoContent(
                         value = notes,
                         onValueChange = { notes = it },
                         placeholder = { Text("أضف ملاحظاتك...", fontSize = 13.sp) },
-                        modifier = Modifier.fillMaxWidth().height(100.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(100.dp),
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = BackgroundGray,
