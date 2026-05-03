@@ -2,9 +2,7 @@ package com.example.app_admin.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-<<<<<<<< HEAD:app-admin/src/main/java/com/example/app_admin/ui/shared/ResultTemplateScreen.kt
 import androidx.compose.foundation.layout.*
-========
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
->>>>>>>> 858ea282d45b51eb4ee20f6fcba7c3f7428c2e6f:app-admin/src/main/java/com/example/app_admin/ui/screens/ResultTemplateScreen.kt
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
