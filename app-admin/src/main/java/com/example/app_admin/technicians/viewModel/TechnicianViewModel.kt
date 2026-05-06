@@ -1,23 +1,13 @@
 package com.example.app_admin.technicians.viewModel
 
 import androidx.lifecycle.ViewModel
-
-import com.example.app_admin.model.Technician
-import com.example.app_admin.model.TechnicianStatus
-import com.example.app_admin.model.sampleTechnicians
-import com.example.app_admin.ui.screens.DetailFlow
+import com.example.app_admin.technicians.model.DetailFlow
+import com.example.app_admin.technicians.model.Technician
+import com.example.app_admin.technicians.model.TechnicianStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-
-data class TechnicianUiState(
-    val allTechnicians: List<Technician> = sampleTechnicians,
-    val selectedTab: Int = 0,
-    val selectedTechnician: Technician? = null,
-    val rejectionReason: String = "",
-    val currentFlow: DetailFlow = DetailFlow.VIEW
-)
 
 class TechnicianViewModel : ViewModel() {
 

@@ -1,22 +1,36 @@
 package com.example.app_admin.technicians.view
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.model.Technician
-import com.example.app_admin.model.TechnicianStatus
-import com.example.app_admin.model.sampleTechnicians
-import com.example.app_admin.ui.complaints.view.ComplaintsScreen
-import com.example.app_admin.ui.complaints.model.Complaint
-import com.example.app_admin.ui.technicians.TechnicianCard
-import com.example.app_admin.ui.technicians.view.component.StatsRow
+import com.example.app_admin.complaints.model.Complaint
+import com.example.app_admin.complaints.view.ComplaintsScreen
+import com.example.app_admin.sampleTechnicians
+import com.example.app_admin.technicians.model.Technician
+import com.example.app_admin.technicians.model.TechnicianStatus
+import com.example.app_admin.technicians.view.component.StatCard
+import com.example.app_admin.technicians.view.component.TechnicianCard
 
 @Composable
 fun TechniciansScreen(
@@ -51,15 +65,24 @@ fun TechniciansScreen(
 
         when (selectedTab) {
             0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
-            1 -> FilteredTechniciansTab(TechnicianStatus.ACTIVE,
-                onTechnicianClick)
-            2 -> FilteredTechniciansTab(TechnicianStatus.WAITING,
-                onTechnicianClick)
-            3 -> FilteredTechniciansTab(TechnicianStatus.SUSPENDED,
-                onTechnicianClick)
+
+            1 -> FilteredTechniciansTab(
+                status = TechnicianStatus.ACTIVE,
+                onTechnicianClick = onTechnicianClick
+            )
+
+            2 -> FilteredTechniciansTab(
+                status = TechnicianStatus.WAITING,
+                onTechnicianClick = onTechnicianClick
+            )
+
+            3 -> FilteredTechniciansTab(
+                status = TechnicianStatus.SUSPENDED,
+                onTechnicianClick = onTechnicianClick
+            )
+
             4 -> ComplaintsScreen(
                 onHandleComplaint = { complaint ->
-
                     onComplaintClick(complaint)
                 }
             )
@@ -83,8 +106,12 @@ fun AllTechniciansTab(onTechnicianClick: (Technician) -> Unit) {
 }
 
 @Composable
-fun FilteredTechniciansTab(status: TechnicianStatus, onTechnicianClick: (Technician) -> Unit) {
+fun FilteredTechniciansTab(
+    status: TechnicianStatus,
+    onTechnicianClick: (Technician) -> Unit
+) {
     val filtered = sampleTechnicians.filter { it.status == status }
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(vertical = 8.dp)
@@ -98,43 +125,45 @@ fun FilteredTechniciansTab(status: TechnicianStatus, onTechnicianClick: (Technic
     }
 }
 
-//@Composable
-//fun StatsRow() {
-//    Row(
-//        modifier = Modifier.fillMaxWidth().padding(16.dp),
-//        horizontalArrangement = Arrangement.spacedBy(12.dp)
-//    ) {
-//        StatCard("نشط الآن", "٤٢",
-//            "%٦٠+", Color(0xFFEC9513), Modifier.weight(1f))
-//        StatCard("قيد الانتظار", "١٥",
-//            "%٢٠-", Color(0xFFCBD5E1), Modifier.weight(1f))
-//        StatCard("تقييم منخفض", "٣",
-//            "%٠-", Color(0xFFF87171), Modifier.weight(1f))
-//    }
-//}
-//
-//@Composable
-//fun StatCard(title: String, value: String, subtitle: String, borderColor: Color, modifier: Modifier = Modifier) {
-//    Box(
-//        modifier = modifier
-//            .background(Color.White, RoundedCornerShape(12.dp))
-//            .drawBehind {
-//                val strokeWidth = 4.dp.toPx()
-//                drawLine(
-//                    color = borderColor,
-//                    start = Offset(0f, size.height - strokeWidth / 2),
-//                    end = Offset(size.width, size.height - strokeWidth / 2),
-//                    strokeWidth = strokeWidth
-//                )
-//            }
-//            .padding(12.dp),
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//            Text(title, fontSize = 11.sp, color = Color(0xff64748B))
-//            Text(value, fontSize = 22.sp, fontWeight = FontWeight.Bold,
-//                color = Color(0xff1E293B))
-//            Text(subtitle, fontSize = 11.sp, color = Color(0xFF94A3B8))
-//        }
-//    }
-//}
+@Composable
+fun StatsRow() {
+    Row(
+        modifier = Modifier.Companion
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        StatCard(
+            title = "نشط الآن",
+            value = "٤٢",
+            subtitle = "%٦٠+",
+            borderColor = Color(0xFFEC9513),
+            modifier = Modifier.weight(1f)
+        )
+        StatCard(
+            title = "قيد الانتظار",
+            value = "١٥",
+            subtitle = "%٢٠-",
+            borderColor = Color(0xFFCBD5E1),
+            modifier = Modifier.weight(1f)
+        )
+        StatCard(
+            title = "تقييم منخفض",
+            value = "٣",
+            subtitle = "%٠-",
+            borderColor = Color(0xFFF87171),
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Full Screen Preview", locale = "ar")
+@Composable
+fun TechniciansScreenPreview() {
+    MaterialTheme {
+        TechniciansScreen(
+            onTechnicianClick = {},
+            onComplaintClick = {}
+        )
+    }
+}

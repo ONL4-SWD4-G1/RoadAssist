@@ -3,11 +3,29 @@ package com.example.app_admin.technicians.view.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,13 +34,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.model.Technician
-import com.example.app_admin.model.TechnicianStatus
-import com.example.app_admin.model.sampleTechnicians
 import com.example.app_admin.R
+import com.example.app_admin.sampleTechnicians
+import com.example.app_admin.shared.StatusBadge
+import com.example.app_admin.technicians.model.Technician
+import com.example.app_admin.technicians.model.TechnicianStatus
 
 @Composable
 fun TechnicianCard(
@@ -39,10 +59,9 @@ fun TechnicianCard(
         colors = CardDefaults.cardColors(containerColor = Color.White),
     ) {
         Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(IntrinsicSize.Min),
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -52,20 +71,19 @@ fun TechnicianCard(
                     .weight(1f)
             ) {
 
-                StatusBadge(status = technician.status)
-
-//                Spacer(modifier = Modifier.height(6.dp))
-
+                StatusBadge(
+                    label = technician.status.label,
+                    color = technician.status.color,
+                )
 
                 Text(
                     text = technician.name,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = androidx.compose.ui.text.style.TextAlign.End,
+                    textAlign = TextAlign.End,
                     color = Color(0xff1E293B)
                 )
-
 
                 Text(
                     text = technician.specialty,
@@ -74,7 +92,7 @@ fun TechnicianCard(
                     modifier = Modifier
                         .padding(top = 2.dp)
                         .fillMaxWidth(),
-                    textAlign = androidx.compose.ui.text.style.TextAlign.End
+                    textAlign = TextAlign.End
                 )
 
 
@@ -107,16 +125,24 @@ fun TechnicianCard(
 
 
                 if (technician.status == TechnicianStatus.NEW_REQUEST) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
                         OutlinedButton(
                             onClick = { onDetailsClick() },
                             modifier = Modifier.weight(2f),
-                            border = BorderStroke(width = 1.dp,
-                                color = Color(0xffE2E8F0)),
+                            border = BorderStroke(
+                                width = 1.dp,
+                                color = Color(0xffE2E8F0)
+                            ),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("عرض التفاصيل", fontSize = 10.sp,
-                                fontWeight = FontWeight.ExtraBold, color = Color(0xff1E293B))
+                            Text(
+                                text = "عرض التفاصيل",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = Color(0xff1E293B)
+                            )
                         }
                         Button(
                             onClick = { onAccept?.invoke() },
@@ -125,7 +151,12 @@ fun TechnicianCard(
                                 .buttonColors(containerColor = Color(0xFFF5A623)),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("قبول", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
+                            Text(
+                                text = "قبول",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = Color.White
+                            )
                         }
                         OutlinedButton(
                             onClick = { onReject?.invoke() },
@@ -135,7 +166,7 @@ fun TechnicianCard(
                             border = BorderStroke(width = 1.dp, color = Color(0xffEF4444)),
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("رفض", fontSize = 10.sp)
+                            Text(text = "رفض", fontSize = 10.sp)
                         }
                     }
                 } else {
@@ -144,9 +175,11 @@ fun TechnicianCard(
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF5A623)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text("عرض التفاصيل", fontSize = 11.sp,
+                        Text(
+                            text = "عرض التفاصيل",
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
-                            )
+                        )
                     }
                 }
             }
@@ -172,24 +205,6 @@ fun TechnicianCard(
             }
         }
 
-    }
-}
-
-@Composable
-fun StatusBadge(status: TechnicianStatus) {
-    val (text, color) = when (status) {
-        TechnicianStatus.ACTIVE -> "نشط" to Color(0xFF15803D)
-        TechnicianStatus.WAITING -> "قيد الانتظار" to Color(0xFFA16207)
-        TechnicianStatus.SUSPENDED -> "موقوف" to Color(0xFFB91C1C)
-        TechnicianStatus.NEW_REQUEST -> "طلب جديد" to Color(0xFFC2410C)
-    }
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(20.dp))
-            .background(color.copy(alpha = 0.15f))
-            .padding(horizontal = 8.dp, vertical = 2.dp)
-    ) {
-        Text(text, color = color, fontSize = 11.sp, fontWeight = FontWeight.Bold)
     }
 }
 
