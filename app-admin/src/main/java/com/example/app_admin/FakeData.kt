@@ -3,6 +3,8 @@ package com.example.app_admin
 import com.example.app_admin.complaints.model.Complaint
 import com.example.app_admin.complaints.model.ComplaintStatus
 import com.example.app_admin.finance.model.TransactionData
+import com.example.app_admin.orders.model.Order
+import com.example.app_admin.orders.model.OrderStatus
 import com.example.app_admin.technicians.model.Technician
 import com.example.app_admin.technicians.model.TechnicianStatus
 
@@ -107,5 +109,53 @@ val transactions = listOf(
         date = "19 فبراير، 09:45 م",
         status = "مكتمل",
         isPositive = true
+    )
+)
+
+val sampleOrders = listOf(
+    Order(
+        id = "1",
+        orderNumber = "8842",
+        amount = "١٥٠ ر.س",
+        orderStatus = OrderStatus.IN_PROGRESS,
+        address = "حي النرجس، الرياض",
+        timeElapsed = "منذ ٥ دقائق",
+        clientName = "سليمان عبد العزيز"
+    ),
+    Order(
+        id = "2",
+        orderNumber = "8841",
+        amount = "٢٣٠ ر.س",
+        orderStatus = OrderStatus.NEW_REQUEST,
+        address = "طريق الملك فهد، جدة",
+        timeElapsed = "الآن",
+        clientName = "نايف السالم"
+    ),
+    Order(
+        id = "3",
+        orderNumber = "8840",
+        amount = "٩٠ ر.س",
+        orderStatus = OrderStatus.COMPLETED,
+        address = "حي الياسمين، الرياض",
+        timeElapsed = "منذ ساعة",
+        clientName = "فهد الجارالله"
+    ),
+    Order(
+        id = "2",
+        orderNumber = "8841",
+        amount = "٢٣٠ ر.س",
+        orderStatus = OrderStatus.NEW_REQUEST,
+        address = "طريق الملك فهد، جدة",
+        timeElapsed = "الآن",
+        clientName = "نايف السالم"
+    ),
+    Order(
+        id = "3",
+        orderNumber = "8840",
+        amount = "٩٠ ر.س",
+        orderStatus = OrderStatus.COMPLETED,
+        address = "حي الياسمين، الرياض",
+        timeElapsed = "منذ ساعة",
+        clientName = "فهد الجارالله"
     )
 )

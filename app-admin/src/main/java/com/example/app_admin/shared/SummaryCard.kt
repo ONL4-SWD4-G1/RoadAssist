@@ -18,13 +18,17 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.R
@@ -52,13 +56,15 @@ fun SummaryCard(
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             if (!isOutlined) {
+                val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
                 Image(
                     painter = painterResource(id = R.drawable.overlay),
                     contentDescription = null,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .offset(x = (10).dp, y = (-10).dp)
-                        .size(90.dp),
+                        .size(90.dp)
+                        .scale(scaleX = if (isRtl) -1f else 1f, scaleY = 1f),
                     alpha = 0.15f
                 )
             }
@@ -72,13 +78,13 @@ fun SummaryCard(
                     imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier
-                        .align(Alignment.TopEnd)
+                        .align(Alignment.TopStart)
                         .size(24.dp),
                     tint = if (isOutlined) containerColor else Color.White.copy(alpha = 0.7f)
                 )
                 Column(
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    horizontalAlignment = Alignment.End
+                    modifier = Modifier.align(Alignment.BottomStart),
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Text(
                         text = title,
@@ -113,17 +119,38 @@ fun PreviewSummaryCardSolid() {
     }
 }
 
+@Preview(name = "Solid Card State", showBackground = true, locale = "ar")
+@Composable
+fun PreviewSummaryCardSolidLtr() {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+
+        Box(modifier = Modifier.padding(16.dp)) {
+            SummaryCard(
+                modifier = Modifier.fillMaxWidth(),
+                title = "إجمالي الرصيد",
+                value = "٤,٥٠٠ ر.س",
+                icon = Icons.Default.AccountBalanceWallet,
+                containerColor = Color(0xFF1E293B),
+                isOutlined = false
+            )
+        }
+    }
+}
+
 @Preview(name = "Outlined Card State", showBackground = true, locale = "ar")
 @Composable
 fun PreviewSummaryCardOutlined() {
-    Box(modifier = Modifier.padding(16.dp)) {
-        SummaryCard(
-            modifier = Modifier.fillMaxWidth(),
-            title = "أرباح الشهر",
-            value = "١,٢٠٠ ر.س",
-            icon = Icons.Default.AccountBalanceWallet,
-            containerColor = Color(0xFFF5A623),
-            isOutlined = true
-        )
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+
+        Box(modifier = Modifier.padding(16.dp)) {
+            SummaryCard(
+                modifier = Modifier.fillMaxWidth(),
+                title = "أرباح الشهر",
+                value = "١,٢٠٠ ر.س",
+                icon = Icons.Default.AccountBalanceWallet,
+                containerColor = Color(0xFFF5A623),
+                isOutlined = true
+            )
+        }
     }
 }

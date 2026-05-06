@@ -6,7 +6,8 @@ enum class OrderStatus(val label: String, val color: Color) {
     NEW_REQUEST("طلب جديد", Color(0xFFF59E0B)),
     IN_PROGRESS("جاري التنفيذ", Color(0xFF3B82F6)),
     COMPLETED("مكتمل", Color(0xFF10B981)),
-    CANCELLED("ملغي", Color(0xFFEF4444));
+    CANCELLED("ملغي", Color(0xFFEF4444)),
+    WAITING("بانتظار الفني", Color(0xFFA16207));
 
     companion object {
         fun fromString(value: String?): OrderStatus {
