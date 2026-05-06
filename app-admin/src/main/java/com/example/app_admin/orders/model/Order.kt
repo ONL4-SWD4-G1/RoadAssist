@@ -1,5 +1,8 @@
 package com.example.app_admin.orders.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Order(
     val id: String,
     val orderNumber: String,

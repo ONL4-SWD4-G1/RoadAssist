@@ -21,9 +21,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.app_admin.orders.components.OrderCard
 import com.example.app_admin.orders.components.ScrollableSummaryRow
 import com.example.app_admin.orders.components.SectionHeader
@@ -34,8 +34,9 @@ import com.example.app_admin.shared.RoadAssistTopAppBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrdersScreen(
-    viewModel: OrdersViewModel, // Injecting ViewModel
+    viewModel: OrdersViewModel = viewModel(),
     onMenuClick: () -> Unit = {},
+    onOrderClick: (Int) -> Unit = {},
     onNotificationClick: () -> Unit = {},
     onFilterClick: () -> Unit = {}
 ) {
@@ -103,23 +104,4 @@ fun OrdersScreen(
             }
         }
     }
-}
-
-@Preview(
-    name = "Orders Screen - Arabic",
-    showBackground = true,
-    showSystemUi = true,
-    locale = "ar"
-)
-@Composable
-fun OrdersScreenPreview() {
-
-    val previewViewModel = OrdersViewModel()
-
-    OrdersScreen(
-        viewModel = previewViewModel,
-        onMenuClick = { },
-        onNotificationClick = { },
-        onFilterClick = { }
-    )
 }

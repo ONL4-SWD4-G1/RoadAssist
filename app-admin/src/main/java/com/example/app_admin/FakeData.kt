@@ -141,7 +141,7 @@ val sampleOrders = listOf(
         clientName = "فهد الجارالله"
     ),
     Order(
-        id = "2",
+        id = "4",
         orderNumber = "8841",
         amount = "٢٣٠ ر.س",
         orderStatus = OrderStatus.NEW_REQUEST,
@@ -150,7 +150,7 @@ val sampleOrders = listOf(
         clientName = "نايف السالم"
     ),
     Order(
-        id = "3",
+        id = "5",
         orderNumber = "8840",
         amount = "٩٠ ر.س",
         orderStatus = OrderStatus.COMPLETED,

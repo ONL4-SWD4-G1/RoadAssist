@@ -25,11 +25,12 @@ class OrdersViewModel : ViewModel() {
     fun onTabSelected(index: Int) {
         _uiState.update { currentState ->
             val filteredOrders = when (index) {
-                0 -> sampleOrders // "الكل"
+                0 -> sampleOrders
                 1 -> sampleOrders.filter { it.orderStatus == OrderStatus.IN_PROGRESS || it.orderStatus == OrderStatus.NEW_REQUEST } // "النشطة"
-                2 -> sampleOrders.filter { it.orderStatus == OrderStatus.CANCELLED } // "الملغاة"
-                3 -> sampleOrders.filter { it.orderStatus == OrderStatus.COMPLETED } // "المكتملة"
-                else -> sampleOrders // Handle others
+                2 -> sampleOrders.filter { it.orderStatus == OrderStatus.CANCELLED }
+                3 -> sampleOrders.filter { it.orderStatus == OrderStatus.COMPLETED }
+                4 -> sampleOrders.filter { it.orderStatus == OrderStatus.CANCELLED }
+                else -> sampleOrders
             }
             currentState.copy(
                 selectedTabIndex = index,
