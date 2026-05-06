@@ -51,16 +51,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.R
+import com.example.app_admin.sampleTechnicians
 import com.example.app_admin.shared.DocumentRow
-import com.example.app_admin.shared.InfoItem
-import com.example.app_admin.shared.RejectReasonSelectionScreen
-import com.example.app_admin.shared.ResultTemplate
-import com.example.app_admin.shared.SectionCard
 import com.example.app_admin.technicians.model.DetailFlow
 import com.example.app_admin.technicians.model.Technician
+import com.example.app_admin.technicians.view.component.InfoItem
+import com.example.app_admin.technicians.view.component.SectionCard
 import com.example.app_admin.theme.BackgroundGray
 import com.example.app_admin.theme.BorderGray
 import com.example.app_admin.theme.DividerGray
@@ -139,61 +139,17 @@ fun TechnicianInfoContent(
         topBar = {
             TopAppBar(
                 title = {
-                    Column(
-                        horizontalAlignment = Alignment.End,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 16.dp)
-                    ) {
-                        Text(technician.name, color = SoftWhite, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                        Text("قيد التسجيل ●", color = PrimaryOrange, fontSize = 12.sp)
-                    }
+                    TechnicianTopAppBarTitle(technician.name)
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowForward, "رجوع", tint = SoftWhite)
+                        Icon(Icons.Default.ArrowForward, contentDescription = "رجوع", tint = SoftWhite)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBlue)
             )
         },
-        bottomBar = {
-            Surface(shadowElevation = 8.dp) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(SoftWhite)
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    OutlinedButton(
-                        onClick = onRejectClick,
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(50.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
-                        border = BorderStroke(1.dp, Color.Red),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Icon(Icons.Default.Close, null, Modifier.size(18.dp))
-                        Spacer(Modifier.width(8.dp))
-                        Text("رفض", fontWeight = FontWeight.Bold)
-                    }
-                    Button(
-                        onClick = onAcceptClick,
-                        modifier = Modifier
-                            .weight(2f)
-                            .height(50.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Icon(Icons.Default.CheckCircle, null, Modifier.size(18.dp))
-                        Spacer(Modifier.width(8.dp))
-                        Text("قبول الطلب", fontWeight = FontWeight.Bold)
-                    }
-                }
-            }
-        }
+        bottomBar = { TechnicianActionButtons(onRejectClick, onAcceptClick) }
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -201,85 +157,189 @@ fun TechnicianInfoContent(
                 .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            item { TechnicianProfileHeader() }
+
             item {
-                Box(Modifier.padding(vertical = 30.dp)) {
-                    Box(
-                        Modifier
-                            .size(110.dp)
-                            .clip(CircleShape)
-                            .background(BorderGray)
-                            .border(4.dp, SoftWhite, CircleShape),
-                        Alignment.Center
-                    ) {
-                        Icon(Icons.Default.Person, null, Modifier.size(60.dp), NavyBlue)
-                    }
-                    Box(
-                        Modifier
-                            .align(Alignment.BottomEnd)
-                            .offset((-5).dp, (-5).dp)
-                            .size(24.dp)
-                            .clip(CircleShape)
-                            .background(PrimaryOrange),
-                        Alignment.Center
-                    ) {
-                        Icon(Icons.Default.Verified, null, tint = SoftWhite, modifier = Modifier.size(16.dp))
-                    }
-                }
+                PersonalInformationSection(technician)
             }
 
             item {
-                SectionCard("المعلومات الشخصية", Icons.Default.PersonOutline) {
-                    Row(Modifier.fillMaxWidth()) {
-                        InfoItem("الاسم الكامل", technician.name, Modifier.weight(1f))
-                        InfoItem("رقم الهاتف", technician.phone, Modifier.weight(1f))
-                    }
-                    HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
-                    Row(Modifier.fillMaxWidth()) {
-                        InfoItem("المدينة", technician.city, Modifier.weight(1f))
-                        InfoItem("التخصص", technician.specialty, Modifier.weight(1f))
-                    }
-                    HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = DividerGray)
-                    Row(Modifier.fillMaxWidth()) {
-                        InfoItem("سنوات الخبرة", "${technician.experience} سنوات", Modifier.weight(1f))
-                        InfoItem(
-                            "ملكية سيارة",
-                            "نعم (يملك سيارة)",
-                            valueColor = SuccessGreen,
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-                }
+                DocumentsSection()
             }
 
             item {
-                SectionCard("المستندات المرفوعة", Icons.Default.Description) {
-                    DocumentRow("البطاقة الشخصية")
-                    DocumentRow("رخصة القيادة")
-                    DocumentRow("شهادات الخبرة", isFile = true)
-                }
+                AdminNotesSection(notes = notes, onNotesChange = { notes = it })
             }
 
-            item {
-                SectionCard("ملاحظات داخلية (الأدمن)", Icons.Default.EditNote) {
-                    OutlinedTextField(
-                        value = notes,
-                        onValueChange = { notes = it },
-                        placeholder = { Text("أضف ملاحظاتك...", fontSize = 13.sp) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(100.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = BackgroundGray,
-                            unfocusedContainerColor = BackgroundGray,
-                            focusedBorderColor = PrimaryOrange,
-                            unfocusedBorderColor = BorderGray
-                        )
-                    )
-                }
-            }
-
-            item { Spacer(Modifier.height(20.dp)) }
+            item { Spacer(modifier = Modifier.height(20.dp)) }
         }
     }
+}
+
+@Composable
+private fun TechnicianTopAppBarTitle(name: String) {
+    Column(
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 16.dp)
+    ) {
+        Text(text = name, color = SoftWhite, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        Text(text = "قيد التسجيل ●", color = PrimaryOrange, fontSize = 12.sp)
+    }
+}
+
+@Composable
+private fun TechnicianActionButtons(onRejectClick: () -> Unit, onAcceptClick: () -> Unit) {
+    Surface(shadowElevation = 8.dp) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(SoftWhite)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            OutlinedButton(
+                onClick = onRejectClick,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(50.dp),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red),
+                border = BorderStroke(1.dp, Color.Red),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "رفض", fontWeight = FontWeight.Bold)
+            }
+
+            Button(
+                onClick = onAcceptClick,
+                modifier = Modifier
+                    .weight(2f)
+                    .height(50.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = PrimaryOrange),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Icon(Icons.Default.CheckCircle, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "قبول الطلب", fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+@Composable
+private fun TechnicianProfileHeader() {
+    Box(modifier = Modifier.padding(vertical = 30.dp)) {
+        Box(
+            modifier = Modifier
+                .size(110.dp)
+                .clip(CircleShape)
+                .background(BorderGray)
+                .border(4.dp, SoftWhite, CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = null,
+                modifier = Modifier.size(60.dp),
+                tint = NavyBlue
+            )
+        }
+        Box(
+            Modifier
+                .align(Alignment.BottomEnd)
+                .offset((-5).dp, (-5).dp)
+                .size(24.dp)
+                .clip(CircleShape)
+                .background(PrimaryOrange),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.Verified,
+                contentDescription = null,
+                tint = SoftWhite,
+                modifier = Modifier.size(16.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun PersonalInformationSection(technician: Technician) {
+    SectionCard(
+        title = "المعلومات الشخصية",
+        icon = Icons.Default.PersonOutline
+    ) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            InfoItem(label = "الاسم الكامل", value = technician.name, modifier = Modifier.weight(1f))
+            InfoItem(label = "رقم الهاتف", value = technician.phone, modifier = Modifier.weight(1f))
+        }
+        SectionDivider()
+        Row(modifier = Modifier.fillMaxWidth()) {
+            InfoItem(label = "المدينة", value = technician.city, modifier = Modifier.weight(1f))
+            InfoItem(label = "التخصص", value = technician.specialty, modifier = Modifier.weight(1f))
+        }
+        SectionDivider()
+        Row(modifier = Modifier.fillMaxWidth()) {
+            InfoItem(
+                label = "سنوات الخبرة",
+                value = "${technician.experience} سنوات",
+                modifier = Modifier.weight(1f)
+            )
+            InfoItem(
+                label = "ملكية سيارة",
+                value = "نعم (يملك سيارة)",
+                valueColor = SuccessGreen,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun DocumentsSection() {
+    SectionCard(title = "المستندات المرفوعة", icon = Icons.Default.Description) {
+        DocumentRow(title = "البطاقة الشخصية")
+        DocumentRow(title = "رخصة القيادة")
+        DocumentRow(title = "شهادات الخبرة", isFile = true)
+    }
+}
+
+@Composable
+private fun AdminNotesSection(notes: String, onNotesChange: (String) -> Unit) {
+    SectionCard("ملاحظات داخلية (الأدمن)", Icons.Default.EditNote) {
+        OutlinedTextField(
+            value = notes,
+            onValueChange = onNotesChange,
+            placeholder = { Text(text = "أضف ملاحظاتك...", fontSize = 13.sp) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = BackgroundGray,
+                unfocusedContainerColor = BackgroundGray,
+                focusedBorderColor = PrimaryOrange,
+                unfocusedBorderColor = BorderGray
+            )
+        )
+    }
+}
+
+@Composable
+private fun SectionDivider() {
+    HorizontalDivider(
+        modifier = Modifier.padding(vertical = 8.dp),
+        thickness = 1.dp,
+        color = DividerGray
+    )
+}
+
+@Preview(showBackground = true, locale = "ar")
+@Composable
+fun TechnicianDetailScreenPreview() {
+    val mockTechnician = sampleTechnicians[0]
+    TechnicianDetailScreen(technician = mockTechnician, onBack = {})
 }

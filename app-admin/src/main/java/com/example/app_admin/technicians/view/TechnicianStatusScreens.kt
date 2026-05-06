@@ -1,4 +1,4 @@
-package com.example.app_admin.shared
+package com.example.app_admin.technicians.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -50,8 +50,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.app_admin.sampleTechnicians
 import com.example.app_admin.technicians.model.Technician
 import com.example.app_admin.theme.BackgroundGray
 import com.example.app_admin.theme.BorderGray
@@ -68,23 +70,32 @@ fun RejectReasonSelectionScreen(
     onCancel: () -> Unit,
     onConfirmReject: (String) -> Unit
 ) {
-    val reasons = listOf("صورة البطاقة غير واضحة",
-        "مستندات ناقصة", "رخصة القيادة منتهية", "بيانات غير صحيحة", "أخرى")
+    val reasons = listOf(
+        "صورة البطاقة غير واضحة",
+        "مستندات ناقصة", "رخصة القيادة منتهية", "بيانات غير صحيحة", "أخرى"
+    )
     var selectedReason by remember { mutableStateOf(reasons[0]) }
     var additionalNotes by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("رفض طلب تسجيل الفني",
-                    color = SoftWhite,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold) },
-                navigationIcon = { IconButton(onClick = onCancel)
-                { Icon(Icons.Default.ArrowForward,
-                    contentDescription = null, tint = SoftWhite
-                )
-                }
+                title = {
+                    Text(
+                        "رفض طلب تسجيل الفني",
+                        color = SoftWhite,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onCancel)
+                    {
+                        Icon(
+                            Icons.Default.ArrowForward,
+                            contentDescription = null, tint = SoftWhite
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults
                     .topAppBarColors(containerColor = NavyBlue)
@@ -123,13 +134,20 @@ fun RejectReasonSelectionScreen(
                 shape = RoundedCornerShape(12.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
-                Row(modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically) {
-                    Column(modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.End) {
-                        Text(technician.name, fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp)
-                        Text("${technician.specialty} • ${technician.city}",
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        Text(
+                            technician.name, fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            "${technician.specialty} • ${technician.city}",
                             fontSize = 12.sp, color = DarkGray
                         )
                     }
@@ -139,8 +157,10 @@ fun RejectReasonSelectionScreen(
                             .size(50.dp)
                             .clip(CircleShape)
                             .background(DividerGray),
-                        contentAlignment = Alignment.Center) {
-                        Icon(Icons.Default.Person,
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            Icons.Default.Person,
                             contentDescription = null, tint = NavyBlue
                         )
                     }
@@ -193,21 +213,37 @@ fun RejectReasonSelectionScreen(
                             )
                         }
                         if (index < reasons.size - 1) {
-                            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp, color = DividerGray)
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                                thickness = 0.5.dp,
+                                color = DividerGray
+                            )
                         }
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            Text("ملاحظات إضافية (اختياري)", fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.End)
+            Text(
+                "ملاحظات إضافية (اختياري)",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.End
+            )
             Spacer(modifier = Modifier.height(8.dp))
 
 
             OutlinedTextField(
                 value = additionalNotes,
                 onValueChange = { additionalNotes = it },
-                placeholder = { Text("اكتب ملاحظات إضافية لتوضيح سبب الرفض للفني...", fontSize = 12.sp, textAlign = TextAlign.End, modifier = Modifier.fillMaxWidth()) },
+                placeholder = {
+                    Text(
+                        "اكتب ملاحظات إضافية لتوضيح سبب الرفض للفني...",
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.End,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp),
@@ -236,10 +272,17 @@ fun RejectReasonSelectionScreen(
             ) {
                 Column(horizontalAlignment = Alignment.End) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("معاينة الرسالة الصادرة للفني", color = PrimaryOrange, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            "معاينة الرسالة الصادرة للفني",
+                            color = PrimaryOrange,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Icon(Icons.Default.Visibility,
-                            contentDescription = null, tint = PrimaryOrange, modifier = Modifier.size(16.dp))
+                        Icon(
+                            Icons.Default.Visibility,
+                            contentDescription = null, tint = PrimaryOrange, modifier = Modifier.size(16.dp)
+                        )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
@@ -258,4 +301,15 @@ fun RejectReasonSelectionScreen(
             Spacer(modifier = Modifier.height(24.dp))
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RejectReasonSelectionScreenPreview() {
+    val mockTechnician = sampleTechnicians[0]
+    RejectReasonSelectionScreen(
+        technician = mockTechnician,
+        onCancel = {},
+        onConfirmReject = {}
+    )
 }
