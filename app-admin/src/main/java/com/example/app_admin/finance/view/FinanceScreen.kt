@@ -42,10 +42,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.finance.view.component.SummaryCard
 import com.example.app_admin.finance.view.component.TransactionItem
 import com.example.app_admin.shared.RoadAssistTabRow
 import com.example.app_admin.shared.RoadAssistTopAppBar
+import com.example.app_admin.shared.SummaryCard
 import com.example.app_admin.theme.DarkNavy
 import com.example.app_admin.theme.DeepBlue
 import com.example.app_admin.theme.LightText

@@ -25,35 +25,43 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.ui.theme.DarkGray
-import com.example.app_admin.ui.theme.DividerGray
-import com.example.app_admin.ui.theme.LightBlueGray
-import com.example.app_admin.ui.theme.NavyBlue
-import com.example.app_admin.ui.theme.SoftWhite
+import com.example.app_admin.theme.DarkGray
+import com.example.app_admin.theme.DividerGray
+import com.example.app_admin.theme.LightBlueGray
+import com.example.app_admin.theme.NavyBlue
+import com.example.app_admin.theme.SoftWhite
 
 @Composable
 fun DocumentRow(title: String, isFile: Boolean = false) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-            .border(1.dp, DividerGray,
-                RoundedCornerShape(12.dp))
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .border(
+                1.dp, DividerGray,
+                RoundedCornerShape(12.dp)
+            )
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
         Icon(Icons.Default.KeyboardArrowLeft,
-            contentDescription = null, tint = LightBlueGray)
+            contentDescription = null, tint = LightBlueGray
+        )
 
         Spacer(modifier = Modifier.weight(1f))
 
         Column(horizontalAlignment = Alignment.End) {
             Text(title, fontSize = 13.sp,
-                fontWeight = FontWeight.Bold, color = NavyBlue)
+                fontWeight = FontWeight.Bold, color = NavyBlue
+            )
             Text("تم الرفع: ٢٠ أكتوبر ٢٠٢٣", fontSize = 11.sp, color = DarkGray)
         }
         Spacer(modifier = Modifier.width(12.dp))
         Box(
-            modifier = Modifier.size(50.dp).clip(RoundedCornerShape(8.dp))
+            modifier = Modifier
+                .size(50.dp)
+                .clip(RoundedCornerShape(8.dp))
                 .background(if (isFile) LightBlueGray else NavyBlue),
             contentAlignment = Alignment.Center
         ) {

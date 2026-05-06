@@ -1,6 +1,5 @@
 package com.example.app_admin.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,19 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-// هنا نستخدم ألوانكِ التي عرفناها في ملف Color.kt
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryOrange,      // اللون الأساسي (البرتقالي)
+    primary = PrimaryOrange,
     onPrimary = Color.White,
-    secondary = NavyBlue,         // اللون الثانوي (الكحلي)
+    secondary = NavyBlue,
     onSecondary = Color.White,
-    background = BackgroundGray,  // لون الخلفية
+    background = BackgroundGray,
     surface = Color.White,
     onSurface = NavyBlue,
     error = Color.Red
 )
 
-// يمكنكِ تعريف ألوان للـ Dark Mode هنا إذا أردتِ، أو استعارة نفس ألوان الـ Light مؤقتاً
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryOrange,
     secondary = LightBlueGray,
@@ -37,8 +34,7 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun RoadAssistTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false, // عطلتها هنا لنضمن ظهور ألوانكِ الأصلية بدلاً من ألوان النظام
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -52,7 +48,7 @@ fun RoadAssistTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography, // تأكدي أن ملف Typography.kt موجود ولا يوجد به أخطاء
+        typography = Typography,
         content = content
     )
 }

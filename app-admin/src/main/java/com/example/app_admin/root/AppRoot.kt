@@ -1,25 +1,39 @@
 package com.example.app_admin.root
 
-import CompliantPerson
-import MoreScreen
-import WarningScreen
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.Engineering
+import androidx.compose.material.icons.filled.GridView
+import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.model.Technician
-import com.example.app_admin.ui.finance.view.FinanceScreen
-import com.example.app_admin.ui.complaints.model.Complaint
-import com.example.app_admin.ui.Screens.ComplaintDetailsScreen
-import com.example.app_admin.ui.technicians.view.TechniciansScreen
-import com.example.app_admin.ui.screens.TechnicianDetailScreen
+import com.example.app_admin.complaints.model.Complaint
+import com.example.app_admin.complaints.view.ComplaintDetailsScreen
+import com.example.app_admin.complaints.view.CompliantPerson
+import com.example.app_admin.finance.view.FinanceScreen
+import com.example.app_admin.more.view.MoreScreen
+import com.example.app_admin.more.view.WarningScreen
+import com.example.app_admin.technicians.model.Technician
+import com.example.app_admin.technicians.view.TechnicianDetailScreen
+import com.example.app_admin.technicians.view.TechniciansScreen
 
 @Composable
 fun MainScreen() {
@@ -58,6 +72,7 @@ fun MainScreen() {
 
     if (selectedComplaint != null) {
         ComplaintDetailsScreen(
+            complaint = selectedComplaint!!,
             onBack = { selectedComplaint = null },
             onNavigateToWarning = { showWarningScreen = true },
             onNavigateToProfile = { showUserProfile = true }
@@ -83,8 +98,12 @@ fun MainScreen() {
                         NavigationBarItem(
                             selected = selectedBottomTab == index,
                             onClick = { selectedBottomTab = index },
-                            icon = { Icon(icon,
-                                "") },
+                            icon = {
+                                Icon(
+                                    icon,
+                                    ""
+                                )
+                            },
                             label = { Text(label, fontSize = 10.sp) }
                         )
                     }
@@ -98,6 +117,7 @@ fun MainScreen() {
                     onTechnicianClick = { tech -> selectedTechnician = tech },
                     onComplaintClick = { complaint -> selectedComplaint = complaint }
                 )
+
                 3 -> FinanceScreen()
                 4 -> MoreScreen()
                 else -> Text("قيد التطوير", modifier = Modifier.padding(16.dp))
