@@ -3,6 +3,7 @@ package com.example.app_admin.root.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -14,6 +15,8 @@ import com.example.app_admin.finance.view.FinanceScreen
 import com.example.app_admin.more.view.MoreScreen
 import com.example.app_admin.orders.view.OrdersScreen
 import com.example.app_admin.sampleComplaints
+import com.example.app_admin.sampleTechnicians
+import com.example.app_admin.technicians.view.TechnicianDetailScreen
 import com.example.app_admin.technicians.view.TechniciansScreen
 
 @Composable
@@ -21,10 +24,24 @@ fun AppNavigation(
     navController: NavHostController,
     paddingValues: androidx.compose.foundation.layout.PaddingValues
 ) {
+    // Optimized navigation callbacks to prevent unnecessary recompositions
+    val onNavigateToTechnician = remember(navController) {
+        { id: Int -> navController.navigate(Screen.TechnicianDetail(id)) }
+    }
+
+    val onNavigateToComplaint = remember(navController) {
+        { id: Int ->
+            navController.navigate(Screen.ComplaintDetail(id)) {
+                // Avoid multiple copies of the same destination when re-selecting the same item
+                launchSingleTop = true
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = Screen.Technicians,
-        modifier = Modifier.padding(paddingValues)
+        modifier = Modifier.padding(paddingValues),
     ) {
         composable<Screen.Overview> { Text("نظرة عامة") }
 
@@ -34,12 +51,8 @@ fun AppNavigation(
 
         composable<Screen.Technicians> {
             TechniciansScreen(
-                onTechnicianClick = { tech ->
-                    navController.navigate(Screen.TechnicianDetail(tech.id))
-                },
-                onComplaintClick = { complaint ->
-                    navController.navigate(Screen.ComplaintDetail(complaint.id))
-                },
+                onTechnicianClick = { tech -> onNavigateToTechnician(tech.id) },
+                onComplaintClick = { complaint -> onNavigateToComplaint(complaint.id) },
                 navController = navController
             )
         }
@@ -48,17 +61,25 @@ fun AppNavigation(
 
         composable<Screen.More> { MoreScreen() }
 
-        // Example of detail navigation
         composable<Screen.TechnicianDetail> { backStackEntry ->
-            // In a real app, use the ID to fetch from ViewModel
-            Text("تفاصيل الفني")
-        }
+            val route: Screen.TechnicianDetail = backStackEntry.toRoute()
 
-        // AppNavigation.kt
+            val technician = sampleTechnicians.find { it.id == route.techId }
+
+            if (technician != null) {
+                TechnicianDetailScreen(
+                    technician = technician,
+                    onBack = { navController.popBackStack() }
+                )
+            }
+        }
 
         composable<Screen.ComplaintDetail> { backStackEntry ->
             val route: Screen.ComplaintDetail = backStackEntry.toRoute()
-            val complaint = sampleComplaints.find { it.id == route.complaintId }
+            // Use remember to avoid re-searching the list on every recomposition of this destination
+            val complaint = remember(route.complaintId) {
+                sampleComplaints.find { it.id == route.complaintId }
+            }
 
             if (complaint != null) {
                 ComplaintDetailsScreen(

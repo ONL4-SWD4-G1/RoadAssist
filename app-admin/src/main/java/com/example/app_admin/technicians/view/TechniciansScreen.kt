@@ -57,7 +57,6 @@ fun TechniciansScreen(
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("الكل", "النشطين", "قيد التسجيل", "الموقوفين", "الشكاوى")
 
-    // Force RTL for Arabic support
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Scaffold(
             topBar = {
@@ -108,21 +107,31 @@ fun TechniciansScreen(
                 StatsRow()
 
                 when (selectedTab) {
-                    0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
+                    0 -> AllTechniciansTab(
+                        onTechnicianClick = { tech ->
+                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                        }
+                    )
 
                     1 -> FilteredTechniciansTab(
                         status = TechnicianStatus.ACTIVE,
-                        onTechnicianClick = onTechnicianClick
+                        onTechnicianClick = { tech ->
+                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                        }
                     )
 
                     2 -> FilteredTechniciansTab(
                         status = TechnicianStatus.WAITING,
-                        onTechnicianClick = onTechnicianClick
+                        onTechnicianClick = { tech ->
+                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                        }
                     )
 
                     3 -> FilteredTechniciansTab(
                         status = TechnicianStatus.SUSPENDED,
-                        onTechnicianClick = onTechnicianClick
+                        onTechnicianClick = { tech ->
+                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                        }
                     )
 
                     4 -> ComplaintsScreen(
