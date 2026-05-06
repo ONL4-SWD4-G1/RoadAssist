@@ -28,19 +28,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.ui.technicians.model.TransactionData
-import com.example.app_admin.ui.theme.DangerBg
-import com.example.app_admin.ui.theme.DangerRed
-import com.example.app_admin.ui.theme.DarkNavy
-import com.example.app_admin.ui.theme.DeepBlue
-import com.example.app_admin.ui.theme.LightText
-import com.example.app_admin.ui.theme.SuccessBg
-import com.example.app_admin.ui.theme.SuccessGreen
+import com.example.app_admin.finance.model.TransactionData
+import com.example.app_admin.theme.DangerBg
+import com.example.app_admin.theme.DangerRed
+import com.example.app_admin.theme.DarkNavy
+import com.example.app_admin.theme.DeepBlue
+import com.example.app_admin.theme.LightText
+import com.example.app_admin.theme.SuccessBg
+import com.example.app_admin.theme.SuccessGreen
 
 @Composable
 fun TransactionItem(transaction: TransactionData) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xffF6F6F8)),
         shape = RoundedCornerShape(16.dp)
     ) {
@@ -69,7 +71,11 @@ fun TransactionItem(transaction: TransactionData) {
                 modifier = Modifier
                     .size(45.dp)
                     .clip(CircleShape)
-                    .background(if (transaction.isPositive) SuccessBg else if (transaction.title.contains("تحويل")) Color(0xFFF1F5F9) else DangerBg),
+                    .background(
+                        if (transaction.isPositive) SuccessBg else if (transaction.title.contains("تحويل")) Color(
+                            0xFFF1F5F9
+                        ) else DangerBg
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(

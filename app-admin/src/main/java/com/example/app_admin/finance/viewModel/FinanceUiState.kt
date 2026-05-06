@@ -1,6 +1,6 @@
 package com.example.app_admin.finance.viewModel
 
-import com.example.app_admin.technicians.model.TransactionData
+import com.example.app_admin.finance.model.TransactionData
 
 data class FinanceUiState(
     val transactions: List<TransactionData> = com.example.app_admin.transactions,
