@@ -1,18 +1,16 @@
 package com.example.app_admin.complaints.model
 
-enum class ComplaintStatus { OPEN, UNDER_REVIEW, RESOLVED }
+import androidx.compose.ui.graphics.Color
 
-data class Complaint(
-    val id: Int,
-    val clientName: String,
-    val technicianName: String,
-    val issueType: String,
-    val status: ComplaintStatus,
-    val timeAgo: String
-)
+enum class ComplaintStatus(val label: String, val color: Color) {
 
-val sampleComplaints = listOf(
-    Complaint(1, "سارة أحمد", "أحمد محمد", "بطارية / كهرباء", ComplaintStatus.OPEN, "منذ ساعتين"),
-    Complaint(2, "محمد القحطاني", "ياسين عبدالله", "نظام المحرك", ComplaintStatus.UNDER_REVIEW, "منذ 5 ساعات"),
-    Complaint(3, "عبدالله منصور", "فهد العتيبي", "إطارات / بنشر", ComplaintStatus.RESOLVED, "أمس")
-)
+    OPEN("مفتوحة", Color(0xFFC2410C)),
+    UNDER_REVIEW("قيد المراجعة", Color(0xFF1D4ED8)),
+    RESOLVED("تم الحل", Color(0xFF15803D)),
+    TOP_PRIORITY("اولوية قصوى", Color(0xFFB91C1C));
+
+    companion object {
+        fun fromString(value: String?): ComplaintStatus =
+            entries.find { it.name.equals(value, ignoreCase = true) } ?: OPEN
+    }
+}

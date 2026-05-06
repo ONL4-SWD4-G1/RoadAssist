@@ -1,20 +1,12 @@
 package com.example.app_admin.complaints.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.app_admin.ui.complaints.model.Complaint
-import com.example.app_admin.ui.complaints.model.ComplaintStatus
-import com.example.app_admin.ui.complaints.model.sampleComplaints
+import com.example.app_admin.complaints.model.Complaint
+import com.example.app_admin.complaints.model.ComplaintStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-
-data class ComplaintUiState(
-    val complaints: List<Complaint> = sampleComplaints,
-    val selectedComplaint: Complaint? = null,
-    val showWarningScreen: Boolean = false,
-    val showUserProfile: Boolean = false,
-)
 
 class ComplaintViewModel : ViewModel() {
 

@@ -2,6 +2,7 @@ package com.example.app_admin.complaints.view.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,13 +27,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.ui.complaints.model.Complaint
-import com.example.app_admin.ui.complaints.model.ComplaintStatus
+import com.example.app_admin.complaints.model.Complaint
+import com.example.app_admin.complaints.model.ComplaintStatus
+import com.example.app_admin.shared.StatusBadge
 
 @Composable
-fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
+fun ComplaintCard(
+    complaint: Complaint,
+    onHandleClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +52,12 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ComplaintStatusBadge(status = complaint.status)
+
+                StatusBadge(
+                    label = complaint.status.label,
+                    color = complaint.status.color
+                )
+
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
                         text = complaint.clientName,
@@ -147,5 +158,66 @@ fun ComplaintCard(complaint: Complaint, onHandleClick: () -> Unit) {
                 }
             }
         }
+    }
+}
+
+
+@Preview(name = "Pending Complaint", showBackground = true, locale = "ar")
+@Composable
+fun PreviewComplaintCardPending() {
+    val mockComplaint = Complaint(
+        id = 1,
+        clientName = "أحمد محمد المهندس",
+        issueType = "تعطل المحرك المفاجئ",
+        technicianName = "خالد العتيبي",
+        status = ComplaintStatus.UNDER_REVIEW,
+        timeAgo = "منذ ساعتين"
+    )
+
+    Box(modifier = Modifier.padding(8.dp)) {
+        ComplaintCard(
+            complaint = mockComplaint,
+            onHandleClick = { }
+        )
+    }
+}
+
+@Preview(name = "Open Complaint", showBackground = true, locale = "ar")
+@Composable
+fun PreviewComplaintCardOpen() {
+    val mockComplaint = Complaint(
+        id = 3,
+        clientName = "محمد العلي",
+        issueType = "تأخير في الموعد",
+        technicianName = "غير معين",
+        status = ComplaintStatus.OPEN,
+        timeAgo = "الآن"
+    )
+
+    Box(modifier = Modifier.padding(8.dp)) {
+        ComplaintCard(
+            complaint = mockComplaint,
+            onHandleClick = { }
+        )
+    }
+}
+
+@Preview(name = "Resolved Complaint", showBackground = true, locale = "ar")
+@Composable
+fun PreviewComplaintCardResolved() {
+    val mockComplaint = Complaint(
+        id = 2,
+        clientName = "سارة عبد العزيز",
+        issueType = "نقص في أدوات الصيانة",
+        technicianName = "فهد الجارالله",
+        status = ComplaintStatus.RESOLVED,
+        timeAgo = "أمس"
+    )
+
+    Box(modifier = Modifier.padding(8.dp)) {
+        ComplaintCard(
+            complaint = mockComplaint,
+            onHandleClick = { }
+        )
     }
 }
