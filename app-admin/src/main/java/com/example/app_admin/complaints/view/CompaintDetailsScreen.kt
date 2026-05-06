@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -76,11 +77,12 @@ fun ComplaintDetailsScreen(
     onNavigateToProfile: () -> Unit
 ) {
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
             TopAppBar(
                 title = {
                     Column(
-                        horizontalAlignment = Alignment.End,
+                        horizontalAlignment = Alignment.Start,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(end = 16.dp)
@@ -127,7 +129,8 @@ fun ComplaintDetailsScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor =
                         Color(0xFF1E293B)
-                )
+                ),
+                windowInsets = WindowInsets(0, 0, 0, 0)
             )
         },
         bottomBar = {
