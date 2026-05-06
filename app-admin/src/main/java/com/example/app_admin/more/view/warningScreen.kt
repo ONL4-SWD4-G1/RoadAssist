@@ -50,14 +50,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_admin.ui.theme.BackgroundGray
-import com.example.app_admin.ui.theme.BorderGray
-import com.example.app_admin.ui.theme.DangerRed
-import com.example.app_admin.ui.theme.LightBlueGray
-import com.example.app_admin.ui.theme.LightText
-import com.example.app_admin.ui.theme.NavyBlue
-import com.example.app_admin.ui.theme.PrimaryOrange
-import com.example.app_admin.ui.theme.SoftWhite
+import com.example.app_admin.theme.BackgroundGray
+import com.example.app_admin.theme.BorderGray
+import com.example.app_admin.theme.DangerRed
+import com.example.app_admin.theme.LightBlueGray
+import com.example.app_admin.theme.LightText
+import com.example.app_admin.theme.NavyBlue
+import com.example.app_admin.theme.PrimaryOrange
+import com.example.app_admin.theme.SoftWhite
 
 @Composable
 fun WarningScreen(onBack: () -> Unit) {
