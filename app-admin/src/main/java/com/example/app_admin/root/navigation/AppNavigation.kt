@@ -8,9 +8,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
+import com.example.app_admin.complaints.view.ComplaintDetailsScreen
 import com.example.app_admin.finance.view.FinanceScreen
 import com.example.app_admin.more.view.MoreScreen
 import com.example.app_admin.orders.view.OrdersScreen
+import com.example.app_admin.sampleComplaints
 import com.example.app_admin.technicians.view.TechniciansScreen
 
 @Composable
@@ -26,7 +29,6 @@ fun AppNavigation(
         composable<Screen.Overview> { Text("نظرة عامة") }
 
         composable<Screen.Orders> {
-            // ViewModel is automatically scoped to this destination
             OrdersScreen(viewModel = viewModel())
         }
 
@@ -37,7 +39,8 @@ fun AppNavigation(
                 },
                 onComplaintClick = { complaint ->
                     navController.navigate(Screen.ComplaintDetail(complaint.id))
-                }
+                },
+                navController = navController
             )
         }
 
@@ -49,6 +52,22 @@ fun AppNavigation(
         composable<Screen.TechnicianDetail> { backStackEntry ->
             // In a real app, use the ID to fetch from ViewModel
             Text("تفاصيل الفني")
+        }
+
+        // AppNavigation.kt
+
+        composable<Screen.ComplaintDetail> { backStackEntry ->
+            val route: Screen.ComplaintDetail = backStackEntry.toRoute()
+            val complaint = sampleComplaints.find { it.id == route.complaintId }
+
+            if (complaint != null) {
+                ComplaintDetailsScreen(
+                    complaint = complaint,
+                    onBack = { navController.popBackStack() },
+                    onNavigateToWarning = { },
+                    onNavigateToProfile = { }
+                )
+            }
         }
     }
 }

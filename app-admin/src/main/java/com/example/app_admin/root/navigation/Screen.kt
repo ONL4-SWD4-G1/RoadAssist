@@ -15,6 +15,12 @@ sealed class Screen {
     @Serializable
     object More : Screen()
 
+    @Serializable
+    object Complaints : Screen()
+
+    @Serializable
+    object ComplaintDetails : Screen()
+
     // For screens that need arguments, we use data classes
     @Serializable
     data class TechnicianDetail(val techId: Int) : Screen()

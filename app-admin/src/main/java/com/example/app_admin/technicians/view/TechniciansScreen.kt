@@ -9,83 +9,129 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.NotificationsNone
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ScrollableTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.app_admin.complaints.model.Complaint
 import com.example.app_admin.complaints.view.ComplaintsScreen
+import com.example.app_admin.root.navigation.Screen
 import com.example.app_admin.sampleTechnicians
+import com.example.app_admin.shared.RoadAssistTabRow
+import com.example.app_admin.shared.RoadAssistTopAppBar
 import com.example.app_admin.technicians.model.Technician
 import com.example.app_admin.technicians.model.TechnicianStatus
 import com.example.app_admin.technicians.view.component.StatCard
 import com.example.app_admin.technicians.view.component.TechnicianCard
+import com.example.app_admin.theme.DarkNavy
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TechniciansScreen(
     onTechnicianClick: (Technician) -> Unit,
-    onComplaintClick: (Complaint) -> Unit
+    onComplaintClick: (Complaint) -> Unit,
+    navController: NavHostController,
+    onMenuClick: () -> Unit = {},
+    onSearchClick: () -> Unit = {},
+    onNotificationClick: () -> Unit = {}
 ) {
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("الكل", "النشطين", "قيد التسجيل", "الموقوفين", "الشكاوى")
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        StatsRow()
-        ScrollableTabRow(
-            selectedTabIndex = selectedTab,
-            edgePadding = 8.dp,
-            containerColor = Color.White,
-            contentColor = Color(0xFFF5A623)
-        ) {
-            tabs.forEachIndexed { index, title ->
-                Tab(
-                    selected = selectedTab == index,
-                    onClick = { selectedTab = index },
-                    text = {
-                        Text(
-                            text = title,
-                            fontSize = 13.sp,
-                            fontWeight = if (selectedTab == index) FontWeight.Bold else FontWeight.Normal
+    // Force RTL for Arabic support
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        Scaffold(
+            topBar = {
+                RoadAssistTopAppBar(
+                    title = "إدارة الفنيين",
+                    navigationIcon = {
+                        IconButton(onClick = onMenuClick) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = null,
+                                tint = DarkNavy
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = onSearchClick) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = null,
+                                tint = DarkNavy
+                            )
+                        }
+                        IconButton(onClick = onNotificationClick) {
+                            Icon(
+                                imageVector = Icons.Default.NotificationsNone,
+                                contentDescription = null,
+                                tint = DarkNavy
+                            )
+                        }
+                    },
+                    bottomContent = {
+                        RoadAssistTabRow(
+                            tabs = tabs,
+                            selectedTabIndex = selectedTab,
+                            onTabSelected = { selectedTab = it },
+                            isScrollable = true
                         )
                     }
                 )
-            }
-        }
+            },
+            containerColor = Color(0xFFF8FAFC) // Professional light background
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                StatsRow()
 
-        when (selectedTab) {
-            0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
+                when (selectedTab) {
+                    0 -> AllTechniciansTab(onTechnicianClick = onTechnicianClick)
 
-            1 -> FilteredTechniciansTab(
-                status = TechnicianStatus.ACTIVE,
-                onTechnicianClick = onTechnicianClick
-            )
+                    1 -> FilteredTechniciansTab(
+                        status = TechnicianStatus.ACTIVE,
+                        onTechnicianClick = onTechnicianClick
+                    )
 
-            2 -> FilteredTechniciansTab(
-                status = TechnicianStatus.WAITING,
-                onTechnicianClick = onTechnicianClick
-            )
+                    2 -> FilteredTechniciansTab(
+                        status = TechnicianStatus.WAITING,
+                        onTechnicianClick = onTechnicianClick
+                    )
 
-            3 -> FilteredTechniciansTab(
-                status = TechnicianStatus.SUSPENDED,
-                onTechnicianClick = onTechnicianClick
-            )
+                    3 -> FilteredTechniciansTab(
+                        status = TechnicianStatus.SUSPENDED,
+                        onTechnicianClick = onTechnicianClick
+                    )
 
-            4 -> ComplaintsScreen(
-                onHandleComplaint = { complaint ->
-                    onComplaintClick(complaint)
+                    4 -> ComplaintsScreen(
+                        onHandleComplaint = { complaint ->
+                            navController.navigate(Screen.ComplaintDetail(complaintId = complaint.id))
+                        }
+                    )
                 }
-            )
+            }
         }
     }
 }
@@ -163,7 +209,11 @@ fun TechniciansScreenPreview() {
     MaterialTheme {
         TechniciansScreen(
             onTechnicianClick = {},
-            onComplaintClick = {}
+            onComplaintClick = {},
+            onMenuClick = {},
+            onSearchClick = {},
+            onNotificationClick = {},
+            navController = NavHostController(LocalContext.current)
         )
     }
 }

@@ -77,19 +77,20 @@ fun FinanceScreen() {
                             .padding(start = 16.dp)
                             .size(45.dp)
                     ) {
-                        IconButton(onClick = { /* Handle Notifications */ }) {
+                        IconButton(onClick = { /* Handle Menu */ }) {
                             Icon(
-                                imageVector = Icons.Default.NotificationsNone,
+                                imageVector = Icons.Default.Menu,
                                 contentDescription = null,
                                 tint = DarkNavy
                             )
                         }
+
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Handle Menu */ }) {
+                    IconButton(onClick = { /* Handle Notifications */ }) {
                         Icon(
-                            imageVector = Icons.Default.Menu,
+                            imageVector = Icons.Default.NotificationsNone,
                             contentDescription = null,
                             tint = DarkNavy
                         )
