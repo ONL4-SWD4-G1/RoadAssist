@@ -62,6 +62,8 @@ import com.example.app_admin.technicians.model.DetailFlow
 import com.example.app_admin.technicians.model.Technician
 import com.example.app_admin.technicians.view.component.InfoItem
 import com.example.app_admin.technicians.view.component.SectionCard
+import com.example.app_admin.technicians.view.techRegistration.ResultTemplate
+import com.example.app_admin.technicians.view.techRegistration.TechRegistrationRejectionScreen
 import com.example.app_admin.theme.BackgroundGray
 import com.example.app_admin.theme.BorderGray
 import com.example.app_admin.theme.DividerGray
@@ -86,7 +88,7 @@ fun TechnicianDetailScreen(technician: Technician, onBack: () -> Unit) {
         }
 
         DetailFlow.SELECT_REJECT_REASON -> {
-            RejectReasonSelectionScreen(
+            TechRegistrationRejectionScreen(
                 technician = technician,
                 onCancel = { currentFlow = DetailFlow.VIEW },
                 onConfirmReject = { reason: String ->

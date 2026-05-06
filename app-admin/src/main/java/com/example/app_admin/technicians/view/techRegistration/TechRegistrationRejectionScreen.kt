@@ -1,4 +1,4 @@
-package com.example.app_admin.technicians.view
+package com.example.app_admin.technicians.view.techRegistration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -65,7 +65,7 @@ import com.example.app_admin.theme.SoftWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RejectReasonSelectionScreen(
+fun TechRegistrationRejectionScreen(
     technician: Technician,
     onCancel: () -> Unit,
     onConfirmReject: (String) -> Unit
@@ -307,7 +307,7 @@ fun RejectReasonSelectionScreen(
 @Composable
 fun RejectReasonSelectionScreenPreview() {
     val mockTechnician = sampleTechnicians[0]
-    RejectReasonSelectionScreen(
+    TechRegistrationRejectionScreen(
         technician = mockTechnician,
         onCancel = {},
         onConfirmReject = {}

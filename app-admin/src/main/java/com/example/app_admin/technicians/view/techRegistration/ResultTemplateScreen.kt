@@ -1,4 +1,4 @@
-package com.example.app_admin.technicians.view
+package com.example.app_admin.technicians.view.techRegistration
 
 import android.R.drawable.ic_dialog_alert
 import android.R.drawable.ic_dialog_info

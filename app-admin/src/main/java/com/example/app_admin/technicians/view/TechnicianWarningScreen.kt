@@ -1,4 +1,4 @@
-package com.example.app_admin.more.view
+package com.example.app_admin.technicians.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -48,6 +48,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.theme.BackgroundGray
@@ -299,4 +300,15 @@ fun WarningInputLabel(label: String) {
         color = NavyBlue,
         modifier = Modifier.padding(bottom = 4.dp)
     )
+}
+
+@Preview(showBackground = true, device = "spec:width=411dp,height=891dp", locale = "ar")
+@Composable
+fun WarningScreenPreview() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = BackgroundGray
+    ) {
+        WarningScreen(onBack = {})
+    }
 }
