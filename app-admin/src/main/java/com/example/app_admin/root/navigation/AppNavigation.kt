@@ -1,7 +1,6 @@
 package com.example.app_admin.root.navigation
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -14,6 +13,7 @@ import com.example.app_admin.complaints.view.ComplaintDetailsScreen
 import com.example.app_admin.finance.view.FinanceScreen
 import com.example.app_admin.more.view.MoreScreen
 import com.example.app_admin.orders.view.OrdersScreen
+import com.example.app_admin.overview.view.OverviewScreen
 import com.example.app_admin.sampleComplaints
 import com.example.app_admin.sampleTechnicians
 import com.example.app_admin.technicians.view.TechnicianDetailScreen
@@ -24,7 +24,6 @@ fun AppNavigation(
     navController: NavHostController,
     paddingValues: androidx.compose.foundation.layout.PaddingValues
 ) {
-    // Optimized navigation callbacks to prevent unnecessary recompositions
     val onNavigateToTechnician = remember(navController) {
         { id: Int -> navController.navigate(Screen.TechnicianDetail(id)) }
     }
@@ -32,7 +31,6 @@ fun AppNavigation(
     val onNavigateToComplaint = remember(navController) {
         { id: Int ->
             navController.navigate(Screen.ComplaintDetail(id)) {
-                // Avoid multiple copies of the same destination when re-selecting the same item
                 launchSingleTop = true
             }
         }
@@ -40,10 +38,14 @@ fun AppNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Technicians,
+        startDestination = Screen.Overview,
         modifier = Modifier.padding(paddingValues),
     ) {
-        composable<Screen.Overview> { Text("نظرة عامة") }
+        composable<Screen.Overview> {
+            OverviewScreen(
+                onNotificationClick = { }
+            )
+        }
 
         composable<Screen.Orders> {
             OrdersScreen(viewModel = viewModel())
@@ -76,7 +78,6 @@ fun AppNavigation(
 
         composable<Screen.ComplaintDetail> { backStackEntry ->
             val route: Screen.ComplaintDetail = backStackEntry.toRoute()
-            // Use remember to avoid re-searching the list on every recomposition of this destination
             val complaint = remember(route.complaintId) {
                 sampleComplaints.find { it.id == route.complaintId }
             }

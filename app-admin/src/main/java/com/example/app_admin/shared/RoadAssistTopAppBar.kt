@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.app_admin.theme.DarkNavy
-import com.example.app_admin.theme.LightText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,17 +34,20 @@ fun RoadAssistTopAppBar(
     title: String,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
+    containerColor: Color = Color.White,
+    contentColor: Color = DarkNavy,
     navigationIcon: @Composable (() -> Unit)? = null,
     actions: @Composable (RowScope.() -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
     Surface(
-        color = Color.White,
+        modifier = modifier,
+        color = containerColor,
         tonalElevation = 0.dp,
         shadowElevation = if ((scrollBehavior?.state?.overlappedFraction ?: 0f) > 0.01f) 2.dp else 0.dp
     ) {
-        Column(modifier = modifier) {
+        Column() {
             TopAppBar(
                 title = {
                     Column(horizontalAlignment = Alignment.Start) {
@@ -53,7 +55,7 @@ fun RoadAssistTopAppBar(
                             text = title,
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.ExtraBold,
-                                color = DarkNavy,
+                                color = contentColor,
                                 fontSize = 18.sp
                             )
                         )
@@ -61,7 +63,7 @@ fun RoadAssistTopAppBar(
                             Text(
                                 text = subtitle,
                                 style = MaterialTheme.typography.bodySmall.copy(
-                                    color = LightText,
+                                    color = contentColor.copy(alpha = 0.7f),
                                     fontSize = 12.sp
                                 )
                             )
@@ -73,8 +75,8 @@ fun RoadAssistTopAppBar(
                 scrollBehavior = scrollBehavior,
                 windowInsets = WindowInsets(0, 0, 0, 0),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White,
-                    scrolledContainerColor = Color.White
+                    containerColor = containerColor,
+                    scrolledContainerColor = containerColor
                 )
             )
             bottomContent?.invoke()
