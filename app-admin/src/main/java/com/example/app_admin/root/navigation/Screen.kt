@@ -17,9 +17,17 @@ sealed class Screen {
 
     @Serializable
     object Complaints : Screen()
-
     @Serializable
     object ComplaintDetails : Screen()
+
+    @Serializable
+    object UserWarning : Screen()
+
+    @Serializable
+    object UserSuspension : Screen()
+
+    @Serializable
+    object UserProfile : Screen()
 
     // For screens that need arguments, we use data classes
     @Serializable

@@ -1,4 +1,4 @@
-package com.example.app_admin.complaints.view
+package com.example.app_admin.user.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -49,11 +49,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CompliantPerson(onBack: () -> Unit, onWarningClick: () -> Unit) {
+fun UserProfileScreen(onBack: () -> Unit, onWarningClick: () -> Unit) {
     Scaffold(
         bottomBar = { UserActionButtons(onWarningClick = onWarningClick) }
     ) { padding ->
@@ -314,7 +315,7 @@ fun UserReviewsSection() {
 }
 
 @Composable
-fun UserActionButtons(onWarningClick: () -> Unit) { // أضفنا البارامتر هنا
+fun UserActionButtons(onWarningClick: () -> Unit) {
     Row(
         modifier = Modifier
             .background(Color.White)
@@ -362,4 +363,10 @@ fun UserActionButtons(onWarningClick: () -> Unit) { // أضفنا البارام
             Text("تحذير", color = Color(0xFF1E293B))
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CompliantPersonPreview() {
+    UserProfileScreen(onBack = {}, onWarningClick = {})
 }

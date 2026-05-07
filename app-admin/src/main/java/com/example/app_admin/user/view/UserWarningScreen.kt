@@ -1,4 +1,4 @@
-package com.example.app_admin.technicians.view
+package com.example.app_admin.user.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

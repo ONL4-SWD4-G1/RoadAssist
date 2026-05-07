@@ -18,6 +18,8 @@ import com.example.app_admin.sampleComplaints
 import com.example.app_admin.sampleTechnicians
 import com.example.app_admin.technicians.view.TechnicianDetailScreen
 import com.example.app_admin.technicians.view.TechniciansScreen
+import com.example.app_admin.user.view.UserProfileScreen
+import com.example.app_admin.user.view.UserSuspensionScreen
 
 @Composable
 fun AppNavigation(
@@ -74,6 +76,19 @@ fun AppNavigation(
                     onBack = { navController.popBackStack() }
                 )
             }
+        }
+
+        composable<Screen.UserProfile> {
+            UserProfileScreen(
+                onBack = { navController.popBackStack() },
+                onWarningClick = { }
+            )
+        }
+
+        composable<Screen.UserSuspension> {
+            UserSuspensionScreen(
+                onBack = { navController.popBackStack() }
+            )
         }
 
         composable<Screen.ComplaintDetail> { backStackEntry ->

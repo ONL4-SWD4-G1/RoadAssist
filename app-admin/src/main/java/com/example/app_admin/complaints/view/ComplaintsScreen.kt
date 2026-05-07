@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.app_admin.complaints.model.Complaint
 import com.example.app_admin.complaints.view.component.ComplaintCard
@@ -25,4 +26,10 @@ fun ComplaintsScreen(onHandleComplaint: (Complaint) -> Unit) {
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ComplaintsScreenPreview() {
+    ComplaintsScreen(onHandleComplaint = {})
 }
