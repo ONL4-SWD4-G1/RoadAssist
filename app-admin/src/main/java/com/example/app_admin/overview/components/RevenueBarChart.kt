@@ -24,11 +24,11 @@ import com.example.app_admin.theme.DarkNavy
 
 @Composable
 fun RevenueBarChart(
-    todayData: List<Float>,
-    yesterdayData: List<Float>
+    currentPeriodData: List<Float>,
+    previousPeriodData: List<Float>,
+    labels: List<String>
 ) {
-    val labels = listOf("الصباح", "الظهر", "المساء", "الليل")
-    val maxVal = (todayData + yesterdayData).maxOrNull() ?: 1f
+    val maxVal = (currentPeriodData + previousPeriodData).maxOrNull()?.takeIf { it > 0 } ?: 1f
     val chartHeight = 80.dp
 
     Row(
@@ -36,7 +36,7 @@ fun RevenueBarChart(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.Bottom
     ) {
-        todayData.forEachIndexed { index, value ->
+        currentPeriodData.forEachIndexed { index, value ->
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -48,13 +48,15 @@ fun RevenueBarChart(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .width(8.dp)
-                            .fillMaxHeight(yesterdayData[index] / maxVal)
-                            .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp))
-                            .background(DarkNavy)
-                    )
+                    if (index < previousPeriodData.size) {
+                        Box(
+                            modifier = Modifier
+                                .width(8.dp)
+                                .fillMaxHeight(previousPeriodData[index] / maxVal)
+                                .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp))
+                                .background(DarkNavy)
+                        )
+                    }
 
                     Spacer(modifier = Modifier.width(4.dp))
 
@@ -70,8 +72,7 @@ fun RevenueBarChart(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = labels[index],
-                    fontSize = 10.sp,
+                    text = if (index < labels.size) labels[index] else "", fontSize = 10.sp,
                     color = Color(0xFF94A3B8),
                     fontWeight = FontWeight.Medium
                 )

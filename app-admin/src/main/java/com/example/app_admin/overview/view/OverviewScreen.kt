@@ -71,7 +71,6 @@ fun OverviewScreen(
     onNotificationClick: () -> Unit = {},
     onMenuClick: () -> Unit = {}
 ) {
-    // Senior Approach: Observe State from ViewModel
     val uiState by viewModel.uiState.collectAsState()
 
     val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -93,10 +92,7 @@ fun OverviewScreen(
                 RoadAssistTopAppBar(
                     title = "لوحة التحكم",
                     modifier = Modifier.clip(
-                        RoundedCornerShape(
-                            bottomStart = 24.dp,
-                            bottomEnd = 24.dp
-                        )
+                        RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
                     ),
                     subtitle = "$greeting، مشرف النظام",
                     containerColor = DarkNavy,
@@ -105,7 +101,7 @@ fun OverviewScreen(
                     navigationIcon = {
                         Box(
                             modifier = Modifier
-                                .padding(start = 16.dp)
+                                .padding(horizontal = 16.dp)
                                 .size(40.dp)
                                 .clip(RoundedCornerShape(10.dp))
                                 .background(orangePrimary),
@@ -120,7 +116,6 @@ fun OverviewScreen(
                         }
                     },
                     bottomContent = {
-                        // Interaction: Update ViewModel on selection
                         PeriodSelector(
                             periods = periods,
                             selectedPeriod = uiState.selectedPeriodIndex,
@@ -131,15 +126,16 @@ fun OverviewScreen(
                 )
             }
         ) { padding ->
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = padding,
-                    verticalArrangement = Arrangement.spacedBy(24.dp)
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(bottom = 24.dp)
                 ) {
                     item { Spacer(modifier = Modifier.height(4.dp)) }
 
-                    // --- SECTION 1: Performance Matrix (Dynamic Data) ---
                     item {
                         SectionHeaderPro("الأداء العام", "مباشر")
                         LazyRow(
@@ -179,7 +175,6 @@ fun OverviewScreen(
                         }
                     }
 
-                    // --- SECTION 2: Critical Alerts ---
                     item {
                         SectionHeaderPro("تنبيهات العمليات", "إجراء مطلوب")
                         Column(
@@ -205,7 +200,6 @@ fun OverviewScreen(
                         }
                     }
 
-                    // --- SECTION 3: Trend Analytics (Dynamic Charts) ---
                     item {
                         SectionHeaderPro("تحليلات الاتجاه", "آخر التحديثات")
                         Column(
@@ -217,27 +211,28 @@ fun OverviewScreen(
                                 label = "نشاط الطلبات المكتملة"
                             ) {
                                 if (uiState.hourlyOrders.isNotEmpty()) {
-                                    HourlyOrdersChart(dataPoints = uiState.hourlyOrders)
-                                } else {
-                                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                                        Text("جاري التحميل...", fontSize = 12.sp, color = Color.Gray)
-                                    }
-                                }
-                            }
-                            ChartCard(
-                                title = "تحليل الإيرادات",
-                                label = "مقارنة الدخل اليومي",
-                                hasLegend = true
-                            ) {
-                                if (uiState.todayRevenue.isNotEmpty() || uiState.yesterdayRevenue.isNotEmpty()) {
-                                    RevenueBarChart(
-                                        todayData = uiState.todayRevenue,
-                                        yesterdayData = uiState.yesterdayRevenue
+                                    HourlyOrdersChart(
+                                        dataPoints = uiState.hourlyOrders,
+                                        labels = uiState.chartLabels
                                     )
                                 } else {
-                                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                                        Text("جاري التحميل...", fontSize = 12.sp, color = Color.Gray)
-                                    }
+                                    ChartLoadingIndicator()
+                                }
+                            }
+
+                            ChartCard(
+                                title = "تحليل الإيرادات",
+                                label = "مقارنة الدخل الحالي بالسابق",
+                                hasLegend = true
+                            ) {
+                                if (uiState.todayRevenue.isNotEmpty()) {
+                                    RevenueBarChart(
+                                        currentPeriodData = uiState.todayRevenue,
+                                        previousPeriodData = uiState.yesterdayRevenue,
+                                        labels = uiState.revenueBarLabels
+                                    )
+                                } else {
+                                    ChartLoadingIndicator()
                                 }
                             }
                         }
@@ -246,12 +241,11 @@ fun OverviewScreen(
                     item { Spacer(modifier = Modifier.height(32.dp)) }
                 }
 
-                // Professional Overlay: Show loading indicator over the list
                 if (uiState.isLoading) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color.White.copy(alpha = 0.5f)),
+                            .background(Color.White.copy(alpha = 0.6f)),
                         contentAlignment = Alignment.Center
                     ) {
                         CircularProgressIndicator(color = orangePrimary)
@@ -259,6 +253,13 @@ fun OverviewScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun ChartLoadingIndicator() {
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("جاري التحميل...", fontSize = 12.sp, color = Color.Gray)
     }
 }
 
@@ -303,13 +304,12 @@ fun ChartCard(
             ) {
                 if (hasLegend) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        LegendItem("أمس", DarkNavy)
-                        LegendItem("اليوم", Color(0xFFF99806))
+                        LegendItem("السابق", DarkNavy)
+                        LegendItem("الحالي", Color(0xFFF99806))
                     }
                 } else {
                     Text(text = label, fontSize = 12.sp, color = Color(0xFF94A3B8))
                 }
-
                 Text(text = title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = DarkNavy)
             }
 
