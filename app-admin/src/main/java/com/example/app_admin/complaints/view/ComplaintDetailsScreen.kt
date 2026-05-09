@@ -74,7 +74,8 @@ fun ComplaintDetailsScreen(
     complaint: Complaint,
     onBack: () -> Unit,
     onNavigateToWarning: () -> Unit,
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onNavigateToComplainant: () -> Unit
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -146,7 +147,12 @@ fun ComplaintDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item { ComplaintSummarySection() }
-            item { UsersSection(onShowUserProfile = onNavigateToProfile) }
+            item {
+                UsersSection(
+                    onShowUserProfile = onNavigateToProfile,
+                    onShowComplaintProfile = onNavigateToComplainant
+                )
+            }
             item { TimelineSection() }
             item { AttachmentsSection() }
         }
@@ -213,7 +219,11 @@ fun ComplaintSummarySection() {
 }
 
 @Composable
-fun UsersSection(onShowUserProfile: () -> Unit) {
+fun UsersSection(
+    onShowUserProfile: () -> Unit,
+    onShowComplaintProfile: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         UserDetailCard(
             sectionTitle = "صاحب الشكوى (العميل)",
@@ -227,7 +237,7 @@ fun UsersSection(onShowUserProfile: () -> Unit) {
             name = "محمد سامي",
             info = "فني إطارات | سجل الشكاوي: ٢",
             icon = Icons.Default.Engineering,
-            onProfileClick = {}
+            onProfileClick = onShowComplaintProfile
         )
     }
 }
@@ -582,6 +592,7 @@ fun PreviewComplaintDetails() {
         complaint = sampleComplaints[0],
         onBack = {},
         onNavigateToWarning = {},
-        onNavigateToProfile = {}
+        onNavigateToProfile = {},
+        onNavigateToComplainant = {}
     )
 }

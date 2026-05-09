@@ -109,34 +109,34 @@ fun TechniciansScreen(
                 when (selectedTab) {
                     0 -> AllTechniciansTab(
                         onTechnicianClick = { tech ->
-                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                            navController.navigate(Screen.TechnicianDetails(techId = tech.id))
                         }
                     )
 
                     1 -> FilteredTechniciansTab(
                         status = TechnicianStatus.ACTIVE,
                         onTechnicianClick = { tech ->
-                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                            navController.navigate(Screen.TechnicianDetails(techId = tech.id))
                         }
                     )
 
                     2 -> FilteredTechniciansTab(
                         status = TechnicianStatus.WAITING,
                         onTechnicianClick = { tech ->
-                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                            navController.navigate(Screen.TechnicianDetails(techId = tech.id))
                         }
                     )
 
                     3 -> FilteredTechniciansTab(
                         status = TechnicianStatus.SUSPENDED,
                         onTechnicianClick = { tech ->
-                            navController.navigate(Screen.TechnicianDetail(techId = tech.id))
+                            navController.navigate(Screen.TechnicianDetails(techId = tech.id))
                         }
                     )
 
                     4 -> ComplaintsScreen(
                         onHandleComplaint = { complaint ->
-                            navController.navigate(Screen.ComplaintDetail(complaintId = complaint.id))
+                            navController.navigate(Screen.ComplaintDetails(complaintId = complaint.id))
                         }
                     )
                 }
