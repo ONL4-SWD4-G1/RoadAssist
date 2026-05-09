@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class ComplainantTechnicianViewModel : ViewModel() {
+class TechnicianDetailViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(
         ComplaintTechnicianUiState(
             name = "محمد سامي",
