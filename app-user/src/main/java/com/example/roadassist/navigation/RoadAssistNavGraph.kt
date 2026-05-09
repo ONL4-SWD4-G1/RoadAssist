@@ -8,27 +8,15 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.roadassist.home.home.view.HomeScreen
-import com.example.roadassist.home.notification.view.NotificationsScreen
-import com.example.roadassist.login.creatnewpassword.view.CreateNewPasswordScreen
-import com.example.roadassist.login.login.view.LoginScreen
-import com.example.roadassist.login.creatnewpassword.view.PasswordUpdatedDialog
-import com.example.roadassist.login.resetpassword.view.ResetPasswordScreen
-import com.example.roadassist.onboarding.view.OnboardingScreen
-import com.example.roadassist.profile.AboutUsScreen
-import com.example.roadassist.profile.ContactScreen
-import com.example.roadassist.profile.EditProfileScreen
-import com.example.roadassist.profile.MySubscriptionScreen
-import com.example.roadassist.profile.ProfileScreen
-import com.example.roadassist.profile.ServiceHistoryScreen
-import com.example.roadassist.profile.SettingsScreen
-import com.example.roadassist.profile.SubscriptionPlansScreen
-import com.example.roadassist.services.otherservices.view.OtherServiceFormScreen
-import com.example.roadassist.services.services.view.ServicesScreen
-import com.example.roadassist.signup.otp.view.OtpScreen
-import com.example.roadassist.signup.signup.view.SignupScreen
-import com.example.roadassist.signup.otp.view.SuccessDialog
-import com.example.roadassist.splash.view.SplashScreen
+import com.example.roadassist.features.home.home.view.HomeScreen
+import com.example.roadassist.features.home.notification.view.NotificationsScreen
+import com.example.roadassist.features.onboarding.view.OnboardingScreen
+import com.example.roadassist.features.services.otherservices.view.OtherServiceFormScreen
+import com.example.roadassist.features.services.services.view.ServicesScreen
+import com.example.roadassist.features.signup.otp.view.OtpScreen
+import com.example.roadassist.features.signup.otp.view.SuccessDialog
+import com.example.roadassist.features.signup.signup.view.SignupScreen
+import com.example.roadassist.features.splash.view.SplashScreen
 
 @Composable
 fun RoadAssistNavGraph() {
@@ -54,7 +42,7 @@ fun RoadAssistNavGraph() {
 
     // Password Updated Dialog
     if (showPasswordUpdatedDialog) {
-        PasswordUpdatedDialog(
+        _root_ide_package_.com.example.roadassist.features.login.creatnewpassword.view.PasswordUpdatedDialog(
             onExploreClick = {
                 showPasswordUpdatedDialog = false
                 navController.navigate(Routes.LOGIN) {
@@ -122,7 +110,7 @@ fun RoadAssistNavGraph() {
 
         // Login
         composable(Routes.LOGIN) {
-            LoginScreen(
+            _root_ide_package_.com.example.roadassist.features.login.login.view.LoginScreen(
                 onLoginSuccess = {
                     navController.navigate(Routes.HOME) {
                         popUpTo(Routes.LOGIN) {
@@ -141,7 +129,7 @@ fun RoadAssistNavGraph() {
 
         // Reset Password
         composable(Routes.RESET_PASSWORD) {
-            ResetPasswordScreen(
+            _root_ide_package_.com.example.roadassist.features.login.resetpassword.view.ResetPasswordScreen(
                 onGetOtpClick = {
                     navController.navigate(Routes.OTP_RESET)
                 },
@@ -165,7 +153,7 @@ fun RoadAssistNavGraph() {
 
         // Create New Password
         composable(Routes.CREATE_NEW_PASSWORD) {
-            CreateNewPasswordScreen(
+            _root_ide_package_.com.example.roadassist.features.login.creatnewpassword.view.CreateNewPasswordScreen(
                 onUpdateClick = {
                     showPasswordUpdatedDialog = true
                 },
@@ -209,50 +197,6 @@ fun RoadAssistNavGraph() {
             )
         }
 
-        composable(Routes.PROFILE) {
-            ProfileScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onNavigateTo = { route -> navController.navigate(route) },
-                onNavigateToEdit = { navController.navigate(Routes.EDIT_PROFILE) },
-                onLogout = {
-                    navController.navigate(Routes.LOGIN) {
-                        popUpTo(0) { inclusive = true }
-                    }
-                },
-            )
-        }
-        composable(Routes.EDIT_PROFILE) {
-            EditProfileScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onUpdated = { navController.popBackStack() },
-            )
-        }
 
-        composable(Routes.SERVICE_HISTORY) {
-            ServiceHistoryScreen(onNavigateBack = { navController.popBackStack() })
-        }
-
-        composable(Routes.SUBSCRIPTION) {
-            MySubscriptionScreen(
-                onUpgrade      = { navController.navigate(Routes.SUBSCRIPTION_PLANS) },
-                onNavigateBack = { navController.popBackStack() },
-            )
-        }
-
-        composable(Routes.SUBSCRIPTION_PLANS) {
-            SubscriptionPlansScreen(onNavigateBack = { navController.popBackStack() })
-        }
-
-        composable(Routes.ABOUT_US) {
-            AboutUsScreen(onNavigateBack = { navController.popBackStack() })
-        }
-
-        composable(Routes.CONTACT) {
-            ContactScreen(onNavigateBack = { navController.popBackStack() })
-        }
-
-        composable(Routes.SETTINGS) {
-            SettingsScreen(onNavigateBack = { navController.popBackStack() })
-        }
     }
 }
