@@ -1,15 +1,15 @@
 package com.example.app_admin.complaints.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.app_admin.complaints.model.ComplaintTechnicianUiState
 import com.example.app_admin.complaints.model.TechnicianOffer
+import com.example.app_admin.complaints.model.`ِComplainantTechnicianUiState`
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class TechnicianDetailViewModel : ViewModel() {
+class ComplainantTechnicianViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(
-        ComplaintTechnicianUiState(
+        `ِComplainantTechnicianUiState`(
             name = "محمد سامي",
             specialty = "فني كهرباء سيارات",
             experience = "خبرة ٥ سنوات",
@@ -30,7 +30,7 @@ class TechnicianDetailViewModel : ViewModel() {
             )
         )
     )
-    val uiState: StateFlow<ComplaintTechnicianUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<`ِComplainantTechnicianUiState`> = _uiState.asStateFlow()
 
     fun onAcceptOffer(offerId: Int) { /* Logic */
     }

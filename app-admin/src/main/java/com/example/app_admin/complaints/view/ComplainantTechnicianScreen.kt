@@ -65,10 +65,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.app_admin.R
-import com.example.app_admin.complaints.model.ComplaintTechnicianUiState
 import com.example.app_admin.complaints.model.TechnicianOffer
+import com.example.app_admin.complaints.model.`ِComplainantTechnicianUiState`
 import com.example.app_admin.complaints.view.component.ComplaintActionButton
-import com.example.app_admin.complaints.viewModel.TechnicianDetailViewModel
+import com.example.app_admin.complaints.viewModel.ComplainantTechnicianViewModel
 import com.example.app_admin.shared.RoadAssistTopAppBar
 import com.example.app_admin.shared.StatusBadge
 import com.example.app_admin.theme.DarkNavy
@@ -81,7 +81,7 @@ fun ComplainantTechnicianScreen(
     onNavigateToWarning: () -> Unit,
     onNavigateToSuspension: () -> Unit,
     onNavigateToDelete: () -> Unit,
-    viewModel: TechnicianDetailViewModel = viewModel()
+    viewModel: ComplainantTechnicianViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -213,7 +213,7 @@ private fun CustomSectionTitle(
 }
 
 @Composable
-fun TechnicianInfoCard(state: ComplaintTechnicianUiState) {
+fun TechnicianInfoCard(state: `ِComplainantTechnicianUiState`) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),

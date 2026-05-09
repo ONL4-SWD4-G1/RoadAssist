@@ -1,6 +1,6 @@
 package com.example.app_admin.complaints.model
 
-data class ComplaintTechnicianUiState(
+data class `ِComplainantTechnicianUiState`(
     val name: String = "محمد سامي",
     val specialty: String = "فني كهرباء سيارات",
     val experience: String = "خبرة ٥ سنوات",

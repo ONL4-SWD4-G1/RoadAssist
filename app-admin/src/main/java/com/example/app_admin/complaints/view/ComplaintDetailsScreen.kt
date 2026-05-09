@@ -150,7 +150,7 @@ fun ComplaintDetailsScreen(
             item {
                 UsersSection(
                     onShowUserProfile = onNavigateToProfile,
-                    onShowComplaintProfile = onNavigateToComplainant
+                    onShowComplainantProfile = onNavigateToComplainant
                 )
             }
             item { TimelineSection() }
@@ -221,7 +221,7 @@ fun ComplaintSummarySection() {
 @Composable
 fun UsersSection(
     onShowUserProfile: () -> Unit,
-    onShowComplaintProfile: () -> Unit,
+    onShowComplainantProfile: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -237,7 +237,7 @@ fun UsersSection(
             name = "محمد سامي",
             info = "فني إطارات | سجل الشكاوي: ٢",
             icon = Icons.Default.Engineering,
-            onProfileClick = onShowComplaintProfile
+            onProfileClick = onShowComplainantProfile
         )
     }
 }
