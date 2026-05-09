@@ -14,24 +14,17 @@ sealed class Screen {
     object Finance : Screen()
     @Serializable
     object More : Screen()
-
-    @Serializable
-    object Complaints : Screen()
-    @Serializable
-    object ComplaintDetails : Screen()
-
-    @Serializable
-    object UserWarning : Screen()
-
-    @Serializable
-    object UserSuspension : Screen()
-
     @Serializable
     object UserProfile : Screen()
 
-    // For screens that need arguments, we use data classes
     @Serializable
-    data class TechnicianDetail(val techId: Int) : Screen()
+    data class TechnicianDetails(val techId: Int) : Screen()
     @Serializable
-    data class ComplaintDetail(val complaintId: Int) : Screen()
+    data class ComplaintDetails(val complaintId: Int) : Screen()
+    @Serializable
+    data class ComplainantTechnician(val techId: Int) : Screen()
+    @Serializable
+    data class UserWarning(val userId: Int) : Screen()
+    @Serializable
+    data class UserSuspension(val userId: Int) : Screen()
 }

@@ -61,7 +61,7 @@ import com.example.app_admin.theme.PrimaryOrange
 import com.example.app_admin.theme.SoftWhite
 
 @Composable
-fun WarningScreen(onBack: () -> Unit) {
+fun UserWarningScreen(onBack: () -> Unit) {
     var warningReason by remember { mutableStateOf("") }
     var selectedTemplate by remember { mutableStateOf("") }
     var warningMessage by remember { mutableStateOf("") }
@@ -309,6 +309,6 @@ fun WarningScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         color = BackgroundGray
     ) {
-        WarningScreen(onBack = {})
+        UserWarningScreen(onBack = {})
     }
 }

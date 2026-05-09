@@ -78,6 +78,9 @@ import com.example.app_admin.theme.PrimaryOrange
 @Composable
 fun ComplainantTechnicianScreen(
     onBack: () -> Unit,
+    onNavigateToWarning: () -> Unit,
+    onNavigateToSuspension: () -> Unit,
+    onNavigateToDelete: () -> Unit,
     viewModel: TechnicianDetailViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -108,7 +111,13 @@ fun ComplainantTechnicianScreen(
                     }
                 )
             },
-            bottomBar = { TechnicianActionBottomBar() },
+            bottomBar = {
+                TechnicianActionBottomBar(
+                    onDeleteClick = onNavigateToDelete,
+                    onWarningClick = onNavigateToWarning,
+                    onPauseClick = onNavigateToSuspension
+                )
+            },
             containerColor = Color(0xFFF8F7F6)
         ) { padding ->
             LazyColumn(
@@ -378,15 +387,19 @@ private fun FinancialSummaryCard(
                 modifier = Modifier.padding(top = 4.dp)
             )
             Text("إجمالي الأرباح", fontSize = 10.sp, color = Color.LightGray)
-            Box(Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth()
-                .height(4.dp)
-                .background(Color(0xFFF1F5F9), CircleShape)) {
-                Box(Modifier
-                    .fillMaxWidth(0.7f)
-                    .fillMaxHeight()
-                    .background(PrimaryOrange, CircleShape))
+            Box(
+                Modifier
+                    .padding(top = 8.dp)
+                    .fillMaxWidth()
+                    .height(4.dp)
+                    .background(Color(0xFFF1F5F9), CircleShape)
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxWidth(0.7f)
+                        .fillMaxHeight()
+                        .background(PrimaryOrange, CircleShape)
+                )
             }
         }
     }
@@ -531,13 +544,18 @@ private fun DecisionActionRow(onConfirm: () -> Unit, onReject: () -> Unit) {
 }
 
 @Composable
-private fun TechnicianActionBottomBar() {
+private fun TechnicianActionBottomBar(
+    onDeleteClick: () -> Unit,
+    onWarningClick: () -> Unit,
+    onPauseClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Surface(color = Color.White, shadowElevation = 8.dp, border = BorderStroke(1.dp, Color(0xFFE2E8F0))) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 ComplaintActionButton(
                     text = "حذف الحساب",
-                    onClick = {},
+                    onClick = onDeleteClick,
                     icon = Icons.Default.Delete,
                     isPrimary = false,
                     contentColor = Color.Red,
@@ -548,7 +566,7 @@ private fun TechnicianActionBottomBar() {
                 )
                 ComplaintActionButton(
                     text = "توجيه إنذار",
-                    onClick = {},
+                    onClick = onWarningClick,
                     icon = Icons.Default.Warning,
                     isPrimary = false,
                     contentColor = DarkNavy,
@@ -560,7 +578,7 @@ private fun TechnicianActionBottomBar() {
             Spacer(Modifier.height(12.dp))
             ComplaintActionButton(
                 text = "إيقاف الفني مؤقتاً",
-                onClick = {},
+                onClick = onPauseClick,
                 icon = Icons.Default.PauseCircle,
                 isPrimary = true,
                 modifier = Modifier
@@ -574,5 +592,10 @@ private fun TechnicianActionBottomBar() {
 @Preview(showBackground = true, heightDp = 1200)
 @Composable
 fun ComplainantTechnicianScreenPreview() {
-    ComplainantTechnicianScreen(onBack = {})
+    ComplainantTechnicianScreen(
+        onBack = {},
+        onNavigateToWarning = {},
+        onNavigateToSuspension = {},
+        onNavigateToDelete = {}
+    )
 }
