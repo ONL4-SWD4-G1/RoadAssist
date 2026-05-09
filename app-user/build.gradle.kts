@@ -57,13 +57,13 @@ android {
         // Compose
         implementation(platform(libs.androidx.compose.bom))
         implementation(libs.bundles.compose.ui)
-        implementation(libs.androidx.compose.foundation)
+//        implementation(libs.androidx.compose.foundation)
 
         // Navigation
         implementation(libs.androidx.navigation.compose)
 
         // Animations
-        implementation(libs.androidx.compose.animation)
+//        implementation(libs.androidx.compose.animation)
 
         // Unit Test
         testImplementation(libs.junit)
