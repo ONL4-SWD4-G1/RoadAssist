@@ -41,4 +41,20 @@
     <string name="pending_balance">الرصيد المعلق</string>
     <string name="total_earnings">إجمالي الأرباح</string>
     <string name="technician_deduction">الخصم من الفني</string>
+    <string name="refund">استرداد الأموال</string>
+    <string name="order_financial_summary">ملخص مالي للطلب (#%s)</string>
+    <string name="service_price">سعر الخدمة</string>
+    <string name="commission_percentage">العمولة (١٥٪)</string>
+    <string name="total_amount_paid">المبلغ المدفوع (شامل)</string>
+    <string name="refund_type">نوع الاسترداد</string>
+    <string name="requested_refund_amount">المبلغ المطلوب استرداده</string>
+    <string name="partial_refund">استرداد جزئي</string>
+    <string name="select_amount">تحديد مبلغ</string>
+    <string name="full_refund">استرداد كامل</string>
+    <string name="refund_amount_exceeds_limit">لا يمكن أن يتجاوز المبلغ %s ر.س</string>
+    <string name="confirm_refund">تأكيد الاسترداد</string>
+    <string name="refund_to_customer_wallet">يعاد لمحفظة العميل</string>
+    <string name="deduct_from_technician_including_commission">يخصم من الفني (شامل العمولة)</string>
+    <string name="refund_reason">سبب الاسترداد</string>
+    <string name="additional_notes_optional">ملاحظات إضافية (اختياري)</string>
 </resources>
