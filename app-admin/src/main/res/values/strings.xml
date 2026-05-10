@@ -14,7 +14,7 @@
     <string name="suspension_reason_required">سبب الإيقاف وملاحظات (إلزامي)</string>
     <string name="additional_details_hint">اكتب تفاصيل إضافية حول سبب القرار...</string>
     <string name="confirm_account_suspension">تأكيد إيقاف الحساب</string>
-    <string name="cancel">إلغاء العملية</string>
+    <string name="process_cancel">إلغاء العملية</string>
     <string name="decision_impact_on_orders">أثر القرار على الطلبات</string>
     <string name="suspend_orders_warning">سيتم سحب %d طلبات قيد التنفيذ حالياً من الفني وإعادة توجيهها لفنيين آخرين بشكل تلقائي فور تأكيد الإيقاف.</string>
     <string name="policy_violation">مخالفة سياسات المنصة</string>
@@ -23,4 +23,22 @@
     <string name="other">أخرى</string>
     <string name="select_reason_from_list">اختر السبب من القائمة…</string>
     <string name="jobs_count">%d طلب</string>
+    <string name="cancel">إلغاء</string>
+    <string name="saving">جاري الحفظ...</string>
+    <string name="confirm_deduction">تأكيد الخصم</string>
+    <string name="deduction_data">بيانات الخصم</string>
+    <string name="deduction_amount">مبلغ الخصم (ر.س)</string>
+    <string name="deduction_reason">سبب الخصم</string>
+    <string name="admin_notes_visible_to_technician">ملاحظات الإدارة (تظهر للفني)</string>
+    <string name="violation_details_hint">اكتب تفاصيل المخالفة هنا...</string>
+    <string name="current_pending_balance">الرصيد الحالي المعلق:</string>
+    <string name="deducted_amount">قيمة الخصم المستقطع:</string>
+    <string name="new_expected_balance">الرصيد الجديد المتوقع:</string>
+    <string name="financial_impact_preview">معاينة الأثر المالي</string>
+    <string name="technician_notification_preview">معاينة إشعار الفني</string>
+    <string name="financial_deduction_alert">تنبيه خصم مالي</string>
+    <string name="deduction_notification_message">تم خصم %s ر.س من رصيدك بسبب: %s. يرجى الالتزام بالمواعيد المحددة مستقبلاً.</string>
+    <string name="pending_balance">الرصيد المعلق</string>
+    <string name="total_earnings">إجمالي الأرباح</string>
+    <string name="technician_deduction">الخصم من الفني</string>
 </resources>
