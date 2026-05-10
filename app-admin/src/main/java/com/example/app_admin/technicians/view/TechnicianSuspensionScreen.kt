@@ -385,7 +385,7 @@ fun SuspensionFooter(onConfirm: () -> Unit, onCancel: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = stringResource(R.string.cancel),
+                    text = stringResource(R.string.process_cancel),
                     color = Color.Gray,
                     fontWeight = FontWeight.Medium
                 )

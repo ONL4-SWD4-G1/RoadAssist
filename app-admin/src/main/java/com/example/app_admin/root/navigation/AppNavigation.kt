@@ -17,6 +17,7 @@ import com.example.app_admin.orders.view.OrdersScreen
 import com.example.app_admin.overview.view.OverviewScreen
 import com.example.app_admin.sampleComplaints
 import com.example.app_admin.sampleTechnicians
+import com.example.app_admin.technicians.view.TechnicianDeductionScreen
 import com.example.app_admin.technicians.view.TechnicianDetailScreen
 import com.example.app_admin.technicians.view.TechnicianSuspensionScreen
 import com.example.app_admin.technicians.view.TechniciansScreen
@@ -133,6 +134,9 @@ fun AppNavigation(
                     },
                     onNavigateToComplainant = {
                         navController.navigate(Screen.ComplainantTechnician(techId = route.complaintId))
+                    },
+                    onNavigateToDeduction = {
+                        navController.navigate(Screen.TechnicianDeduction(techId = route.complaintId))
                     }
                 )
             }
@@ -156,5 +160,11 @@ fun AppNavigation(
                 }
             )
         }
+
+        composable<Screen.TechnicianDeduction> { backStackEntry ->
+            val route: Screen.TechnicianDeduction = backStackEntry.toRoute()
+            TechnicianDeductionScreen(techId = route.techId, onBack = { navController.popBackStack() })
+        }
+
     }
 }

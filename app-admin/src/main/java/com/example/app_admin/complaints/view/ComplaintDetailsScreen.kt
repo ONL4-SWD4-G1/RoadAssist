@@ -74,6 +74,7 @@ fun ComplaintDetailsScreen(
     complaint: Complaint,
     onBack: () -> Unit,
     onNavigateToWarning: () -> Unit,
+    onNavigateToDeduction: () -> Unit,
     onNavigateToProfile: () -> Unit,
     onNavigateToComplainant: () -> Unit
 ) {
@@ -135,7 +136,10 @@ fun ComplaintDetailsScreen(
             )
         },
         bottomBar = {
-            ComplaintActionButtons(onWarningClick = onNavigateToWarning)
+            ComplaintActionButtons(
+                onWarningClick = onNavigateToWarning,
+                onDeductionClick = onNavigateToDeduction
+            )
         }
     ) { padding ->
         LazyColumn(
@@ -486,7 +490,10 @@ fun AttachmentImage(resId: Int) {
 }
 
 @Composable
-fun ComplaintActionButtons(onWarningClick: () -> Unit) {
+fun ComplaintActionButtons(
+    onWarningClick: () -> Unit,
+    onDeductionClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -508,7 +515,7 @@ fun ComplaintActionButtons(onWarningClick: () -> Unit) {
                 text = "خصم",
                 color = Color(0xFFF97316),
                 icon = Icons.Default.ContentCut,
-                onClick = {}
+                onClick = onDeductionClick
             )
             ActionButton(
                 modifier = Modifier.weight(1f),
@@ -592,6 +599,7 @@ fun PreviewComplaintDetails() {
         complaint = sampleComplaints[0],
         onBack = {},
         onNavigateToWarning = {},
+        onNavigateToDeduction = {},
         onNavigateToProfile = {},
         onNavigateToComplainant = {}
     )
