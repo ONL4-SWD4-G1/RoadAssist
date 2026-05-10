@@ -63,16 +63,7 @@ import androidx.compose.ui.unit.sp
 
 
 //Colors
-private val BgDark = Color(0xFF0D1117)
-private val SurfaceDark2 = Color(0xFF161B22)
-private val CardDark2 = Color(0xFF1C2333)
-private val AccentBlue2 = Color(0xFF2F81F7)
-private val TextPrimary2 = Color(0xFFE6EDF3)
-private val TextSecondary2 = Color(0xFF8B949E)
-private val TextMuted2 = Color(0xFF656D76)
-private val GoldStar2 = Color(0xFFF0C048)
-private val Divider = Color(0xFF21262D)
-private val NavSelected2 = Color(0xFF2F81F7)
+
 
 //Data Models
 data class JobRecord(

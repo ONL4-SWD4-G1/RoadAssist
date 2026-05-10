@@ -58,16 +58,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 //Colors
-private val DarkBg        = Color(0xFF0F1218)
-private val CardBg        = Color(0xFF181D27)
-private val InputBg       = Color(0xFF1A1F2E)
-private val AccentBlue2    = Color(0xFF3B82F6)
-private val TextPrimary2   = Color(0xFFFFFFFF)
-private val TextSecondary2 = Color(0xFF64748B)
-private val TextHint      = Color(0xFF4A5568)
-private val LabelColor    = Color(0xFF64748B)
-private val DashedBorder  = Color(0xFF2D3748)
-private val TimerCardBg   = Color(0xFF1A1F2E)
+
 
 //Main Screen
 @Composable
@@ -478,7 +469,7 @@ fun FinishJobButton() {
 //}
 
 @Composable
-fun FieldLabel(text: String) {
+private fun FieldLabel(text: String) {
     Text(
         text       = text,
         color      = TextPrimary,

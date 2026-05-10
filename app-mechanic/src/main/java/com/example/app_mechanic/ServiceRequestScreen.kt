@@ -1,5 +1,6 @@
-package com.example.mechanicapp.ui
+package com.example.app_mechanic
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -48,25 +49,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 // ─── Color Palette ────────────────────────────────────────────────────────────
-private val DarkBg         = Color(0xFF0F1218)
-private val CardBg         = Color(0xFF181D27)
-private val CardBgLight    = Color(0xFF1E2535)
-private val AccentBlue     = Color(0xFF3B82F6)
-private val AccentGreen    = Color(0xFF22C55E)
-private val AccentOrange   = Color(0xFFFF6B35)
-private val TextPrimary    = Color(0xFFFFFFFF)
-private val TextSecondary  = Color(0xFF94A3B8)
-private val TextBlue       = Color(0xFF60A5FA)
-private val TextOrange     = Color(0xFFFB923C)
-private val StarYellow     = Color(0xFFFBBF24)
-private val ActiveGreen    = Color(0xFF4ADE80)
-private val DividerColor   = Color(0xFF2D3748)
+
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 @Composable
@@ -289,7 +279,7 @@ fun CustomerProfileCard() {
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = TextPrimary
                     ),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, DividerColor)
+                    border = BorderStroke(1.dp, DividerColor)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Message,
@@ -638,7 +628,7 @@ fun CustomerNotesCard() {
                 color = TextSecondary,
                 fontSize = 13.sp,
                 lineHeight = 21.sp,
-                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                fontStyle = FontStyle.Italic,
                 modifier = Modifier.padding(16.dp)
             )
         }

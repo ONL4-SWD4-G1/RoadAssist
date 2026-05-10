@@ -54,18 +54,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 //Colors
-val BackgroundDark   = Color(0xFF0D1117)
-val SurfaceDark      = Color(0xFF161B22)
-val CardDark         = Color(0xFF1C2333)
-val CardAlt          = Color(0xFF1A2236)
-val AccentBlue       = Color(0xFF2563EB)
-val AccentBlueDim    = Color(0xFF1D3A6E)
-val TextPrimary      = Color(0xFFE6EDF3)
-val TextSecondary    = Color(0xFF8B949E)
-val TextMuted        = Color(0xFF656D76)
-val GreenAccent      = Color(0xFF3FB950)
-val GoldStar         = Color(0xFFF0C048)
-val NavSelected      = Color(0xFF2F81F7)
+//val BackgroundDark   = Color(0xFF0D1117)
+//val SurfaceDark      = Color(0xFF161B22)
+//val CardDark         = Color(0xFF1C2333)
+//val CardAlt          = Color(0xFF1A2236)
+//val AccentBlue       = Color(0xFF2563EB)
+//val AccentBlueDim    = Color(0xFF1D3A6E)
+//val TextPrimary      = Color(0xFFE6EDF3)
+//val TextSecondary    = Color(0xFF8B949E)
+//val TextMuted        = Color(0xFF656D76)
+//val GreenAccent      = Color(0xFF3FB950)
+//val GoldStar         = Color(0xFFF0C048)
+//val NavSelected      = Color(0xFF2F81F7)
 
 //Bar chart data
 data class BarData(val label: String, val value: Float, val isHighlighted: Boolean = false)
@@ -81,13 +81,13 @@ val weekBars = listOf(
 )
 
 //Nav items
-data class NavItem(val label: String, val icon: ImageVector, val selected: Boolean = false)
+data class EarningsNavItem(val label: String, val icon: ImageVector, val selected: Boolean = false)
 
-val navItems = listOf(
-    NavItem("JOBS",     Icons.Outlined.Work),
-    NavItem("EARNINGS", Icons.Outlined.AccountBalanceWallet, selected = true),
-    NavItem("PROFILE",  Icons.Outlined.Person),
-    NavItem("SETTINGS", Icons.Outlined.Settings),
+val earningsNavItems = listOf(
+    EarningsNavItem("JOBS", Icons.Outlined.Work),
+    EarningsNavItem("EARNINGS", Icons.Outlined.AccountBalanceWallet, selected = true),
+    EarningsNavItem("PROFILE", Icons.Outlined.Person),
+    EarningsNavItem("SETTINGS", Icons.Outlined.Settings),
 )
 
 //Main Screen
@@ -425,7 +425,7 @@ fun BottomNavBar() {
         containerColor = SurfaceDark,
         tonalElevation = 0.dp
     ) {
-        navItems.forEach { item ->
+        earningsNavItems.forEach { item ->
             NavigationBarItem(
                 selected = item.selected,
                 onClick  = {},

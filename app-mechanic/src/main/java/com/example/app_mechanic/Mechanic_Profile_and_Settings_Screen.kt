@@ -1,4 +1,4 @@
-package com.example.earningsdashboard
+package com.example.app_mechanic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -65,39 +65,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_mechanic.AccentBlue
-import com.example.app_mechanic.CardDark
-import com.example.app_mechanic.GoldStar
-import com.example.app_mechanic.NavItem
-import com.example.app_mechanic.NavSelected
-import com.example.app_mechanic.SurfaceDark
-import com.example.app_mechanic.TextMuted
-import com.example.app_mechanic.TextPrimary
-import com.example.app_mechanic.TextSecondary
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
-private val BgDark         = Color(0xFF0D1117)
-private val SurfaceDark3    = Color(0xFF161B22)
-private val CardDark3       = Color(0xFF1C2333)
-private val AccentBlue3     = Color(0xFF2F81F7)
-private val TextPrimary3    = Color(0xFFE6EDF3)
-private val TextSecondary3  = Color(0xFF8B949E)
-private val TextMuted3      = Color(0xFF656D76)
-private val GoldStar3       = Color(0xFFF0C048)
-private val DividerColor   = Color(0xFF21262D)
-private val RedLogout      = Color(0xFF8B1A1A)
-private val RedLogoutText  = Color(0xFFE05C5C)
-private val NavSelected3    = Color(0xFF2F81F7)
-private val ToggleOn       = Color(0xFF2563EB)
-private val AvatarBorder   = Color(0xFF2F81F7)
+
 
 // ─── Nav Items ────────────────────────────────────────────────────────────────
-data class NavItem3(val label: String, val icon: ImageVector, val selected: Boolean = false)
+private data class NavItem(val label: String, val icon: ImageVector, val selected: Boolean = false)
 private val profileNavItems = listOf(
-    NavItem("JOBS", Icons.Outlined.Work),
-    NavItem("EARNINGS", Icons.Outlined.AccountBalanceWallet),
-    NavItem("PROFILE", Icons.Outlined.Person, selected = true),
-    NavItem("SUPPORT", Icons.Outlined.HeadsetMic),
+    _root_ide_package_.com.example.app_mechanic.NavItem("JOBS", Icons.Outlined.Work),
+    _root_ide_package_.com.example.app_mechanic.NavItem(
+        "EARNINGS",
+        Icons.Outlined.AccountBalanceWallet
+    ),
+    _root_ide_package_.com.example.app_mechanic.NavItem(
+        "PROFILE",
+        Icons.Outlined.Person,
+        selected = true
+    ),
+    _root_ide_package_.com.example.app_mechanic.NavItem("SUPPORT", Icons.Outlined.HeadsetMic),
 )
 
 // ─── Main Screen ─────────────────────────────────────────────────────────────

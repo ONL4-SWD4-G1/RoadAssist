@@ -1,4 +1,4 @@
-package com.example.mechanicapp.ui
+package com.example.app_mechanic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -66,24 +66,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-// ─── Color Palette ───────────────────────────────────────────────────────────
-private val DarkBg        = Color(0xFF0F1218)
-private val CardBg        = Color(0xFF1A1E2A)
-private val CardBgLight   = Color(0xFF222736)
-private val AccentBlue    = Color(0xFF3B82F6)
-private val AccentGreen   = Color(0xFF22C55E)
-private val AccentRed     = Color(0xFFEF4444)
-private val AccentOrange  = Color(0xFFFF6B35)
-private val TextPrimary   = Color(0xFFFFFFFF)
-private val TextSecondary = Color(0xFF94A3B8)
-private val TextBlue      = Color(0xFF60A5FA)
-private val OnlineGreen   = Color(0xFF4ADE80)
-private val NavSelected   = Color(0xFF3B82F6)
-private val NavUnselected  = Color(0xFF64748B)
+
 
 // ─── Main Screen ─────────────────────────────────────────────────────────────
 @Composable
-fun MechanicHomeScreen() {
+fun MechanicHomeScreen(modifier: Modifier = Modifier) {
     var isOnline by remember { mutableStateOf(true) }
     var selectedTab by remember { mutableStateOf(0) }
 
@@ -234,7 +221,7 @@ fun TopBar(isOnline: Boolean, onToggle: () -> Unit) {
 
 // ─── Map Placeholder ─────────────────────────────────────────────────────────
 @Composable
-fun MapPlaceholder() {
+private fun MapPlaceholder() {
     // Simulates the Google Maps dark-mode look with a colored background
     Box(
         modifier = Modifier
@@ -638,10 +625,26 @@ fun ServiceRequestCard(modifier: Modifier = Modifier) {
 @Composable
 fun BottomNavBar(selectedTab: Int, onTabSelected: (Int) -> Unit) {
     val tabs = listOf(
-        NavItem("Home", Icons.Default.Home, Icons.Outlined.Home),
-        NavItem("Jobs", Icons.Default.Work, Icons.Outlined.Work),
-        NavItem("Earnings", Icons.Default.AccountBalanceWallet, Icons.Outlined.AccountBalanceWallet),
-        NavItem("Profile", Icons.Default.Person, Icons.Outlined.Person)
+        HomeNavItem(
+            "Home",
+            Icons.Default.Home,
+            Icons.Outlined.Home
+        ),
+        HomeNavItem(
+            "Jobs",
+            Icons.Default.Work,
+            Icons.Outlined.Work
+        ),
+        HomeNavItem(
+            "Earnings",
+            Icons.Default.AccountBalanceWallet,
+            Icons.Outlined.AccountBalanceWallet
+        ),
+        HomeNavItem(
+            "Profile",
+            Icons.Default.Person,
+            Icons.Outlined.Person
+        )
     )
 
     NavigationBar(
@@ -683,7 +686,7 @@ fun BottomNavBar(selectedTab: Int, onTabSelected: (Int) -> Unit) {
 }
 
 // ─── Data Classes ─────────────────────────────────────────────────────────────
-data class NavItem(
+private data class HomeNavItem(
     val label: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector

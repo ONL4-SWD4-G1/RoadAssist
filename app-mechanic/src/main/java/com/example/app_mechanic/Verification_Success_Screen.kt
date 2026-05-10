@@ -1,4 +1,4 @@
-package com.example.earningsdashboard
+package com.example.app_mechanic
 
 import androidx.compose.animation.core.EaseInOutSine
 import androidx.compose.animation.core.RepeatMode
@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -47,30 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_mechanic.AccentBlue
-import com.example.app_mechanic.AccentBlueDim
-import com.example.app_mechanic.CardDark
-import com.example.app_mechanic.TextMuted
-import com.example.app_mechanic.TextPrimary
-import com.example.app_mechanic.TextSecondary
 
-// ─── Colors ───────────────────────────────────────────────────────────────────
-private val BgDark         = Color(0xFF0A0E14)
-private val CardDark5       = Color(0xFF141A24)
-private val CardInner      = Color(0xFF1A2235)
-private val AccentBlue5     = Color(0xFF2F81F7)
-private val AccentBlueDim5  = Color(0xFF1A3A6E)
-private val GreenMain      = Color(0xFF22C55E)
-private val GreenDark      = Color(0xFF15803D)
-private val GreenGlow      = Color(0x3322C55E)
-private val GreenRing      = Color(0x6622C55E)
-private val TextPrimary5    = Color(0xFFE6EDF3)
-private val TextSecondary5  = Color(0xFF8B949E)
-private val TextMuted5      = Color(0xFF656D76)
-private val DotBlue        = Color(0xFF60A5FA)
-private val DotGreen       = Color(0xFF22C55E)
-private val MapOverlay     = Color(0xFF1C2B3A)
-private val BadgeBg        = Color(0xFF0F1B2A)
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
 @Composable
@@ -403,8 +381,8 @@ fun VerificationSuccessScreen() {
 
 // ─── Map Placeholder ────────────────────────────────────────────────────────
 @Composable
-fun MapPlaceholder() {
-    androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize()) {
+private fun MapPlaceholder() {
+    Canvas(modifier = Modifier.fillMaxSize()) {
         val gridColor = Color(0xFF243447)
         val step = 28.dp.toPx()
         // Horizontal lines

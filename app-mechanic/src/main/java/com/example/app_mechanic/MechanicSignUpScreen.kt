@@ -1,4 +1,4 @@
-package com.example.roadsideapp.ui.screens
+package com.example.app_mechanic
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -63,18 +63,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 //Color Palette
-private val BackgroundDark = Color(0xFF0F1117)
-private val SurfaceDark = Color(0xFF1A1D27)
-private val BorderColor = Color(0xFF2E3347)
-private val AccentBlue = Color(0xFF4A80F0)
-private val TextPrimary = Color(0xFFFFFFFF)
-private val TextSecondary = Color(0xFF8B90A0)
-private val TextHint = Color(0xFF555B6E)
-private val IconColor = Color(0xFF6B7280)
-private val CheckboxChecked = Color(0xFF4A80F0)
-private val DividerColor = Color(0xFF252A3A)
-private val SocialBg = Color(0xFF1E2233)
-private val SurfaceVariant = Color(0xFF232736)
 
 //Screen
 @Composable

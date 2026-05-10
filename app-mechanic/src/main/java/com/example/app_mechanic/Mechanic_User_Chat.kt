@@ -1,4 +1,4 @@
-package com.example.mechanicapp.ui
+package com.example.app_mechanic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
@@ -35,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,26 +46,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
-private val DarkBg           = Color(0xFF0F1218)
-private val TopBarBg         = Color(0xFF141920)
-private val ReceivedBubble   = Color(0xFF1E2535)
-private val SentBubble       = Color(0xFF3B82F6)
-private val InputBarBg       = Color(0xFF141920)
-private val InputFieldBg     = Color(0xFF1E2535)
-private val TextPrimary      = Color(0xFFFFFFFF)
-private val TextSecondary    = Color(0xFF94A3B8)
-private val DateLabelBg      = Color(0xFF1E2535)
-private val QuickReplyBg     = Color(0xFF1E2C45)
-private val QuickReplyBorder = Color(0xFF3B82F6)
-private val DividerColor     = Color(0xFF2D3748)
-private val SendBtnBg        = Color(0xFF3B82F6)
-private val TickColor        = Color(0xFF60A5FA)
 
 // ─── Data Models ──────────────────────────────────────────────────────────────
 sealed class ChatMessage {
@@ -426,9 +415,18 @@ fun ImageMessageBubble(message: ChatMessage.Image) {
                             modifier = Modifier.align(Alignment.Center),
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
-                            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFFFBBF24)))
-                            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFFEF4444)))
-                            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFFFBBF24)))
+                            Box(modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFFFBBF24)))
+                            Box(modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFFEF4444)))
+                            Box(modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFFFBBF24)))
                         }
 
                         // Dashboard label
@@ -488,7 +486,7 @@ fun QuickRepliesRow(replies: List<String>, onReply: (String) -> Unit) {
                     )
                     .padding(1.dp)
             ) {
-                androidx.compose.material3.TextButton(
+                TextButton(
                     onClick = { onReply(reply) },
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
@@ -577,7 +575,7 @@ fun ChatInputBar(
             )
         }
 
-        // Send button
+        //Send button
         Box(
             modifier = Modifier
                 .size(42.dp)
@@ -600,10 +598,10 @@ fun ChatInputBar(
 // ─── BasicTextField wrapper ───────────────────────────────────────────────────
 @Composable
 fun BasicTextField(value: String, onValueChange: (String) -> Unit) {
-    androidx.compose.foundation.text.BasicTextField(
+    BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        textStyle = androidx.compose.ui.text.TextStyle(
+        textStyle = TextStyle(
             color = TextPrimary,
             fontSize = 14.sp
         ),

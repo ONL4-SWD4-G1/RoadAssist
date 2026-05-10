@@ -1,4 +1,4 @@
-package com.example.earningsdashboard
+package com.example.app_mechanic
 
 import androidx.compose.animation.core.EaseInOutSine
 import androidx.compose.animation.core.RepeatMode
@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -49,23 +50,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.app_mechanic.AccentBlue
-import com.example.app_mechanic.CardDark
-import com.example.app_mechanic.TextMuted
-import com.example.app_mechanic.TextPrimary
-import com.example.app_mechanic.TextSecondary
 
-// ─── Colors ───────────────────────────────────────────────────────────────────
-private val BgDark          = Color(0xFF0D1117)
-private val SurfaceDark4     = Color(0xFF161B22)
-private val CardDark4        = Color(0xFF1C2333)
-private val AccentBlue4      = Color(0xFF2F81F7)
-private val AccentBlueDark  = Color(0xFF1A3A6E)
-private val GlowBlue        = Color(0xFF1D3460)
-private val TextPrimary4     = Color(0xFFE6EDF3)
-private val TextSecondary4   = Color(0xFF8B949E)
-private val TextMuted4       = Color(0xFF656D76)
-private val DotGreen        = Color(0xFF3FB950)
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
 @Composable
@@ -108,8 +93,8 @@ fun VerificationScreen() {
                         .clip(CircleShape)
                         .background(
                             Brush.radialGradient(
-                                colors  = listOf(GlowBlue, Color(0xFF0D1117)),
-                                radius  = 320f
+                                colors = listOf(GlowBlue, Color(0xFF0D1117)),
+                                radius = 320f
                             )
                         )
                         .border(1.5.dp, AccentBlueDark, CircleShape),
@@ -258,7 +243,7 @@ fun VerificationScreen() {
                         .height(52.dp),
                     shape  = RoundedCornerShape(14.dp),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = TextPrimary),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF21262D))
+                    border = BorderStroke(1.dp, Color(0xFF21262D))
                 ) {
                     Text(
                         text       = "Logout",

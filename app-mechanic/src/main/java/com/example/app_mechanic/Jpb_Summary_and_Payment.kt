@@ -1,4 +1,4 @@
-package com.example.mechanicapp.ui
+package com.example.app_mechanic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -53,16 +53,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 //Colors
-private val DarkBg        = Color(0xFF0D1117)
-private val CardBg        = Color(0xFF161B26)
-private val CardBgAlt     = Color(0xFF1A2035)
-private val AccentBlue    = Color(0xFF3B82F6)
-private val TextPrimary   = Color(0xFFFFFFFF)
-private val TextSecondary = Color(0xFF94A3B8)
-private val TextMuted     = Color(0xFF64748B)
-private val DividerColor  = Color(0xFF1E2D3D)
-private val TotalBlue     = Color(0xFF60A5FA)
-private val InfoBg        = Color(0xFF1A2035)
 
 //Payment Method Enum
 enum class PaymentMethod { ONLINE, CASH }
@@ -343,9 +333,9 @@ fun PaymentOptionCard(
             .clip(RoundedCornerShape(14.dp))
             .background(if (isSelected) CardBg else CardBgAlt)
             .border(
-                width  = if (isSelected) 2.dp else 1.dp,
-                color  = if (isSelected) AccentBlue else DividerColor,
-                shape  = RoundedCornerShape(14.dp)
+                width = if (isSelected) 2.dp else 1.dp,
+                color = if (isSelected) AccentBlue else DividerColor,
+                shape = RoundedCornerShape(14.dp)
             )
             .clickable { onClick() }
             .padding(vertical = 20.dp),

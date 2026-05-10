@@ -1,4 +1,4 @@
-package com.example.mechanicapp.ui
+package com.example.app_mechanic
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -59,20 +59,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 //Colors
-private val DarkBg         = Color(0xFF0D1117)
-private val CardBg         = Color(0xFF161B26)
-private val CardBg2        = Color(0xFF1A2035)
-private val AccentBlue     = Color(0xFF3B82F6)
-private val AccentGreen    = Color(0xFF22C55E)
-private val TextPrimary    = Color(0xFFFFFFFF)
-private val TextSecondary  = Color(0xFF64748B)
-private val TextMuted      = Color(0xFF94A3B8)
-private val LiveGreen      = Color(0xFF4ADE80)
-private val EarningsBlue   = Color(0xFF60A5FA)
-private val DividerColor   = Color(0xFF1E2535)
-private val ProgressTrack  = Color(0xFF1E2535)
-private val DoneGreen      = Color(0xFF16A34A)
-private val ActiveBlue     = Color(0xFF2563EB)
+
 
 //Task Step Data
 enum class StepStatus { DONE, ACTIVE, UPCOMING }
@@ -480,8 +467,8 @@ fun TaskStepRow(step: TaskStep, isLast: Boolean) {
                     .clip(CircleShape)
                     .background(
                         when (step.status) {
-                            StepStatus.DONE     -> DoneGreen
-                            StepStatus.ACTIVE   -> ActiveBlue
+                            StepStatus.DONE -> DoneGreen
+                            StepStatus.ACTIVE -> ActiveBlue
                             StepStatus.UPCOMING -> CardBg
                         }
                     )
@@ -512,9 +499,9 @@ fun TaskStepRow(step: TaskStep, isLast: Boolean) {
                         .height(48.dp)
                         .background(
                             when (step.status) {
-                                StepStatus.DONE   -> DoneGreen
+                                StepStatus.DONE -> DoneGreen
                                 StepStatus.ACTIVE -> AccentBlue.copy(alpha = 0.4f)
-                                else              -> DividerColor
+                                else -> DividerColor
                             }
                         )
                 )
