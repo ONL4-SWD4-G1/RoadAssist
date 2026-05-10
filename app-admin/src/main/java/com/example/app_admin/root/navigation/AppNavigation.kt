@@ -18,6 +18,7 @@ import com.example.app_admin.overview.view.OverviewScreen
 import com.example.app_admin.sampleComplaints
 import com.example.app_admin.sampleTechnicians
 import com.example.app_admin.technicians.view.TechnicianDetailScreen
+import com.example.app_admin.technicians.view.TechnicianSuspensionScreen
 import com.example.app_admin.technicians.view.TechniciansScreen
 import com.example.app_admin.user.view.UserProfileScreen
 import com.example.app_admin.user.view.UserSuspensionScreen
@@ -102,6 +103,16 @@ fun AppNavigation(
             )
         }
 
+        composable<Screen.TechnicianSuspension> { backStackEntry ->
+            val route: Screen.TechnicianSuspension = backStackEntry.toRoute()
+
+            TechnicianSuspensionScreen(
+                techId = route.techId,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+
         composable<Screen.ComplaintDetails> { backStackEntry ->
             val route: Screen.ComplaintDetails = backStackEntry.toRoute()
             val complaint = remember(route.complaintId) {
@@ -138,7 +149,7 @@ fun AppNavigation(
                     navController.navigate(Screen.UserWarning(userId = route.techId))
                 },
                 onNavigateToSuspension = {
-                    navController.navigate(Screen.UserSuspension(userId = route.techId))
+                    navController.navigate(Screen.TechnicianSuspension(techId = route.techId))
                 },
                 onNavigateToDelete = {
                     navController.navigate(Screen.UserProfile)

@@ -1,4 +1,26 @@
 <resources>
     <string name="app_name">App-admin</string>
     <string name="title_activity_technician">TechnicianActivity</string>
+    <string name="technician_suspension">إيقاف الفني</string>
+    <string name="suspension_type">نوع الإيقاف</string>
+    <string name="permanent_suspension">إيقاف دائم</string>
+    <string name="temporary_suspension">إيقاف مؤقت</string>
+    <string name="three_days">٣ أيام</string>
+    <string name="seven_days">٧ أيام</string>
+    <string name="thirty_days">٣٠ يوم</string>
+    <string name="custom">مخصص</string>
+    <string name="suspension_duration">مدة الإيقاف</string>
+    <string name="suspension_reason">سبب الإيقاف</string>
+    <string name="suspension_reason_required">سبب الإيقاف وملاحظات (إلزامي)</string>
+    <string name="additional_details_hint">اكتب تفاصيل إضافية حول سبب القرار...</string>
+    <string name="confirm_account_suspension">تأكيد إيقاف الحساب</string>
+    <string name="cancel">إلغاء العملية</string>
+    <string name="decision_impact_on_orders">أثر القرار على الطلبات</string>
+    <string name="suspend_orders_warning">سيتم سحب %d طلبات قيد التنفيذ حالياً من الفني وإعادة توجيهها لفنيين آخرين بشكل تلقائي فور تأكيد الإيقاف.</string>
+    <string name="policy_violation">مخالفة سياسات المنصة</string>
+    <string name="repeated_order_cancellation">تكرار إلغاء الطلبات</string>
+    <string name="misconduct_with_client">سلوك غير لائق مع العميل</string>
+    <string name="other">أخرى</string>
+    <string name="select_reason_from_list">اختر السبب من القائمة…</string>
+    <string name="jobs_count">%d طلب</string>
 </resources>

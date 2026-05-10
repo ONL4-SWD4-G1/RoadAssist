@@ -27,4 +27,7 @@ sealed class Screen {
     data class UserWarning(val userId: Int) : Screen()
     @Serializable
     data class UserSuspension(val userId: Int) : Screen()
+
+    @Serializable
+    data class TechnicianSuspension(val techId: Int) : Screen()
 }
