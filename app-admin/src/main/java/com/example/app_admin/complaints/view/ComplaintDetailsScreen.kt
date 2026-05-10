@@ -76,7 +76,9 @@ fun ComplaintDetailsScreen(
     onNavigateToWarning: () -> Unit,
     onNavigateToDeduction: () -> Unit,
     onNavigateToProfile: () -> Unit,
-    onNavigateToComplainant: () -> Unit
+    onNavigateToComplainant: () -> Unit,
+    onNavigateToRefund: () -> Unit,
+    onNavigateToSuspension: () -> Unit
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -138,7 +140,10 @@ fun ComplaintDetailsScreen(
         bottomBar = {
             ComplaintActionButtons(
                 onWarningClick = onNavigateToWarning,
-                onDeductionClick = onNavigateToDeduction
+                onDeductionClick = onNavigateToDeduction,
+                onSuspensionClick = onNavigateToSuspension,
+                onRefundClick = onNavigateToRefund
+
             )
         }
     ) { padding ->
@@ -492,7 +497,9 @@ fun AttachmentImage(resId: Int) {
 @Composable
 fun ComplaintActionButtons(
     onWarningClick: () -> Unit,
-    onDeductionClick: () -> Unit
+    onDeductionClick: () -> Unit,
+    onSuspensionClick: () -> Unit,
+    onRefundClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -508,7 +515,7 @@ fun ComplaintActionButtons(
                 text = "استرداد",
                 color = Color(0xFF22C55E),
                 icon = Icons.Default.History,
-                onClick = {}
+                onClick = onRefundClick
             )
             ActionButton(
                 modifier = Modifier.weight(1f),
@@ -529,7 +536,7 @@ fun ComplaintActionButtons(
                 text = "إيقاف الفني",
                 color = Color(0xFFEF4444),
                 icon = Icons.Default.Block,
-                onClick = {}
+                onClick = onSuspensionClick
             )
         }
 
@@ -601,6 +608,8 @@ fun PreviewComplaintDetails() {
         onNavigateToWarning = {},
         onNavigateToDeduction = {},
         onNavigateToProfile = {},
-        onNavigateToComplainant = {}
+        onNavigateToComplainant = {},
+        onNavigateToSuspension = {},
+        onNavigateToRefund = {}
     )
 }

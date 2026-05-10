@@ -32,4 +32,7 @@ sealed class Screen {
 
     @Serializable
     data class TechnicianDeduction(val techId: Int) : Screen()
+
+    @Serializable
+    data class TechnicianRefund(val orderId: String, val techId: Int) : Screen()
 }
