@@ -1,6 +1,10 @@
 [versions]
 # Project Configuration
+mapsCompose = "2.11.4"
+materialIconsCore = "1.6.0"
 minSdk = "26"
+places = "3.5.0"
+playServicesLocation = "21.0.1"
 targetSdk = "36"
 compileSdk = "36"
 jvmTarget = "11"
@@ -29,12 +33,15 @@ espressoCore = "3.7.0"
 
 [libraries]
 # AndroidX & Compose
+androidx-compose-animation = { module = "androidx.compose.animation:animation" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsCore" }
 
 # Compose BOM
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -49,6 +56,9 @@ hilt-compiler = { group = "google.dagger", name = "hilt-compiler", version.ref =
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 # Networking
+places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
@@ -59,6 +69,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -75,6 +86,8 @@ compose-ui = [
     "androidx-compose-ui-tooling-preview",
     "androidx-compose-material3",
     "androidx-activity-compose",
+    "androidx-compose-material-icons-extended",
+    "androidx-compose-material-icons-core"
 ]
 
 compose-debug = [
@@ -89,4 +102,10 @@ compose-test = [
 android-test = [
     "androidx-junit",
     "androidx-espresso-core",
+]
+
+maps = [
+    "maps-compose",
+    "play-services-location",
+    "places"
 ]
