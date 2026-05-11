@@ -2,6 +2,7 @@ package com.example.roadassist.features.booking.payment.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.roadassist.fakedata.services
+import com.example.roadassist.fakedata.technicians
 import com.example.roadassist.features.booking.payment.model.PaymentUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,9 +14,10 @@ class PaymentViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(PaymentUiState())
     val uiState: StateFlow<PaymentUiState> = _uiState.asStateFlow()
 
-    fun loadService(serviceId: String) {
+    fun loadData(serviceId: String, technicianId: String) {
         val service = services.find { it.id == serviceId } ?: services.first()
-        _uiState.update { it.copy(service = service) }
+        val technician = technicians.find { it.id == technicianId } ?: technicians.first()
+        _uiState.update { it.copy(service = service, technician = technician) }
     }
 
     fun onAgreedPriceChanged(price: String) {

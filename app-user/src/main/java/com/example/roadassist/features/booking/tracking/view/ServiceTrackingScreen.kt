@@ -29,6 +29,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -42,7 +43,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.roadassist.R
 import com.example.roadassist.components.HomeBottomNav
 import com.example.roadassist.components.PrimaryButton
 import com.example.roadassist.features.booking.tracking.viewmodel.TrackingViewModel
@@ -54,6 +54,7 @@ import com.example.roadassist.theme.RoadAssistTheme
 
 @Composable
 fun ServiceTrackingScreen(
+    technicianId: String,
     onMakePayment: () -> Unit,
     onNavigateBack: () -> Unit,
     onNavigateToHome: () -> Unit,
@@ -62,8 +63,10 @@ fun ServiceTrackingScreen(
     viewModel: TrackingViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val booking = uiState.booking
 
+    LaunchedEffect(technicianId) { viewModel.loadTechnician(technicianId) }
+
+    val technician = uiState.technician ?: return
     Scaffold(
         containerColor = OffWhite,
         topBar = {
@@ -137,7 +140,7 @@ fun ServiceTrackingScreen(
                             .padding(horizontal = 10.dp, vertical = 4.dp),
                     ) {
                         Text(
-                            "${booking.etaMinutes} min",
+                            "${uiState.etaMinutes} min",
                             fontWeight = FontWeight.Bold,
                             fontSize = 13.sp
                         )
@@ -172,17 +175,17 @@ fun ServiceTrackingScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.tech_1),
-                        contentDescription = booking.mechanicName,
+                        painter = painterResource(technician.image),
+                        contentDescription = technician.name,
                         modifier = Modifier
                             .size(100.dp)
                             .clip(CircleShape),
                     )
                     Spacer(Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(booking.mechanicName, fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                        Text(booking.mechanicLocation, color = Color(0xFF6B7280), fontSize = 13.sp)
-                        Text("OTP: ${booking.otp}", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        Text(technician.name, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                        Text(technician.serviceArea, color = Color(0xFF6B7280), fontSize = 13.sp)
+                        Text("OTP: ${uiState.otp}", fontWeight = FontWeight.Bold, fontSize = 14.sp)
                     }
                     Box(
                         modifier = Modifier
@@ -240,6 +243,7 @@ fun ServiceTrackingScreen(
 private fun ServiceTrackingScreenPreview() {
     RoadAssistTheme {
         ServiceTrackingScreen(
+            "t1",
             onMakePayment = {},
             onNavigateBack = {},
             onNavigateToHome = {},

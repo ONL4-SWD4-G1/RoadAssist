@@ -32,8 +32,10 @@ object Routes {
 
 
     // Post-booking
-    const val TRACK = "track"
-    const val PAYMENT = "payment"
+    const val TRACK = "track/{technicianId}"
+    fun track(id: String) = "track/$id"
+    const val PAYMENT = "payment/{serviceId}/{technicianId}"
+    fun payment(serviceId: String, technicianId: String) = "payment/$serviceId/$technicianId"
     const val FEEDBACK = "feedback"
 
     // Profile section
@@ -45,4 +47,5 @@ object Routes {
     const val ABOUT_US = "about_us"
     const val CONTACT = "contact"
     const val SETTINGS = "settings"
+
 }

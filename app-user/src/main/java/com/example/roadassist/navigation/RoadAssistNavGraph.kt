@@ -295,9 +295,11 @@ fun RoadAssistNavGraph() {
             )
         }
 
-        composable(Routes.TRACK) {
+        composable(Routes.TRACK) { backStackEntry ->
+            val technicianId = backStackEntry.arguments?.getString("technicianId") ?: ""
             ServiceTrackingScreen(
-                onMakePayment = { navController.navigate(Routes.PAYMENT) },
+                technicianId = technicianId,
+                onMakePayment = { navController.navigate(Routes.payment("others", technicianId)) },
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToHome = { navController.navigate(Routes.HOME) },
                 onNavigateToServices = { navController.navigate(Routes.SERVICES) },
@@ -331,15 +333,17 @@ fun RoadAssistNavGraph() {
             val technicianId = backStackEntry.arguments?.getString("technicianId") ?: ""
             TechnicianProfileScreen(
                 technicianId = technicianId,
-                onConfirm = { navController.navigate(Routes.TRACK) },
+                onConfirm = { navController.navigate(Routes.track(technicianId)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
 
         composable(Routes.PAYMENT) { backStackEntry ->
             val serviceId = backStackEntry.arguments?.getString("serviceId") ?: "others"
+            val technicianId = backStackEntry.arguments?.getString("technicianId") ?: ""
             PaymentScreen(
                 serviceId = serviceId,
+                technicianId = technicianId,
                 onPaymentSuccess = { navController.navigate(Routes.FEEDBACK) },
                 onNavigateBack = { navController.popBackStack() },
             )

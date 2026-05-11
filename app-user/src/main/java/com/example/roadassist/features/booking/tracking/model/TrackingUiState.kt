@@ -1,8 +1,9 @@
 package com.example.roadassist.features.booking.tracking.model
 
-import com.example.roadassist.fakedata.ActiveBooking
-import com.example.roadassist.fakedata.activeBooking
+import com.example.roadassist.fakedata.Technician
 
 data class TrackingUiState(
-    val booking: ActiveBooking = activeBooking,
+    val technician: Technician? = null,
+    val otp: String = "4821",
+    val etaMinutes: Int = 5,
 )
