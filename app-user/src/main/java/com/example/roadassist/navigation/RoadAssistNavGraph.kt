@@ -183,13 +183,63 @@ fun RoadAssistNavGraph() {
             )
         }
 
-        // Other Service
+        composable(Routes.SERVICE_TOWING) {
+            TowingServiceScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onSelectMapClicked = { navController.navigate(Routes.MAP_PICKER) },
+
+                )
+        }
+
+        composable(Routes.SERVICE_FLAT) {
+            FlatTyreServiceScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+            )
+        }
+
+        composable(Routes.SERVICE_FUEL) {
+            FuelServiceScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+            )
+        }
+        composable(Routes.SERVICE_KEY) {
+            KeyRetrievalServiceScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+            )
+        }
+        composable(Routes.SERVICE_BATTERY) {
+            BatteryServiceScreen(
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+
+        composable(Routes.SERVICE_BRAKE) {
+            BrakeServiceScreen(
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+
+        composable(Routes.SERVICE_ENGINE) {
+            EngineServiceScreen(
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+
         composable(route = Routes.OTHER_SERVICE) {
             OtherServiceFormScreen(
+                onBookService = { navController.navigate(Routes.MAP_PICKER) },
                 onBackClick = { navController.popBackStack() }
             )
         }
 
+        // Profile
         composable(Routes.PROFILE) {
             ProfileScreen(
                 onNavigateBack = { navController.popBackStack() },
@@ -242,55 +292,6 @@ fun RoadAssistNavGraph() {
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToChangePassword = { navController.navigate(Routes.CREATE_NEW_PASSWORD) },
                 onNavigateToFeedback = { navController.navigate(Routes.FEEDBACK) }
-            )
-        }
-
-        composable(Routes.SERVICE_TOWING) {
-            TowingServiceScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.LOC_CONFIRM) },
-                onSelectMapClicked = { navController.navigate(Routes.MAP_PICKER) },
-
-                )
-        }
-
-        composable(Routes.SERVICE_FLAT) {
-            FlatTyreServiceScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.TECHNICIANS) },
-            )
-        }
-
-        composable(Routes.SERVICE_FUEL) {
-            FuelServiceScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.TECHNICIANS) },
-            )
-        }
-        composable(Routes.SERVICE_KEY) {
-            KeyRetrievalServiceScreen(
-                onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.TECHNICIANS) },
-            )
-        }
-        composable(Routes.SERVICE_BATTERY) {
-            BatteryServiceScreen(
-                onBookService = { navController.navigate(Routes.LOC_CONFIRM) },
-                onNavigateBack = { navController.popBackStack() },
-            )
-        }
-
-        composable(Routes.SERVICE_BRAKE) {
-            BrakeServiceScreen(
-                onBookService = { navController.navigate(Routes.LOC_CONFIRM) },
-                onNavigateBack = { navController.popBackStack() },
-            )
-        }
-
-        composable(Routes.SERVICE_ENGINE) {
-            EngineServiceScreen(
-                onBookService = { navController.navigate(Routes.LOC_CONFIRM) },
-                onNavigateBack = { navController.popBackStack() },
             )
         }
 
