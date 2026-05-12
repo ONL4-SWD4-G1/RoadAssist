@@ -6,10 +6,10 @@ compileSdk = "36"
 jvmTarget = "11"
 
 # Plugins
-agp = "8.6.0"
-kotlin = "2.0.0"
+agp = "9.0.1"
+kotlin = "2.2.10"
 hilt = "2.52"
-ksp = "2.0.21-1.0.25"
+ksp = "2.3.2"
 kotlinSerialization = "1.6.3"
 
 # Core Libraries
@@ -31,6 +31,8 @@ espressoCore = "3.7.0"
 
 [libraries]
 # AndroidX & Compose
+androidx-compose-animation = { module = "androidx.compose.animation:animation" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }

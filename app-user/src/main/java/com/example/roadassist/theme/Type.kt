@@ -1,4 +1,4 @@
-package com.example.roadassist.ui.theme
+package com.example.roadassist.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
