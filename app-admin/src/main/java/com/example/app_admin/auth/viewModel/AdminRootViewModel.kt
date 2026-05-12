@@ -1,32 +1,32 @@
-package com.example.roadassist
+package com.example.app_admin.auth.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.roadassist.auth.data.SessionStore
+import com.example.app_admin.auth.data.AdminSessionStore
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-data class RootUiState(
+data class AdminRootUiState(
     val sessionLoaded: Boolean = false,
     val isLoggedIn: Boolean = false,
 )
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class AdminRootViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val sessionStore = SessionStore(application)
+    private val sessionStore = AdminSessionStore(application)
 
-    val rootState: StateFlow<RootUiState> = sessionStore.isLoggedIn
+    val rootState: StateFlow<AdminRootUiState> = sessionStore.isLoggedIn
         .map { loggedIn ->
-            RootUiState(sessionLoaded = true, isLoggedIn = loggedIn)
+            AdminRootUiState(sessionLoaded = true, isLoggedIn = loggedIn)
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = RootUiState(sessionLoaded = false, isLoggedIn = false),
+            initialValue = AdminRootUiState(sessionLoaded = false, isLoggedIn = false),
         )
 
     fun logout() {

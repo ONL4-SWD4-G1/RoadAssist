@@ -41,10 +41,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.app_admin.auth.LocalAdminLogout
 import com.example.app_admin.more.view.component.MoreItemCard
 
 @Composable
 fun MoreScreen() {
+    val onLogout = LocalAdminLogout.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -121,7 +123,7 @@ fun MoreScreen() {
             }
             item {
                 Button(
-                    onClick = { },
+                    onClick = onLogout,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),

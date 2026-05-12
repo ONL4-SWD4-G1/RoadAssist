@@ -1,4 +1,4 @@
-package com.example.roadassist.auth.data
+package com.example.app_admin.auth.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -10,29 +10,29 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-private val Context.sessionDataStore: DataStore<Preferences> by preferencesDataStore(
-    name = "roadassist_session",
+private val Context.adminSessionDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "app_admin_session",
 )
 
-class SessionStore(private val context: Context) {
+class AdminSessionStore(private val context: Context) {
 
-    val isLoggedIn: Flow<Boolean> = context.sessionDataStore.data.map { prefs ->
+    val isLoggedIn: Flow<Boolean> = context.adminSessionDataStore.data.map { prefs ->
         prefs[KEY_LOGGED_IN] == true
     }
 
-    val userEmail: Flow<String?> = context.sessionDataStore.data.map { prefs ->
+    val userEmail: Flow<String?> = context.adminSessionDataStore.data.map { prefs ->
         prefs[KEY_EMAIL]
     }
 
     suspend fun saveSession(email: String) {
-        context.sessionDataStore.edit { prefs ->
+        context.adminSessionDataStore.edit { prefs ->
             prefs[KEY_LOGGED_IN] = true
             prefs[KEY_EMAIL] = email
         }
     }
 
     suspend fun clearSession() {
-        context.sessionDataStore.edit { prefs ->
+        context.adminSessionDataStore.edit { prefs ->
             prefs.remove(KEY_LOGGED_IN)
             prefs.remove(KEY_EMAIL)
         }

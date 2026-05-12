@@ -57,4 +57,5 @@
     <string name="deduct_from_technician_including_commission">يخصم من الفني (شامل العمولة)</string>
     <string name="refund_reason">سبب الاسترداد</string>
     <string name="additional_notes_optional">ملاحظات إضافية (اختياري)</string>
+    <string name="auth_logo_content_description">شعار استغاثة</string>
 </resources>
