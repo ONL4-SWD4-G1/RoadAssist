@@ -39,9 +39,6 @@ android {
     }
     buildFeatures {
         compose = true
-        kotlinOptions {
-            jvmTarget = libs.versions.jvmTarget.get()
-        }
     }
 
     dependencies {
@@ -75,5 +72,8 @@ android {
 
         // Debug
         debugImplementation(libs.bundles.compose.debug)
+
+        // google maps
+        implementation(libs.bundles.maps)
     }
 }

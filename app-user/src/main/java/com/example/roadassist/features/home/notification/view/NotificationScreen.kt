@@ -28,12 +28,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.roadassist.features.home.notification.model.NotificationItem
-import com.example.roadassist.features.home.notification.vm.NotificationsViewModel
+import com.example.roadassist.fakedata.NotificationItem
+import com.example.roadassist.features.home.notification.viewmodel.NotificationsViewModel
 import com.example.roadassist.theme.Background
 import com.example.roadassist.theme.NavyBlue
 import com.example.roadassist.theme.TextGray
 import com.example.roadassist.theme.TextPrimary
+import com.example.roadassist.theme.White
 
 @Composable
 fun NotificationsScreen(
@@ -64,7 +65,7 @@ private fun NotificationCard(notification: NotificationItem) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 6.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(com.example.roadassist.theme.White)
+            .background(White)
             .padding(14.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -92,12 +93,12 @@ fun TopBarWithBack(title: String, onBackClick: () -> Unit) {
             Icon(
                 Icons.Default.ArrowBackIosNew,
                 contentDescription = "Back",
-                tint = com.example.roadassist.theme.White
+                tint = White
             )
         }
         Text(
             text = title,
-            color = com.example.roadassist.theme.White,
+            color = White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.weight(1f),

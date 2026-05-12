@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -21,7 +21,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roadassist.R
 import com.example.roadassist.features.login.resetpassword.model.ResetPasswordUiState
-import com.example.roadassist.features.login.resetpassword.vm.ResetPasswordViewModel
+import com.example.roadassist.features.login.resetpassword.viewmodel.ResetPasswordViewModel
 import com.example.roadassist.theme.OrangeAccent
 import com.example.roadassist.theme.TextGray
 
@@ -47,18 +46,11 @@ fun ResetPasswordScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState.navigateToOtp) {
-        if (uiState.navigateToOtp) {
-            viewModel.onNavigationHandled()
-            onGetOtpClick()
-        }
-    }
-
     ResetPasswordContent(
         uiState = uiState,
         onMobileNumberChange = viewModel::onMobileNumberChange,
-        onGetOtpClick = viewModel::onGetOtpClick,
-        onBackClick = onBackClick
+        onGetOtpClick = { if (viewModel.validate()) onGetOtpClick() },
+        onBackClick = onBackClick,
     )
 }
 
@@ -152,7 +144,7 @@ private fun ResetPasswordTopBar(onBackClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = onBackClick) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+            Icon(imageVector = Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
         }
         Text(
             text = "Reset Password",

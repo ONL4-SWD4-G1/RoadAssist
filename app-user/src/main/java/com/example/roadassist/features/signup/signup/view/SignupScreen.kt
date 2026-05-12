@@ -25,7 +25,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -39,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roadassist.R
 import com.example.roadassist.features.signup.signup.model.SignupUiState
-import com.example.roadassist.features.signup.signup.vm.SignupViewModel
+import com.example.roadassist.features.signup.signup.viewmodel.SignupViewModel
 import com.example.roadassist.theme.OrangeAccent
 
 @Composable
@@ -50,27 +49,14 @@ fun SignupScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState.navigateToHome, uiState.navigateToLogin) {
-        when {
-            uiState.navigateToHome -> {
-                viewModel.onNavigationHandled()
-                onSignupSuccess()
-            }
-            uiState.navigateToLogin -> {
-                viewModel.onNavigationHandled()
-                onLoginClick()
-            }
-        }
-    }
-
     SignupContent(
         uiState = uiState,
         onNameChange = viewModel::onNameChange,
         onMobileChange = viewModel::onMobileChange,
         onPasswordChange = viewModel::onPasswordChange,
         onTabSelected = viewModel::onTabSelected,
-        onSignupClick = viewModel::onSignupClick,
-        onLoginTabClick = viewModel::onLoginTabClick
+        onSignupClick = { if (viewModel.validate()) onSignupSuccess() },
+        onLoginTabClick = onLoginClick,
     )
 }
 
@@ -128,7 +114,14 @@ private fun SignupContent(
             shape = RoundedCornerShape(8.dp),
             singleLine = true,
             isError = uiState.nameError != null,
-            supportingText = uiState.nameError?.let { { Text(it, color = MaterialTheme.colorScheme.error) } }
+            supportingText = uiState.nameError?.let {
+                {
+                    Text(
+                        it,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -142,7 +135,14 @@ private fun SignupContent(
             shape = RoundedCornerShape(8.dp),
             singleLine = true,
             isError = uiState.mobileError != null,
-            supportingText = uiState.mobileError?.let { { Text(it, color = MaterialTheme.colorScheme.error) } }
+            supportingText = uiState.mobileError?.let {
+                {
+                    Text(
+                        it,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -157,7 +157,14 @@ private fun SignupContent(
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             isError = uiState.passwordError != null,
-            supportingText = uiState.passwordError?.let { { Text(it, color = MaterialTheme.colorScheme.error) } }
+            supportingText = uiState.passwordError?.let {
+                {
+                    Text(
+                        it,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(24.dp))

@@ -1,8 +1,7 @@
 package com.example.roadassist.features.services.services.model
 
-import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.roadassist.fakedata.ServiceItem
 
-data class ServiceItem(
-    val icon: ImageVector,
-    val label: String
+data class ServicesUiState(
+    val services: List<ServiceItem> = emptyList(),
 )

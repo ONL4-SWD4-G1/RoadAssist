@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roadassist.R
-import com.example.roadassist.features.splash.vm.SplashViewModel
+import com.example.roadassist.features.splash.viewmodel.SplashViewModel
 import com.example.roadassist.theme.NavyBlue
 import com.example.roadassist.theme.White
 

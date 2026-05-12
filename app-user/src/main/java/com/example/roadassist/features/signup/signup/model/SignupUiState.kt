@@ -9,6 +9,4 @@ data class SignupUiState(
     val mobileError: String? = null,
     val passwordError: String? = null,
     val isLoading: Boolean = false,
-    val navigateToHome: Boolean = false,
-    val navigateToLogin: Boolean = false
 )

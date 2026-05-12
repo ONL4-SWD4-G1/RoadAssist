@@ -10,7 +10,6 @@ data class OtpUiState(
     val otpError: String? = null,
     val isLoading: Boolean = false,
     val showSuccessDialog: Boolean = false,
-    val navigateToHome: Boolean = false
 ) {
     val fullOtp: String get() = otp1 + otp2 + otp3 + otp4
     val isOtpComplete: Boolean get() = fullOtp.length == 4
