@@ -26,7 +26,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -39,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roadassist.R
-import com.example.roadassist.features.login.login.vm.LoginViewModel
+import com.example.roadassist.features.login.login.viewmodel.LoginViewModel
 import com.example.roadassist.theme.OrangeAccent
 
 @Composable
@@ -51,32 +50,14 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    // Navigation Handler
-    LaunchedEffect(uiState.navigateToHome, uiState.navigateToSignup, uiState.navigateToForgotPassword) {
-        when {
-            uiState.navigateToHome -> {
-                viewModel.onNavigationHandled()
-                onLoginSuccess()
-            }
-            uiState.navigateToSignup -> {
-                viewModel.onNavigationHandled()
-                onSignupClick()
-            }
-            uiState.navigateToForgotPassword -> {
-                viewModel.onNavigationHandled()
-                onForgotPasswordClick()
-            }
-        }
-    }
-
     LoginContent(
         uiState = uiState,
         onNameChange = viewModel::onNameChange,
         onPasswordChange = viewModel::onPasswordChange,
         onTabSelected = viewModel::onTabSelected,
-        onLoginClick = viewModel::onLoginClick,
-        onSignupTabClick = viewModel::onSignupTabClick,
-        onForgotPasswordClick = viewModel::onForgotPasswordClick
+        onLoginClick = { if (viewModel.validate()) onLoginSuccess() },
+        onSignupTabClick = onSignupClick,
+        onForgotPasswordClick = onForgotPasswordClick,
     )
 }
 

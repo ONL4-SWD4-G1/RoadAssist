@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roadassist.R
 import com.example.roadassist.features.signup.otp.model.OtpUiState
-import com.example.roadassist.features.signup.otp.vm.OtpViewModel
+import com.example.roadassist.features.signup.otp.viewmodel.OtpViewModel
 import com.example.roadassist.theme.OrangeAccent
 
 @Composable
@@ -57,7 +57,7 @@ fun OtpScreen(
 
     LaunchedEffect(uiState.showSuccessDialog) {
         if (uiState.showSuccessDialog) {
-            viewModel.onNavigationHandled()
+            viewModel.onVerifyHandled()
             onVerifySuccess()
         }
     }
@@ -68,7 +68,12 @@ fun OtpScreen(
 
     OtpContent(
         uiState = uiState,
-        focusRequesters = listOf(focusRequester1, focusRequester2, focusRequester3, focusRequester4),
+        focusRequesters = listOf(
+            focusRequester1,
+            focusRequester2,
+            focusRequester3,
+            focusRequester4
+        ),
         onOtpChange = listOf(
             { value: String ->
                 viewModel.onOtp1Change(value)
@@ -179,7 +184,7 @@ private fun OtpTopBar(onBackClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = onBackClick) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+            Icon(imageVector = Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
         }
         Text(
             text = "Verify Mobile number",

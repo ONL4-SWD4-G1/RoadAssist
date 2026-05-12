@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roadassist.features.onboarding.model.OnboardingUiState
-import com.example.roadassist.features.onboarding.vm.OnboardingViewModel
+import com.example.roadassist.features.onboarding.viewmodel.OnboardingViewModel
 import com.example.roadassist.theme.DotInactive
 import com.example.roadassist.theme.OrangeAccent
 import com.example.roadassist.theme.TextGray

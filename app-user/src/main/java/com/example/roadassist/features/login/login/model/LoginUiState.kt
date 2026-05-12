@@ -7,7 +7,4 @@ data class LoginUiState(
     val nameError: String? = null,
     val passwordError: String? = null,
     val isLoading: Boolean = false,
-    val navigateToHome: Boolean = false,
-    val navigateToSignup: Boolean = false,
-    val navigateToForgotPassword: Boolean = false
 )
