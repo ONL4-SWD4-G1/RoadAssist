@@ -25,14 +25,63 @@ data class ServiceItem(
 )
 
 val services = listOf(
-    ServiceItem("towing", "Towing", Routes.SERVICE_TOWING, 80, 150, "Varies by distance"),
-    ServiceItem("flat_tyre", "Flat tyre", Routes.SERVICE_FLAT, 30, 60, "Includes labour"),
-    ServiceItem("fuel", "Fuel", Routes.SERVICE_FUEL, 20, 50, "Fuel cost excluded"),
-    ServiceItem("battery", "Battery", Routes.SERVICE_BATTERY, 60, 120, "Battery cost excluded"),
-    ServiceItem("brake", "Brake", Routes.SERVICE_BRAKE, 50, 100, "Parts cost excluded"),
-    ServiceItem("engine", "Engine", Routes.SERVICE_ENGINE, 70, 200, "Diagnosis + labour"),
-    ServiceItem("key", "Key retrieval", Routes.SERVICE_KEY, 40, 90, "Includes locksmith fee"),
-    ServiceItem("others", "Others", Routes.OTHER_SERVICE, 30, 100, "Final price set on-site"),
+    ServiceItem(
+        Routes.ServiceIds.TOWING,
+        "Towing",
+        Routes.SERVICE_TOWING,
+        80,
+        150,
+        "Varies by distance"
+    ),
+    ServiceItem(
+        Routes.ServiceIds.FLAT_TYRE,
+        "Flat tyre",
+        Routes.SERVICE_FLAT,
+        30,
+        60,
+        "Includes labour"
+    ),
+    ServiceItem(Routes.ServiceIds.FUEL, "Fuel", Routes.SERVICE_FUEL, 20, 50, "Fuel cost excluded"),
+    ServiceItem(
+        Routes.ServiceIds.BATTERY,
+        "Battery",
+        Routes.SERVICE_BATTERY,
+        60,
+        120,
+        "Battery cost excluded"
+    ),
+    ServiceItem(
+        Routes.ServiceIds.BRAKE,
+        "Brake",
+        Routes.SERVICE_BRAKE,
+        50,
+        100,
+        "Parts cost excluded"
+    ),
+    ServiceItem(
+        Routes.ServiceIds.ENGINE,
+        "Engine",
+        Routes.SERVICE_ENGINE,
+        70,
+        200,
+        "Diagnosis + labour"
+    ),
+    ServiceItem(
+        Routes.ServiceIds.KEY,
+        "Key retrieval",
+        Routes.SERVICE_KEY,
+        40,
+        90,
+        "Includes locksmith fee"
+    ),
+    ServiceItem(
+        Routes.ServiceIds.OTHERS,
+        "Others",
+        Routes.OTHER_SERVICE,
+        30,
+        100,
+        "Final price set on-site"
+    ),
 )
 
 // ── Nearby Garages ────────────────────────────────────────────────────────────
@@ -195,22 +244,6 @@ object Contact {
     const val EMAIL = "***********@*****"
     const val ADDRESS = "42, 2nd floor, TK Plazza, Thiru street, Metur."
 }
-
-// ── Active Booking ────────────────────────────────────────────────────────────
-
-data class ActiveBooking(
-    val mechanicName: String,
-    val mechanicLocation: String,
-    val otp: String,
-    val etaMinutes: Int,
-)
-
-val activeBooking = ActiveBooking(
-    mechanicName = "SP Mechanics",
-    mechanicLocation = "Perur, Cbe",
-    otp = "4821",
-    etaMinutes = 5,
-)
 
 // ── Vehicle Details ───────────────────────────────────────────────────────────
 

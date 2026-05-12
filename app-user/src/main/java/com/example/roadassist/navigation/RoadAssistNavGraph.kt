@@ -186,8 +186,8 @@ fun RoadAssistNavGraph() {
         composable(Routes.SERVICE_TOWING) {
             TowingServiceScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
-                onSelectMapClicked = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.TOWING)) },
+                onSelectMapClicked = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.TOWING)) },
 
                 )
         }
@@ -195,46 +195,46 @@ fun RoadAssistNavGraph() {
         composable(Routes.SERVICE_FLAT) {
             FlatTyreServiceScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.FLAT_TYRE)) },
             )
         }
 
         composable(Routes.SERVICE_FUEL) {
             FuelServiceScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.FUEL)) },
             )
         }
         composable(Routes.SERVICE_KEY) {
             KeyRetrievalServiceScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.KEY)) },
             )
         }
         composable(Routes.SERVICE_BATTERY) {
             BatteryServiceScreen(
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.BATTERY)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
 
         composable(Routes.SERVICE_BRAKE) {
             BrakeServiceScreen(
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.BRAKE)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
 
         composable(Routes.SERVICE_ENGINE) {
             EngineServiceScreen(
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.ENGINE)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
 
         composable(route = Routes.OTHER_SERVICE) {
             OtherServiceFormScreen(
-                onBookService = { navController.navigate(Routes.MAP_PICKER) },
+                onBookService = { navController.navigate(Routes.mapPicker(Routes.ServiceIds.OTHERS)) },
                 onBackClick = { navController.popBackStack() }
             )
         }
@@ -297,9 +297,11 @@ fun RoadAssistNavGraph() {
 
         composable(Routes.TRACK) { backStackEntry ->
             val technicianId = backStackEntry.arguments?.getString("technicianId") ?: ""
+            val serviceId = backStackEntry.arguments?.getString("serviceId") ?: "others"
+
             ServiceTrackingScreen(
                 technicianId = technicianId,
-                onMakePayment = { navController.navigate(Routes.payment("others", technicianId)) },
+                onMakePayment = { navController.navigate(Routes.payment(serviceId, technicianId)) },
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToHome = { navController.navigate(Routes.HOME) },
                 onNavigateToServices = { navController.navigate(Routes.SERVICES) },
@@ -307,33 +309,40 @@ fun RoadAssistNavGraph() {
             )
         }
         // ── Booking flow ──────────────────────────────────────
-        composable(Routes.MAP_PICKER) {
+        composable(Routes.MAP_PICKER) { backStackEntry ->
+            val serviceId =
+                backStackEntry.arguments?.getString("serviceId") ?: Routes.ServiceIds.OTHERS
             MapPickerScreen(
-                onLocationSelected = { navController.navigate(Routes.LOC_CONFIRM) },
+                onLocationSelected = { navController.navigate(Routes.locConfirm(serviceId)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
 
-        composable(Routes.LOC_CONFIRM) {
+        composable(Routes.LOC_CONFIRM) { backStackEntry ->
+            val serviceId =
+                backStackEntry.arguments?.getString("serviceId") ?: Routes.ServiceIds.OTHERS
             LocationConfirmationScreen(
-                onConfirm = { navController.navigate(Routes.TECHNICIANS) },
+                onConfirm = { navController.navigate(Routes.technicians(serviceId)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
 
-        composable(Routes.TECHNICIANS) {
+        composable(Routes.TECHNICIANS) { backStackEntry ->
+            val serviceId =
+                backStackEntry.arguments?.getString("serviceId") ?: Routes.ServiceIds.OTHERS
             AvailableTechniciansScreen(
                 onSelectTechnician = { id ->
-                    navController.navigate(Routes.techProfile(id))
+                    navController.navigate(Routes.techProfile(serviceId, id))
                 },
                 onNavigateBack = { navController.popBackStack() },
             )
         }
         composable(Routes.TECH_PROFILE) { backStackEntry ->
+            val serviceId = backStackEntry.arguments?.getString("serviceId") ?: "others"
             val technicianId = backStackEntry.arguments?.getString("technicianId") ?: ""
             TechnicianProfileScreen(
                 technicianId = technicianId,
-                onConfirm = { navController.navigate(Routes.track(technicianId)) },
+                onConfirm = { navController.navigate(Routes.track(serviceId, technicianId)) },
                 onNavigateBack = { navController.popBackStack() },
             )
         }

@@ -24,16 +24,20 @@ object Routes {
     const val SERVICE_KEY = "service_key"
 
     // Booking flow
-    const val LOC_CONFIRM = "location_confirmation"
-    const val TECHNICIANS = "available_technicians"
-    const val TECH_PROFILE = "technician_profile/{technicianId}"
-    fun techProfile(id: String) = "technician_profile/$id"
-    const val MAP_PICKER = "map_picker"
+    const val LOC_CONFIRM = "location_confirmation/{serviceId}"
+    fun locConfirm(serviceId: String) = "location_confirmation/$serviceId"
+    const val TECHNICIANS = "available_technicians/{serviceId}"
+    fun technicians(serviceId: String) = "available_technicians/$serviceId"
+    const val TECH_PROFILE = "technician_profile/{serviceId}/{technicianId}"
+    fun techProfile(serviceId: String, technicianId: String) =
+        "technician_profile/$serviceId/$technicianId"
 
+    const val MAP_PICKER = "map_picker/{serviceId}"
+    fun mapPicker(serviceId: String) = "map_picker/$serviceId"
 
     // Post-booking
-    const val TRACK = "track/{technicianId}"
-    fun track(id: String) = "track/$id"
+    const val TRACK = "track/{serviceId}/{technicianId}"
+    fun track(serviceId: String, technicianId: String) = "track/$serviceId/$technicianId"
     const val PAYMENT = "payment/{serviceId}/{technicianId}"
     fun payment(serviceId: String, technicianId: String) = "payment/$serviceId/$technicianId"
     const val FEEDBACK = "feedback"
@@ -47,5 +51,16 @@ object Routes {
     const val ABOUT_US = "about_us"
     const val CONTACT = "contact"
     const val SETTINGS = "settings"
+
+    object ServiceIds {
+        const val TOWING = "towing"
+        const val FLAT_TYRE = "flat_tyre"
+        const val FUEL = "fuel"
+        const val BATTERY = "battery"
+        const val BRAKE = "brake"
+        const val ENGINE = "engine"
+        const val KEY = "key"
+        const val OTHERS = "others"
+    }
 
 }
