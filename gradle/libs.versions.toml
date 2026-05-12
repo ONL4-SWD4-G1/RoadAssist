@@ -10,7 +10,7 @@ compileSdk = "36"
 jvmTarget = "11"
 
 # Plugins
-agp = "9.0.1"
+agp = "8.6.0"
 kotlin = "2.2.10"
 hilt = "2.52"
 ksp = "2.3.2"
